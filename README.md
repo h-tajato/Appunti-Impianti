@@ -1,2 +1,2 @@
-# hpqc_notes
-Raccolta di appunti dell'esame High Performance and Quantum Computing
+# Appunti Impianti
+Raccolta di appunti dell'esame di Impianti di Elaborazione
