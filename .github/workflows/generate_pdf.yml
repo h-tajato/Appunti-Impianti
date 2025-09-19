@@ -20,9 +20,12 @@ jobs:
             texlive-latex-base \
             texlive-latex-extra \
             texlive-fonts-recommended \
+            texlive-fonts-extra \
             texlive-lang-italian \
+            texlive-math-extra \
             latexmk \
             rsync
+
 
       - name: Compilazione del file LaTeX in PDF
         run: |
