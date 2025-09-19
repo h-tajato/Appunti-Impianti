@@ -13,17 +13,11 @@ jobs:
       - name: Checkout del repository
         uses: actions/checkout@v3
 
-      - name: Installazione di LaTeX (inclusa lingua italiana)
+      - name: Installazione completa di TeX Live
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            texlive-latex-base \
-            texlive-latex-extra \
-            texlive-fonts-recommended \
-            texlive-fonts-extra \
-            texlive-lang-italian \
-            latexmk \
-            rsync
+          sudo apt-get install -y texlive-full latexmk rsync
+
 
 
 
