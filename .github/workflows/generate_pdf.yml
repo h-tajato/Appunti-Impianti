@@ -22,9 +22,9 @@ jobs:
             texlive-fonts-recommended \
             texlive-fonts-extra \
             texlive-lang-italian \
-            texlive-math-extra \
             latexmk \
             rsync
+
 
 
       - name: Compilazione del file LaTeX in PDF
