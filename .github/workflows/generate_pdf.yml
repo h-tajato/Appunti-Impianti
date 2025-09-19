@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+      
+permissions:
+  contents: write
 
 jobs:
   build-and-commit-pdf:
@@ -18,9 +21,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y texlive-full latexmk rsync
 
-
-
-
       - name: Compilazione del file LaTeX in PDF
         run: |
           mkdir -p pdf_output
@@ -31,7 +31,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
       - name: Commit e push del PDF generato
         run: |
