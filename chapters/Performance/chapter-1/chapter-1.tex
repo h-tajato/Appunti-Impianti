@@ -1,7 +1,26 @@
-\chapter{Capitolo 1}
+\chapter{Valutazione delle Performance}
+La valutazione delle performance di un sistema(o system evaluation) è un argomento importante da dover trattare. Negli anni ci sono stati vari problemi ai sistemi che sono stati ideati, poichè o valutati in modo scorretto o progettati male. Lo scopo principale della system evaluation è quallo di misurare le prestazioni di un determinato sistema, in modo che sia anche possibile confrontare i parametri con quelli di valutazione di altri sistemi (nella maniera più oggettiva possibile).
 
-\section{Section 1}
-\subsection{Subsection 1.1}
-Lorem ipsum dolor sit amet consectetur adipiscing elit.
+\section{System Evaluation}
+Per la system evaluation, quindi, è importante impostare e delineare un metodo formale di valutazione. Ciò ci permette di ridurre gli errori legati a particolari operazioni e di poter definire una serie di "passi" da seguire per effettuare una corretta valutazione delle performance.
+In linea formale, la system evaluation si divide un due principali categorie:
+\begin{itemize}
+    \item \textbf{Performance Analysis}: Tale valutazione presuppone che il sistema non possa avere alcun tipo di fallimento (failure-free). Il che va a valutare solo le performance legate al suo funzionamento. (Bisogna stare attenti quando si effettua Performance Analysis di non andare a valutare in alcun modo i casi di fallimento)
+    
+    \item \textbf{Dependability Analysis}: Tale valutazione ci permette di valutare per quanto tempo il sistema sia in grado di funzionare e quindi anche il caso di problematiche ed errori
+\end{itemize}
 
-\input{chapters/Performance/chapter-1/prova}
+\textit{Un esempio pratico per capire i concetti di \textbf{Performance Analysis} e \textbf{Dependability Analysis} è quello di auto di formula 1. Nel caso della Performance Analysis vado solo a valutare le specifiche performance (velocità massima, tenuta in curva, aerodinamica), senza tener conto in alcun modo di qualunque tipo di fallimento; mentre nel caso della Dependability Analysis si va a valutare quanto la macchina riesca a resistere in pista (durata delle gomme, tempo effettivo di funzionamento, casi di guasti imprevisti).
+}
+
+\subsection{Passi per la valutazione di un sistema}
+Come introdotto precedentemente, per la valutazione "corretta" (o di buona qualità) di un sistema, è ottimale definire una serie di passi da seguire, in modo da redere il criterio di valutazione il quanto più formale possibile. I passi per valutare un sistema sono i seguenti:
+\begin{enumerate}
+    \item Definire cosa bisogna valutare
+    \item Ottenere informazioni sul sistema
+    \item Effettuare le misurazioni
+    \item Analisi dei risultati
+    \item Trovare e valutare il corretto feedback da dare sulle considerazioni iniziali
+\end{enumerate}
+
+\subsection{Performance Analysis}
