@@ -1,9 +1,0 @@
-\contentsline {chapter}{Introduzione}{5}{chapter*.2}%
-\contentsline {part}{I\hspace {1em}Performance}{7}{part.1}%
-\contentsline {chapter}{\numberline {1}Valutazione delle Performance}{9}{chapter.1}%
-\contentsline {section}{\numberline {1.1}System Evaluation}{9}{section.1.1}%
-\contentsline {subsection}{\numberline {1.1.1}Passi per la valutazione di un sistema}{9}{subsection.1.1.1}%
-\contentsline {subsection}{\numberline {1.1.2}Performance Analysis}{10}{subsection.1.1.2}%
-\contentsline {subsection}{\numberline {1.1.3}Errori comuni nella System Evaluation}{10}{subsection.1.1.3}%
-\contentsline {subsubsection}{Tecniche di valutazione}{12}{section*.3}%
-\contentsline {subsubsection}{Selezione della metrica}{12}{section*.4}%
