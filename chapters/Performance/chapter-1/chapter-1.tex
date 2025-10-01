@@ -151,10 +151,12 @@ A livello formale, si definisce:
 A questo punto comprendo se sto usando il throughput in maniera fair, calcolando la \textbf{fairness}, che mi dice che se ogni utente ha a disposizione una porzione eguale di throughput, allora sarà 1, mentre nel caso opposto sarà vicino allo 0.
 Per calcolare la fairness si utilizza la seguente formula:
 
+\Large
 \[
 fairness = \frac{\left(\sum_{i=1}^{n}x_i\right)^2}{n\sum_{i=1}^{n}x_i^2}
 \]
+\\\\
+\normalsize
 
-% \[
-% % fairness = \frac{\sum_{1}^{n-1}{(x_i)^2}}
-% \]
+Con tale formula si comprende che se tutti i throughput \(x_i\) sono uguali allora => \(fairness = 1\).
+

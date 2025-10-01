@@ -1,0 +1,110 @@
+\chapter{Workload}
+Un Workload, nella sua definizione di base, è: \textit{Tutti i possibili input che un sistema riceve in un certo periodo di tempo}
+\\
+Tale definizione, pertanto, prescinde dalla sola valutazione delle performance. Nel caso specifico i workload che sono utilizzati nella valutazione delle performance sono detti \textbf{test workload}, tali test workload possono essere generati e categorizzati secondo particolari tecniche di utilizzo e schematizzazione
+
+\section{Test Workload}
+I test Workload sono dei normali workload utilizzati per gli studi delle performance. In generale, i test workload possono essere classificati in due particolari categorie:
+\begin{itemize}
+    \item \textbf{Workload Reali}: Workload che sono caratterizzati dall'osservazione di specifici casi reali
+    \item \textbf{Workload Sintetici}: Workload che sono caratterizzati da pochi parametri ma che cercano di replicare quelli che potrebbero essere dei workload reali
+\end{itemize}
+
+Le due classificazioni differiscono fortemente sotto molti punti di vista. Il principale tipo di workload utilizzato è quello sintetico, dato che viene caratterizzato tramite pochi parametri e può essere replicato senza dover tenere memoria di un workload reale (che richiederebbe memorie molto ingenti per essere memorizzato).
+
+\subsection{Addition Istruction}
+L'\textbf{Addition Istruction} è una tecnica di workload sintetico per i computer systems. Essa è stata utilizzata in passato per la valutazione delle performance sui vari computer e comprendeva quello di valutare la velocità e l'efficienza dell'operazione di addizione (Operazione più usata all'interno dei programmi passati).
+
+\subsection{Instruction Mixes}
+L'\textbf{Istruction Mixes} è un evoluzione dell'Addition Istruction, poichè non va a considerare solo l'operazione di addizione intera, ma anche tutte le altre istruzioni possibili. Per avere uno schema più adatto alla sintetizzazione di un workload si hanno delle specifiche di Istruction Mixes, che non sono altro che tabelle che listano le varie \textbf{classi di istruzioni} con la loro "percentuale" di utilizzo (frequenza). In questo modo sarà possibile, andare a selezionare a caso le istruzioni, rispettando la distribuzione descritta dall'Istruction Mixes.
+
+\subsubsection{Disadvantages}
+La complessità sempre crescente delle architetture e quindi delle classi di istruzioni, non viene riflessa all'interno delle tabelle di istruction mixes, pertento risulta difficile valutare completamente la totalità dell'architettura. Oltre alla complessità delle classi, incidono anche i tempi di esecuzione, che è altamente variabile e dipendente da diversi parametri quali:
+\begin{itemize}
+    \item \textbf{Modalità di indirizzamento}: Come le modalità di indirizzamento diretto o indiretto di un architettura
+    \item \textbf{Cache Hit}: Probabilità di trovare il dato su cui si vuole lavorare in Cache
+    \item \textbf{Pipeline Efficiency}: Se la pipeline mantiene per molto tempo l'esecuzione di un comando per ciclo di clock (ad esempio gestendo bene la questione dei salti e della branch prediction)
+    \item \textbf{Interferenza dei dispositivi esterni durante i cicli di accesso processore-memoria}: Ad esempio concorrenza dei bus mentre si accede alla memoria per il prelievo di un dato
+\end{itemize}
+
+Oltre a problematiche di tipo puramente architetturale e strutturale, il tempo di esecuzione può variare anche in base alla forma e alle operazioni che devono essere fatte sui dati, come operazioni del tipo:
+\begin{itemize}
+    \item La frequenza con cui compare lo zero come parametro
+    \item Quante volte compare lo zero in operazioni di moltiplicazione
+    \item il numero medio di spostamenti richiesti in un'operazione in virgola mobile
+    \item numero di volte in cui un ramo condizionale viene eseguito 
+\end{itemize}
+
+Oltretutto, le combinazioni di istruzioni delle istruction mixes non riflettono le funzionalità di indirizzamento virtuale della memoria
+
+\subsubsection{Considerazioni}
+Nonostante le varie problematiche che porta con se, l'istruction mixes, ci permette comunque di poter avere un singolo parametro di confronto tra sistemi diversi. Il parametro è un numero che esprime l'inverso del tempo di esecuzione e può essere espresso come:
+\begin{itemize}
+    \item \textbf{MIPS (Millioni di Istruzioni Per Secondo)}
+    \item \textbf{MFLOPS (Millioni di FlOaring Point istructionS)}
+\end{itemize}
+
+Però un'altro problema legato a questo valore è che stima le prestazioni solo del \textbf{processore} e quindi \textbf{non dell'intero sistema}. Il divario tra le performance reali e non dei sistemi che vengono valutati con tali modelli è fatto, quindi, solo dalla differenza dei programmi che vengono eseguiti, e quindi non è una statistica affidabile per una tipologia generale di applicazioni.
+
+\subsection{Kernels}
+I \textbf{Kernels} sono un'evoluzione dell'istruction mixes, poichè non vanno a considerare più le istruzioni nella loro singolarità, ma vanno a considerare dei gruppi di istruzioni (delle funzioni). Le funzioni, in particolare, sono dette \textbf{kernel} e sono implementare solo per il consumo della CPU, quindi nessuna prevede o fa uso dei dispositivi di I/O (almeno nelle loro versioni iniziali, dato che oggi tale classe di kernel è chiamata processing kernel). Il nome \textbf{kernel} viene dal fatto che si vuole identificare una serie di passaggi chiave che poi sono utilizzati nelle più comuni applicazioni. Ad esempio si possono utilizzare tutti i passaggi che servono per il calcolo dell'inverso di una matrice o di tutte le operazioni che vengono richieste da un algoritmo di sorting. Difatti le tecniche più utilizzare ad oggi che rispettano un modello kernel sono:
+\begin{itemize}
+    \item \textbf{Sieve}: Algoritmo per trovare tutti i numeri primi fino ad N (\href{https://it.wikipedia.org/wiki/Crivello_di_Eratostene}{Crivello di Eratostene})
+    \item \textbf{Puzzle}: Algoritmi per la risoluzione del gioco del 15, le N-Regine o il Sudoku
+    \item \textbf{Tree Searching}: Operazioni che possono essere effettuate all'interno di un'albero
+    \item \textbf{Ackermann's Function}: Funzione matematica e molto ricorsiva che permette di valutare la reazione e la gestione di tali chiamate (\href{https://it.wikipedia.org/wiki/Funzione_di_Ackermann}{funzione di Ackermann})
+    \item \textbf{Matrix Invertion}: Va a valutare il comportamento del sistema rispetto alle operazioni che bisogna effettuare per ottenere l'inverso di una matrice NxN (anche tramite diversi metodi di calcolo)
+    \item \textbf{Sorting}: Agglomerato di algoritmi di ordinamento differenti
+\end{itemize}
+
+Però, molti dei problemi che ritroviamo all'interno dell'istruction mixes si ripercuotono anche sull'utilizzo dei kernels, quali tutti i problemi dipendenti dall'applicazione e dalla forma dei dati e non instrinsecamente dall'architettura (dove vi è sempre la mancanza però della gestione dei dispositivi di I/O)
+
+\subsection{Application Benchmarks}
+Gli \textbf{Application Benchmarks} sono dei workload che vengono costruiti in base all'applicazione che si sta andando a testare. Quindi si vanno a verificare i casi d'uso di un'applicazione in base all'impiego che ne devo fare. Nella letteratura, in realtà, benchmark viene utilizzato come sinonimo di workload, pertanto molte volte le tecniche come quella dei kernel (test di funzioni e non di singole istruzioni), vengono visti come benchmark. Il processo che vuole valutare le performance in base ad un determinato benchmark viene detto \textbf{benchmarking}. L'application benchmark, quindi, fa riferimento e cerca di replicare un workload reale in base alla tipologia di applicazione che voglio andare a valutare, ad esempio, se voglio valutare un servizio bancario è inutile che vada a testare delle funzioni di high performance sul processore (dato che non vengono mai fatte), ma vada a valutare la qualità di utilizzo e di controllo del database. 
+
+In generale, per confrontare due sistemi, posso utilizzare i benchmark, oltretutto, una cosa importante di caratterizzazione dei benchmark, sono le proprietà che essi devono mantenere, ovvero:
+\begin{itemize}
+    \item \textbf{Representativeness}(Rappresentatività): Si garantisce che il benchmark sia rappresentativo di un workload reale che si vuole andare a valutare 
+    \item \textbf{Portability}: Il benchmark deve poter essere eseguito su piattaforme diverse, e quindi non dipende dalla macchina e dall'hardware di un sistema specifico
+    \item \textbf{Repeatability}: Eseguendo più volte lo stesso benchmark nelle stesse condizioni, i risultati devono essere coerenti. Questo garantisce l’affidabilità e la robustezza delle misure
+    \item \textbf{Scalability}: Il benchmark deve poter funzionare su sistemi di dimensioni diverse (ad esempio da un singolo nodo a un cluster) e adattarsi a diversi livelli di carico, senza perdere significato
+    \item \textbf{Non-intrusiveness}: L’esecuzione del benchmark non deve alterare significativamente il comportamento del sistema misurato. Deve misurare senza influenzare in modo rilevante le prestazioni stesse
+    \item \textbf{Easy-to-use}: Deve essere semplice da configurare, avviare ed eseguire, in modo che chiunque possa utilizzarlo senza particolari complessità tecniche
+    \item \textbf{Easy-to-understand}: I risultati prodotti devono essere chiari e facilmente interpretabili, anche da chi non è un esperto tecnico
+\end{itemize}
+
+La cosa importante quando si sceglie un benchmark e trovare uno specifico \textbf{agreement}, e quindi un accordo su quale tipologia di applicazione andare a testare. In generale un benchmark nasce per poter comparare diverse tipologie di strutture, di componenti e di architetture, rispettando però lo specifico agreement, che oltre a dare un ordine a quello che si vuole testare, permette di comparare le diverse architatture per lo specifico compito che andranno a svolgere (sempre in linea con l'agreement).
+
+\subsection{Esempi di benchmark}
+\subsubsection{Sieve}
+Algoritmo che utilizza il criterio di Eratostene per la determinazione dei numeri primi da 0 ad N, con N dato in ingresso all'algoritmo. Il suo funzionamento principale è quello di partire da tutti i numeri interi da 1 ad N, e poi eliminare tutti i multipli dei valori (in ordine), da 1 a \(\sqrt{N}\). I valori che però vengono considerati sono solo quelli non eliminati.
+Per esempio:
+\\
+N = 20, \(\sqrt{20} \approx 5\)
+\[
+\text{Passo 0: }[\underline{1},\underline{2},\underline{3},\underline{4},\underline{5},\underline{6},\underline{7},\underline{8},\underline{9},\underline{10},\underline{11},\underline{12},\underline{13},\underline{14},\underline{15},\underline{16},\underline{17},\underline{18},\underline{19},\underline{20}]
+\]
+\[
+\text{Passo 1: }[1,\underline{2},\underline{3},\underline{4},\underline{5},\underline{6},\underline{7},\underline{8},\underline{9},\underline{10},\underline{11},\underline{12},\underline{13},\underline{14},\underline{15},\underline{16},\underline{17},\underline{18},\underline{19},\underline{20}]
+\]
+\[
+\text{Passo 2 (eliminazione multipli di 2): }[1,\underline{2},\underline{3},4,\underline{5},6,\underline{7},8,\underline{9},10,\underline{11},12,\underline{13},14,\underline{15},16,\underline{17},18,\underline{19},20]
+\]
+\[
+\text{Passo 3 (eliminazione multipli di 3): }[1,\underline{2},\underline{3},4,\underline{5},6,\underline{7},8,9,10,\underline{11},12,\underline{13},14,15,16,\underline{17},18,\underline{19},20]
+\]
+\[
+\text{Risultato finale: }[1,\underline{2},\underline{3},4,\underline{5},6,\underline{7},8,9,,10,\underline{11},12,\underline{13},14,15,16,\underline{17},18,\underline{19},20]
+\]
+
+\subsubsection{Algoritmo di Ackermann}
+Tale algoritmo è adatto per lo studio delle chiamate ricorsive, dato che costituisce la funzione ricorsiva più pura. In generale con tale tipologia di struttura si può andare a valutare bene:
+\begin{itemize}
+    \item \textbf{Tempo di esecuzione medio per le call}
+    \item \textbf{Numero di istruzioni eseguite per call}
+    \item \textbf{Stack space per le call}
+\end{itemize}
+
+\subsubsection{SPEC Benchmark Suite}
+Corporazione non profit che ha stilato una serie di bechmark (circa una decina), che possono essere utilizzati per valutazioni di varia natura. Essi sono una base per la valutazione più generale dei sistemi a prescindere dalla loro struttura architetturale
+
