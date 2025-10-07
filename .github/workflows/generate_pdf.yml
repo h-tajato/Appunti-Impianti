@@ -1,7 +1,9 @@
 name: Genera PDF manualmente
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
       
 permissions:
   contents: write
