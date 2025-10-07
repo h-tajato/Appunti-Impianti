@@ -1,9 +1,7 @@
-name: Genera PDF al push su main
+name: Genera PDF manualmente
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
       
 permissions:
   contents: write
@@ -13,28 +11,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout del repository
       - name: Checkout del repository
         uses: actions/checkout@v3
 
-      - name: Installazione completa di TeX Live
+      # Step 2: Installazione dei pacchetti LaTeX necessari
+      - name: Installazione TeX Live minima
         run: |
           sudo apt-get update
-          sudo apt-get install -y texlive-full latexmk rsync
+          sudo apt-get install -y \
+            latexmk \
+            texlive-latex-base \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-fonts-extra \
+            texlive-pictures \
+            texlive-science \
+            rsync
 
-      - name: Compilazione del file LaTeX in PDF
+      # Step 3: Compilazione del file LaTeX in PDF
+      - name: Compilazione del PDF
         run: |
           mkdir -p pdf_output
-          rsync -a --include '*/' --exclude '*' chapters/ pdf_output/chapters/
-          latexmk -pdf -output-directory=pdf_output -f main.tex
+          latexmk -pdf -output-directory=pdf_output -f ./main.tex
 
+      # Step 4: Configurazione Git
       - name: Configurazione di Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
-      - name: Commit e push del PDF generato
+      # Step 5: Commit e push del PDF generato
+      - name: Commit e push del PDF
         run: |
           git add pdf_output/main.pdf
-          git commit -m "Aggiornamento automatico del PDF dopo il push su main" || echo "Nessuna modifica da committare"
+          git commit -m "Release pdf" || echo "Nessuna modifica da committare"
           git push
