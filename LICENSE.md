@@ -18,4 +18,4 @@ Non ci sono restrizioni aggiuntive: non puoi applicare termini legali o misure t
 
 ---
 
-© [Agda78, Roccolr, giuseppe-maglione], [2025]. Tutti i diritti riservati salvo quanto espressamente concesso dalla licenza sopra indicata.
+© [Agda78, Roccolr], [2025]. Tutti i diritti riservati salvo quanto espressamente concesso dalla licenza sopra indicata.
