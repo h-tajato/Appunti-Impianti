@@ -171,10 +171,299 @@ x'_s = \frac{x_{s} - \overline{x_s}}{s_{x_s}}
 Tale operazione permette di poter confrontare i parametri con un distribuzione normale, il che, quindi, andrà a rappresentare i dati come distanza da 0 e rappresentato secondo la deviazione standard s. Ciò ci permette anche di poter confrontare i dati tra di loro, senza andarea a considerare il range di valori che possono assumere.
 
 \subsection{Clustering}
-Mediante l'utilizzo della PCA si è andata ad effettuare la riduzione della quantità di parametri rappresentativi di un istanza (o componente) del workload. Per ridurre ancora di più la quantità di dati di rappresentazione del workload, si può andare ad effettuare una riduzione della quantità di istanze stesse. Per effettuare tale riduzione si fa utilizzo del \textbf{Clustering}, che è una tecnica di apprendimento non supervisionato che permette di andare a raggruppare le istanze in base alla loro similarità. Ciò richiede anche che la rappresentazione delle istanze sia adeguata per trovare degli specifici agglomerati di dati. (Per comprendere meglio, guardare la figura [\ref{img:clustering}], se i dati non fossero ben divisi non potrei creare i cluster per bene dato che avrei molta confusione)
+Mediante l'utilizzo della PCA si è andata ad effettuare la riduzione della quantità di parametri rappresentativi di un istanza (o componente) del workload. Per ridurre ancora di più la quantità di dati di rappresentazione del workload, si può andare ad effettuare una riduzione della quantità di istanze stesse. Per effettuare tale riduzione si fa utilizzo del \textbf{Clustering}, che è una tecnica di apprendimento non supervisionato che permette di andare a raggruppare le istanze in base alla loro similarità. Ciò richiede anche che la rappresentazione delle istanze sia adeguata per trovare degli specifici agglomerati di dati. (Per comprendere meglio, guardare la figura [\ref{img:clustering}], se i dati non fossero ben divisi non potrei creare i cluster per bene dato che avrei molta confusione). Una volta raggruppate le istanze, si può andare a rappresentare ogni cluster mediante un'unica istanza rappresentativa (solitamente la media dei parametri delle istanze che compongono il cluster). In questo modo si va a ridurre la quantità di istanze da memorizzare, andando a perdere però una certa quantità di informazione (che può essere valutata mediante la varianza o la devianza).
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=.6\textwidth]{img/clustering.png}
 \caption{Esempio di clustering}\label{img:clustering}
 \end{figure}
+
+Per effettuare il clustering, generalmente, si eseguono i seguenti passaggi:
+\begin{enumerate}
+    \item Prendere un insieme di istanze appartenenti al workload (o ad una sua trasformazione mediante PCA)
+    \item Scegliere i parametri del workload da considerare per effettuare la clusterizzazione (omettere i parametri che portano una quantità di varianza bassa)
+    \item Selezionare una metrica di distanza (utile per la valutazione della similarità tra le istanze)
+    \item Trattazione degli outliers (dati che sono molto distanti dagli altri, e che potrebbero falsare il risultato finale)
+    \item Data scaling (utile per evitare che parametri con range di valori molto diversi tra di loro possano influenzare in maniera sproporzionata il risultato finale)
+    \item Effettuare il clustering (utilizzando uno degli algoritmi di clustering esistenti)
+    \item Interpretazione dei risultati (andare a valutare la qualità del clustering effettuato)
+    \item Cambiare i parametri e/o il numero di cluster e ripetere i passi dal 3 al 7
+    \item Selezionare un componente rappresentativo per ogni cluster
+\end{enumerate}
+
+\begin{warn}
+Negli appunti si fa utilizzo del termine \textbf{istanza}, che per il seguente ambito è sinonimo di \textbf{componente}. Tale termine viene utilizzato per indicare un'entità del workload che viene caratterizzata da un insieme di parametri.
+\end{warn}
+
+\subsubsection{Campionamento delle componenti}
+Il \textbf{Campionamento delle istanze} è una tecnica che va a selezionare un sottoinsieme di componenti del workload prima di proseguire nell'algoritmo di clustering. Ciò è dovuto al fatto che gli algoritmi di clustering sono computazionalmente costosi, e pertanto si cerca di ridurre la quantità di dati da considerare. La tecnica di selezione delle componenti da andare a considerare può essere di varia natura. Precisamente si studiano (per il seguente corso), le seguenti tecniche:
+\begin{itemize}
+    \item \textbf{Random Sampling}: Si va a selezionare un sottoinsieme di componenti in maniera casuale
+    \item \textbf{Resource Consuption Based Sampling}: Si va a selezionare un sottoinsieme di componenti in base alla quantità di risorse che esse consumano (si vanno a selezionare le componenti che consumano più risorse)
+\end{itemize}
+
+Per capire se ho effettuato un buon campionamento, una volta effettuato il clustering vado a vedere, sul workload intero, se posso associare le componenti mancanti ai cluster trovati. Se il numero di componenti non assignabili è alto allora è indice di un cattivo campionamento.
+
+\subsubsection{Selezione dei parametri}
+Vado a selezionare un sottoinsieme di parametri rtappresentativi delle componenti. Tali parametri devono essere scelti in maniera tale che siano in grado di rappresentare la maggior quantità di varianza possibile o rispetto all'impatto sulle performance. Per fare ciò si può utilizzare la PCA, andando a selezionare i parametri che portano più varianza. Facendo in questo modo introduco una quantità di varianza persa a discapito, però, della riduzione della dimensionalità del problema, e di conseguenza, della riduzione del tempo speso per effettuare la clusterizzazione.
+
+\subsubsection{Metrica di distanza}
+Una metrica di distanza mi permette di calcolare la ditanza tra varie componenti in spazi n-dimensionali, dove n è il numero di parametri considerati. Le metriche più utilizzate sono:
+\begin{enumerate}
+    \item \textbf{Distanza Euclidea}: La distanza euclidea è la distanza più intuitiva, ed è definita come:
+    \[d(X_i,X_j) = \sqrt{\sum_{k=1}^{n}(X_{ik} - X_{jk})^2}\]
+    Dove \(X_i\) e \(X_j\) sono due punti nello spazio n-dimensionale, e \(X_{ik}\) e \(X_{jk}\) sono le loro coordinate(tale distanza è applicabile solo in spazi reali, quindi a parametri reali. Oltretutto la distanza euclidea utilizza il principio introdotto dal teorema di Pitagora [il teorema di Pitagora è un eccezione della formula precedente, precisamente solo per spazi bidimensionali]).
+    Nonostante la distanza euclidea sia applicabile solo ad insiemi di parametri reali, essa è la più utilizzata, sopratutto per la sua similarità con la deviazione standard (guardare l'espessione matematica delle due grandezze)
+
+    \item \textbf{Distanza Euclidea Pesata}: La distanza euclidea pesata è una variante della distanza euclidea che permette di andare a pesare i vari parametri in base alla loro importanza. La formula è la seguente:
+    \[d(X_i,X_j) = \sqrt{\sum_{k=1}^{n}a_k(X_{ik} - X_{jk})^2}\]
+    Dove \(a_k\) è il peso associato al parametro \(k\). Tale distanza è utile quando si vuole dare più importanza ad alcuni parametri rispetto ad altri. Tale metrica è utilizzata spesso o quando i parametri non sono stati scalati o quando i parametri hanno livelli di importanza diversi.
+
+    \item \textbf{Distanza Euclidea Quadrata}: La distanza euclidea quadrata è una variante della distanza euclidea che evita di dover calcolare la radice quadrata, dato che tale operazione è computazionalmente costosa. La formula è la seguente:
+    \[d(X_i,X_j) = \sum_{k=1}^{n}(X_{ik} - X_{jk})^2\]
+    Tale distanza è utile quando si vuole evitare di effettuare la radice quadrata, dato che non cambia l'ordinamento delle distanze tra i punti. Tale metrica cerca di enfatizzare i valori più distanti (rendend distanze grandi ancora più grandi), e favorendo quelle piccole (rendendo distanze piccole ancora più piccole).
+    
+    \item \textbf{Distanza di Chi-Quadrato (Chi-square distance)}: La distanza di Chi-Quadrato (Chi-square) è una metrica che viene utilizzata principalmente per dati categoriali. La formula è la seguente: 
+    \[d(X_i,X_j) = \sum_{k=1}^{n}\frac{(X_{ik} - X_{jk})^2}{X_{ik} + X_{jk}}\]
+    Tale distanza è utile quando si vuole dare più importanza ai parametri che hanno valori più piccoli, dato che la somma al denominatore rende tale distanza più sensibile a piccole differenze tra i valori piccoli. Tale metrica, però, può essere applicata solo a dati che sono compatibili numericamente o che almeno appartengono allo stesso ordine di grandezza (se si avessero valori che hanno differenze grandi, il peso associato alla loro differenza sarebbe molto piccolo, e quindi non verrebbe considerata).
+
+    \item \textbf{Distanza di Hamming}: La distanza di Hamming è una metrica che viene utilizzata principalmente per dati categoriali. La formula è la seguente:
+    \[d(X_i,X_j) = \sum_{k=1}^{n}\delta(X_{ik}, X_{jk})\]
+    Dove \(\delta(X_{ik}, X_{jk})\) è una funzione che vale 1 se \(X_{ik} \neq X_{jk}\), altrimenti vale 0. Tale distanza è utile quando si vuole confrontare dati categoriali, dato che conta il numero di differenze tra i due vettori. Non è utile per dati numerici "continui", il che la rende difficilmente utilizzabile.
+
+\end{enumerate}
+
+\begin{info}
+Tutto le tecniche precedentemente presentate rispettano la definizione base di metrica. Una metrica si può definire formalmente come:
+
+Dato uno spazio \(S\), una funzione \(d: S \times S \rightarrow \mathbb{R}\) è una metrica se per ogni \(X_i, X_j, X_k \in S\) rispetta le seguenti proprietà:
+\begin{itemize}
+    \item \(d(X_i,X_j) \geq 0\) (Non negatività)
+    \item \(d(X_i,X_j) = 0 \iff X_i = X_j\) (Identità degli indiscernibili)
+    \item \(d(X_i,X_j) = d(X_j,X_i)\) (Simmetria)
+    \item \(d(X_i,X_j) \leq d(X_i,X_k) + d(X_k,X_j)\) (Disuguaglianza triangolare)
+\end{itemize}
+
+\end{info}
+
+\subsubsection{Trattazione degli outliers}
+Gli \textbf{outliers} sono componenti del workload che sono molto distanti dalle altre componenti. La presenza di outliers può falsare il risultato finale del clustering, dato che tali componenti potrebbero essere considerate come cluster a se stanti, o potrebbero influenzare la posizione dei centroidi. Pertanto è utile andare a trattare gli outliers prima di effettuare il clustering. Le tecniche più utilizzate per trattare gli outliers sono:
+\begin{itemize}
+    \item \textbf{Rimozione degli outliers}: Si va a rimuovere le componenti che sono molto distanti dalle altre componenti. Tale tecnica è utile quando si vuole evitare che gli outliers influenzino il risultato finale del clustering. Il problema principale di tale tecnica è che si potrebbe andare a rimuovere componenti che sono effettivamente parte del workload, e che potrebbero essere importanti per la caratterizzazione del workload stesso.
+    \item \textbf{Trasformazione degli outliers}: Si va a trasformare le componenti che sono molto distanti dalle altre componenti. Tale tecnica è utile quando si vuole evitare che gli outliers influenzino il risultato finale del clustering, senza però rimuovere componenti che potrebbero essere importanti per la caratterizzazione del workload stesso. La trasformazione più comune è la normalizzazione
+\end{itemize}
+
+\subsubsection{Data Scaling}
+Il \textbf{Data Scaling} è una tecnica che permette di andare a scalare i parametri delle componenti, in maniera tale che tutti i parametri abbiano lo stesso peso nella valutazione della distanza tra le componenti, quindi i dati che vengono trattati sono trattati secondo una distribuzione normale e quindi confrontabili anche guardando le unità di misura. Ci sono varie tecniche di normalizzazione che si possono applicare ai dati. Precisamente quelle utilizzate in questo corso sono:
+\begin{itemize}
+\item \textbf{Normalizzare ad una distribuzione normale (Z-score normalization)}: Per il calcolo di tale normalezzazione, si utilizza la formula:
+\[x^0_{ik} = \frac{x_{ik} - \overline{x_{k}}}{s_{k}}\]
+Dove \(x_{ik}\) è il valore del parametro \(x\), \(\overline{x_{k}}\) è la media del parametro \(x\) e \(s_{x_s}\) è la deviazione standard del parametro \(x\). Tale tecnica permette di avere una distribuzione normale con media 0 e deviazione standard 1. Tale tecnica è molto efficiente quando i dati seguono una distribuzione normale.
+
+\item \textbf{Pesata}: Si va a pesare i parametri in base alla loro importanza. La formula è la seguente:
+\[x'_s = w_k * x_s\]
+Dove \(w_k\) è il peso associato al parametro \(x\). Tale tecnica è utile quando si vuole dare più importanza ad alcuni parametri rispetto ad altri. \(w_k\) è un valore di peso relativo, e può essere calcolato anche mediante la formula: \(w_k=\frac{1}{s_k}\)
+
+\item \textbf{Range Normalizzation}: La range normalizzation (o in altri campi assimilabile all'equalizzazione dell'istogramma) è una tecnica che permette di andare a scalare i parametri in un intervallo specifico. Per comprendere meglio tale tecnica, si può vedere la formula come: 
+\[
+x'_{ik} = \frac{x_{ik} - min(x_k)}{max(x_k) - min(x_k)}
+\]
+Il problema associato a tale tecnica di scaling è che è molto e fortemente influenzata dagli outliers, dato che tali valori andranno a definire il range di valori
+
+\item \textbf{Percentile Normalization}: La percentile normalization è una tecnica che permette di andare a scalare i parametri in base ai percentili. Tale tecnica è utile quando si vuole evitare che gli outliers influenzino il risultato finale del clustering. La formula è la seguente:
+\[
+x'_{ik} = \frac{x_{ik} - x_{2.5k}}{x_{97.5k} - x_{2.5k}}
+\]
+
+Tale formula cerca di andare a valutare il "massimo" e "minimo" della Range Normalization utilizzando i percentili, rendendo il sistema più resistente agli outliers.
+\end{itemize}
+
+\subsection{Agglomerative Hierarchical Clustering}
+Le tecniche di clustering sono diverse e possono suddividersi in due macro-categorie: quelle \textbf{gerarchiche} e quelle \textbf{Non Gerarchiche}. Le tecniche gerarchiche permettono di costruire un sistema di cluster annidati tra loro (in base al livello del cluster), mentre le tecniche  non gerarchiche cerca di non annidare in alcun modo i cluster. Nei nostri casi di studio la categoria di tecniche di clustering che ci interessa sono solo i clustering gerarchici agglomerativi (le tecniche di clustering gerarchico possono essere anche divisive, in base alla struttura della tecnica con cui si costruisce il sistema di cluster [\ref{img:clustering-graph}]).
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.8\textwidth]{img/clustering-graph.png}
+\caption{Esempio di clustering gerarchico}\label{img:clustering-graph}
+\end{figure}
+
+Fatta una paronamica generale sul clustering, ai fini del corso, andremo a concentrarci sul clustering gerarchico agglomerativo. Partendo dal considerare il \textbf{clustering gerarchico}, esso può essere di due tipi:
+\begin{itemize}
+    \item \textbf{Agglomerativo}: Si parte dall'avere un cluster per ogni componente, e poi si prosegue agglomerando i cluster fino a che non si ottiene un unico cluster
+    \item \textbf{Divisivo}: Si parte da un cluster in cui sono contenutre tutte le compoenti e si prosegue dividendo i vari cluster secondo particolari metodi.
+\end{itemize}
+
+Il clustering \textbf{gerarchico agglomerativo} è una tipologia di clustering che parte dall'avere tanti cluster (uno per ogni componente), e poi si occupa di andare ad agglomerare tali cluster in base a particolari metriche. Tali metriche si basano su concetti differenti di definizione di similarità, e per ognuno ci sono varie considerazioni da fare. Le tecniche principali di clustering agglomerativo sono:
+\begin{itemize}
+    \item \textbf{Linkage Methods}: Vado a collegare i vari cluster in base alla metrica di distanza che vige tra di loro. Dato che non posso valutare la distanza di tutti i punti si può andare a considerare una metrica differente basandosi su diverse e particolari componenti del cluster:
+    \begin{itemize}
+        \item \textbf{Single Linkage}: Vado a definire la metrica di distanza tra due cluster come la più piccola distanza tra due punti dei cluster (la distanza dei punti più vicini tra due cluster) [\ref{img:single-linkage}]
+        \item \textbf{Complete Linkage}: Vado a definire la metrica di distanza come la distanza maggiore tra due punti di un cluster [\ref{img:complete-linkage}]
+        \item \textbf{Average Linkage}: Vado a definire la metrica di distanza come la distanza media dei punti tra due cluster [\ref{img:average-linkage}]
+    \end{itemize}
+
+    \item \textbf{Centroid Methods}: Molto simile ai metodi linkage, ma al postro di considerare le istanze direttamente appartenenti al cluster, si va a considerare il centroide del cluster (la media dei punti appartenenti al cluster) e si va a valutare la distanza tra i centroidi dei vari cluster (il centroide non è detto che faccia parte degli elementi del cluster)
+
+    \item \textbf{Variance Methods}: Tale metodo cerca di minimizzare la varianza intra-cluster e cerca di massimizzare la varianza inter-cluster. L'utilizzo effettivo di tale metodo ricade nell'utilizzo del metodo di Ward, che cerca di minimizzare la somma delle varianze all'interno di ogni cluster. A livello formale quello che si va a fare è calcolare la distranza tra due cluster mediante l'utilizzo della distanza euclidea quadrata tra i centroidi dei due cluster, pesata per il numero di elementi che compongono i due cluster. La formula è la seguente:
+    Dato il cluster \(P\) ed il cluster \(Q\), il calcolo della distanza mediante il \textbf{metodo di Ward} è:
+    \[
+    d(P,Q) = 2\frac{|P||Q|}{|P| + |Q|}||(\overline{x}_{P},\overline{x}_{Q})||^2
+    \]
+    Dove \(|P|\) e \(|Q|\) sono il numero di elementi che compongono i cluster \(P\) e \(Q\), mentre \(\overline{x}_{P}\) e \(\overline{x}_{Q}\) sono i centroidi dei cluster \(P\) e \(Q\).
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}[b]{0.8\textwidth}
+\centering
+\includegraphics[width=\textwidth]{img/single-linkage.png}
+\caption{Single Linkage}\label{img:single-linkage}
+\end{subfigure}
+
+\hfill
+
+\begin{subfigure}[b]{0.8\textwidth}
+\centering
+\includegraphics[width=\textwidth]{img/complete-linkage.png}
+\caption{Complete Linkage}\label{img:complete-linkage}
+\end{subfigure}
+
+\hfill
+\begin{subfigure}[b]{0.8\textwidth}
+\centering
+\includegraphics[width=\textwidth]{img/average-linkage.png}
+\caption{Average Linkage}\label{img:average-linkage}
+\end{subfigure}
+
+\caption{Tipi di metriche per il Linkage Clustering}
+\end{figure}
+
+In generale, quindi, un algoritmo di clustering gerarchico agglomerativo segue i seguenti passi:
+
+\begin{enumerate}
+\item Calcolo della matrice di distanza tra tutte le componenti date in input
+\item Impostare ogni componente come un cluster a se stante
+\item Ripetere fino a che non rimane un solo cluster:
+\begin{itemize}
+    \item Trovare i due cluster più vicini secondo la metrica di distanza scelta ed unirli in un unico cluster
+    \item Aggiornare la matrice di distanza per tenere conto del nuovo cluster
+    \item Ripeti fino a che non rimane un solo cluster
+\end{itemize}
+\end{enumerate}
+\clearpage
+
+La parte in cui incidono di più le decisioni dei criteri di distanza (linkage, centroid, variance) è nella parte di calcolo della distanza dell'algoritmo. Ad ogni possibile metodo utilizzato, viene associato un diverso modo di calcolare la matrice di distanza, e di conseguenza, si avrà una diversa struttura del clustering finale.
+La scelta su quali cluster agglomerare rimane la stessa, ovvero si agglomerano i cluster con la distanza minore tra loro. (questo accade per tutti i metodi, tale metodo di scelta di agglomerazione prescinde dalla metrica utilizzata per calcolare la distanza tra i cluster [che invece contiene una serie di criteri di scelta precedentemente discussi]).
+
+La parte più importante di un clustering gerarchico è il fatto che poi alla fine si va a ricavare un legame tra i vari cluster, che può essere rappresentato mediante un dendogramma. Un dendogramma è un grafo aciclico orientato, dove il nodo rappresenta il cluster "finale" (intero dataset), le foglie sono i singoli elementi, ed i nodi, sono i cluster che nel processo sono stati agglomerati. La comodità di avere un dendogramma è che si può andare a "tagliare" il grafo ad un certo livello, ottenendo così un numero di cluster desiderato. (guardare figura [\ref{img:dendogramma}]). Quado vado a scegliere il livello a cui tagliare il dendogramma, mediante la larghezza del dendogramma, riesco a capire se due cluster se hanno una varianza più bassa o più alta. Più sono vicino alla radice, meno sono i cluster, ma la similarità intra-cluster si riduce. Mentre, più sono vicino alle foglie, più sono i cluster, e la similarità intra-cluster aumenta. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.8\textwidth]{img/dendogramma.png}
+\caption{Esempio di dendogramma}\label{img:dendogramma}
+\end{figure}
+
+\begin{warn}
+In base al metodo utilizzato si avrà una clusterizzazione differente. Quindi la scelta del metodo di calcolo della distanza è fondamentale per ottenere un buon risultato finale.
+\end{warn}
+
+\subsubsection{Interpretazione del clustering}
+Alla fine del clustering, tutte le componenti facenti parte dell'insieme di dati in ingresso sono associati ad un singolo cluster. In generale posso eliminare i cluster poco influenti (che occupano poche risorse) e che hanno una dimensione molto piccola (poche componenti) [Attenzione, le regole precedentemente presentate per la selezione di un cluster non possono essere divisie, devono essere entrambe vere, altrimenti si potrebbe ricadere in errori di valutazione]. Ottenuti i cluster, si cerca di interpretarli in maniera funzionale (in baso alla tipologia di dato che si sta andando a valutare).
+
+Una volta ottenuti e valutati i cluster si va a trovare un singolo valore rappresentativo per ogni cluster, ciò ci permetterà di poter rappresentare il workload mediante un minor numero di componenti.
+
+I cluster tra loro devono essere quanto più dissimili possibile, mentre le componenti all'interno di un cluster devono essere quanto più simili possibile tra di loro. In statistica possiamo definire tale concetto parlando di varianza; più precisamente si enuncia che:
+\textit{La varianza intra-cluster dev'essere quanto più piccola possibile, mentre la varianza inter-cluster dev'essere quanto più grande possibile.}
+L'unico problema legato all'utilizzo della varianza è che non rispetta la disuguaglianza triangolare, e pertanto non può essere utilizzata come metrica di distanza per il clustering. Pertanto si utilizza la devianza come metrica per valutare la bontà del clustering effettuato, questo perchè rispetta la disuguaglianza triangolare:
+\[
+devianza\_totale = devianza\_intra\_cluster + devianza\_inter\_cluster
+\label{for:triangolare}
+\]
+
+In maniera più formale, ci è richiesto un metodo per valutare tali devianze. Per valutare la devianza intra-cluster si utilizza la seguente formula:
+
+Dati \(n\) oggetti in uno spazio vettoriale \(d\)-dimensionale\\ \(X_i = (x_{i1}, x_{i2},\dots, x_{id})\), \(\forall i \in [1,n]\), si definisce devianza intra-cluster:
+
+\[
+intra\_cluster\_deviance = \sum_{k=1}^{K}\sum_{i=1}^{n_k}||X_i - \overline{X}_k||^2
+\]
+
+Dove:
+\begin{itemize}
+\item \(\overline{X}_k = \frac{1}{n_k}\sum_{C(i)=k}X_i\): Centroide del cluster \(k\)
+\item \(n_k\): Numero di oggetti nel cluster \(k\)
+\item \(||X_i - X_j||^2 = \sum_{p=1}^{d}(x_{ip} - x_{jp})^2\)
+\item \(K\): Numero di cluster che si vanno a considerare
+\end{itemize}
+
+Mentre per valutare la devianza inter-cluster si utilizza la seguente formula:
+
+Dati i \(K\) cluster e \(\overline{X}\) media di tutti gli elementi. Si definisce la devianza inter-cluster come:
+\[
+inter\_cluster\_deviance = \sum_{k=1}^{K}n_k||\overline{X}_k - \overline{X}||^2
+\]
+
+Dove (formalmente):
+\begin{itemize}
+\item \(\overline{X} = \frac{1}{n}\sum_{i=1}^{n}X_i\): Media di tutte le componenti date in ingresso all'algoritmo
+\item \(n\): il numero di componenti dati in ingresso all'algoritmo
+\end{itemize}
+
+Si può dimostrare che la varianza intra-cluster e la varianza inter-cluster rispettano la disuguaglianza triangolare (vedi formula [\ref{for:triangolare}])
+
+\subsection{Valutazione della devianza persa}
+Quando vado ad effettuare la sintetizzazione del workload mediante l'utilizzo di PCA + clustering, devo valutare la quantità di devianza persa. La devianza persa è la quantità di devianza che non viene più rappresentata dalle componenti selezionate per rappresentare il workload. Per calcolarla, vado a valutare i seguenti valori:
+\begin{itemize}
+    \item \textbf{Varianza persa PCA}: La devianza portata dai parametri che non sono stati selezionati dopo la PCA
+    \item \textbf{Varianza persa Clustering}: La devianza intra-cluster, ovvero la devianza che non viene più rappresentata dalle componenti selezionate per rappresentare il workload
+\end{itemize}
+
+Per il calcolo della devianza totale persa vado a considerare la seguente formula:
+\[
+devianza\_persa = devianza\_persa\_PCA + (devianza\_guadagnata\_PCA * devianza\_intra\_cluster)
+\]
+
+Oppure in maniera identica posso utilizzare la formula:
+\[
+devianza\_persa = 1 - (devianza\_guadagnata\_PCA * devianza\_inter\_cluster)
+\]
+
+In questo secondo caso sono andato a valutare prima la quantità effettiva di varianza "guadagnata" tra i due processi e poi ho sottratto ad 1 (essendo tutto espresso in percentuali).
+
+Esempio:\\
+Una volta effettuata la PCA con la selezione dei parametri sul mio workload ho che la devianza considerata è del \(95\%\).\\
+Poi facendo il clustering, scopro che la mia devianza intra-cluster è pari al \(10\%\) e di conseguenza quella inter-cluster è pari al \(95\%\).\\
+Di conseguenza posso calcolare la devianza totale persa come:
+\[
+devianza\_persa = devianza\_persa\_PCA + (devianza\_guadagnata\_PCA * devianza\_intra\_cluster)=
+\]
+\[
+= 0.05 + (0.95 * 0.10) = 0.145 = 14.5\%
+\]
+
+Se vado a calcolare tale valore con l'altra formula, ottengo:
+\[
+devianza\_persa = 1 - (devianza\_guadagnata\_PCA * devianza\_inter\_cluster)=
+\]
+\[
+= 1 - (0.95 * 0.90) = 1 - 0.855 = 0.145 = 14.5\%
+\]
+
+Notiamo come i due valori siano esarramente uguali.
+
+\begin{info}
+\textit{Tale dimostrazione è stata aggiunta solo a scopo didattico e non è richiesta ai fini dell'esame}
+Il collegamento tra i due calcoli è molto semplice e risulta dimostrabile. Per dimostrare tale collegamento si può procedere nel seguente modo (consideriamo la deviazione guadagnata dalla pca denotata come dgp, mentre la deviazione persa dalla pca dpp, mentre poi vado a considerare la deviazione intra-cluster come dic, mentre la deviazione inter-cluster dec). Posso dimostrare tale legame nel seguente modo:
+\[
+deviazione_persa = dpp + (dgp * dic) = 1 - dgp + (dgp * dic)=
+\]
+\[
+= 1 - (1 - dic) * dgp = 1 - dec * dgp
+\]
+Come possiamo vedere alla fine siamo arrivati alla seconda forma di calcolo della devianza persa totale
+\end{info}
+
+\subsection{Modelli di Markov}
+Un \textbf{modello di Markov} è una tipologia di modello in cui uno stato successivo o prossimo, dipende solamente dallo stato corrente. Esso può essere rappresentato, quindi, mediante l'utilizzo di un grafo. Un modello di markov, quindi, ha un modo di decidere il prossimo stato (che dipenderà solo da quello attuale). La possibilità di raggiungere un dato stato considerato lo stato precendente viene chiamata \textbf{Probabilità di transizione}, mentre la tabella con tutte le probabilità di raggiungere uno stato dato lo stato corrente, è detta \textbf{Matrice delle transizioni} (in inglese sarebbe matrice di transizione, ma tale definizione collide con le conoscenze precedenti di algebra e geometria). Tale tipologia di modello permette di trovare dei "pattern" o path, che vengono seguiti durante "l'utilizzo" di un applicativo (workload). Permettendo di andare a stressare il sistema su quelle operazioni che si sanno sono più ripetute (probabili). La stima della tabella delle transizioni è fatta tramite un'approccio di tipo frequentista
+
