@@ -165,6 +165,7 @@ Allora posso dire che la \textbf{distribuzione campionaria} della media (distrib
     \item \textbf{Media} pari a \(\mu\) (media della popolazione)
     \item \textbf{Varianza} pari a \(\frac{\sigma^2}{n}\) (o deviazione standard \(\frac{\sigma}{\sqrt n}\))
 \end{itemize}
+Se la sample size è relativamente bassa (empiricamente minore di 30), la distribuzione ha un'andamento differente chiamato \textbf{t-student}. (Questo accade poichè, solitamente, non conoscendo la varianza reale della distribuzione globale, si potrebbe andare ad utilizzare la varianza campionaria, ma tale varianza avrà anche lei un margine di errore [è una variabile aleatoria a n-1 gradi di libertà]. Di conseguenza quella relazione diventa una relazione assimilabile alla t-student).
 
 \begin{info}
 \textit{Tale pezzo non è richieto per lo svolgimento dell'esame, ma solo al fine di approfondire alcuni concetti}
@@ -175,4 +176,65 @@ Z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n}}
 \xrightarrow{\,n \to \infty\,} 
 \mathcal{N}(0,1)
 \]
+Tale Z, solitamente, viene assimilata ad una \textbf{t-student}, poichè non è sempre detto che si conosca la \(\sigma\) reale associata alla popolazione, pertanto si va ad utilizzare la varianza campionaria \(s\). Data questa "sostituzione", come per la media, anche per la varianza bisognerebbe andare a definire degli intervalli di confidenza e degli errori rispetto al valore reale (pertanto viene trattata come una variabile aleatoria chi-quadrata), ciò ci permette di dire che la variabile aleatoria sopracitata \(Z\), sia a tutti gli effetti una \textbf{t-student}.
 \end{info}
+
+Il \textbf{Teorema del limite centrale} non fa alcuna ipotesi sulla distribuzione della popolazione di partenza. Pertanto si mostra un esempio di applicazione mediante la figura [\ref{img:central-limit}]
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.9\textwidth]{img/chapter-4/central-limit.png}
+\caption{Applicazione del teorema del limite centrale}\label{img:central-limit}
+\end{figure}
+
+\subsubsection{Intervalli di confidenza}
+Per comprendere appieno il significato di \textbf{intervallo di confidenza}, allora, bisogna esprimere in maniera migliore la variabile aleatoria \(\overline{X}\). Quello che si vuole andare a fare è normalizzarla, per cercare di ricondurre la distribuzione ad una normale con varianza unitaria. 
+Formalmente potremo dire che:
+\\
+Siano \(X_1,X_2, \dots, X_n\) variabili aleatroie associate ai campioni di una popolazione che ha una distribuzione normale con una media non nota \(\mu\) ed una varianza nota \(\sigma^2\). Allora, la variabile aleatoria associata all'operazione di media \(\overline{X}\) è, teoricamente, normale, centrata in \(\mu\) e con varianza \(\sigma^2/n\). Pertanto, posso andare a normalizzare tale distribuzione di probabilità ad una normale standard mediante l'applicazione della seguente formula (simile allo z-score):
+\[
+Z = \frac{\overline{X} - \mu}{\sigma/\sqrt{n}}
+\]
+
+\begin{warn}
+Per ora non si è ancora detto nulla sul come sia fatta la varianza, pertanto, se ci sono dei dubbi, risulta perfettamente in linea dato che ancora deve essere affrontata la valutazione della varianza
+\end{warn}
+
+Un \textbf{Intervallo di confidenza}, quindi, non è altro che un intervallo numerico in cui la media ricade. In maniera formale, un intervallo di confidenza viene rappresentato mediante l'intervallo \([l,u]\), che ha la seguente caratteristica: \(l\leq\mu\leq u\). \(l\) e \(u\) sono valori che sono stati calcolati partendo dalle osservazioni che sono state campionate (quini i valori sono associati al singolo campione). Pertanto, dato che si andranno a valutare per ogni campione, costituiranno anche loro delle vere e proprie variabili aleatorie \(L\) ed \(U\). Supponendo di poterne valutare la distribuzione, si avrebbe che:
+\[
+P(L\leq \mu \leq U) = 1-\alpha
+\]
+dove \(0 \leq \alpha \leq 1\). Precisamente, l'intervallo delineato da \(l,u\) è l'intervallo di confidenza, mentre \(\alpha\) è il livello di confidenza (la probabilità che la media non faccia parte di tale intervallo). Dal singolo campione, quindi, possiamo ricavare che la media potrebbe ricadere all'interno dell'intevallo: \(l \leq \mu \leq u\). 
+
+Per calcolare l'intervallo di confidenza a partire dai dati presenti, si va a considerare il valore che può assumere la precedente probabilità (\(1-\alpha\)), andando a fissare \(\alpha\), si possono andare a delimitare due punti simmetrici al punto della media della media campionaria, che delimitano due aree esterne la cui somma è proprio \(\alpha\) (di conseguenza due aree laterali che misurano \(\alpha/2\) l'una [\ref{img:gaussian-confidence}])
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.7\textwidth]{img/chapter-4/gaussain-confidence.png}
+\caption{Intervallo di confidenza rispetto alla normale}\label{img:gaussian-confidence}
+\end{figure}
+
+Pertanto, essendo i valori della normale standard, noti, possiamo andare a scrivere la seguente probabilità:
+
+\[
+P(-z_{\alpha/2} \leq Z \leq z_{\alpha/2}) = 1 - \alpha
+\]
+
+Andando a sostituire con il valore che ci siamo calcolati a partire dalla variabile aleatoria associata alla distribuzione campionaria, si ha:
+\[
+P(-z_{\alpha/2} \leq \frac{\overline{X} - \mu}{\sigma/\sqrt{n}} \leq z_{\alpha/2}) = 1 - \alpha
+\]
+
+da cui:
+\[
+P\left (\overline{X} - z_{\alpha/2}\frac{\sigma}{\sqrt{n}} \leq \mu \leq \overline{X} + z_{\alpha/2}\frac{\sigma}{\sqrt{n}} \right ) = 1 - \alpha
+\]
+Da tale conclusione possiamo ricavare l'intervallo di confidenza (quindi i valori \(l\) e \(u\)).
+Considerando quindi, \(\overline{x}\) la media della distribuzione campionaria, \(\sigma^2\) la varianza della popolazione iniziale (tale parametro non è banale) e sample size pari ad n, allora posso definire un \textbf{intervallo di confidenza} al \(100*(1-\alpha)\%\) di \textbf{livello di confidenza}, come: 
+
+\[
+\overline{x} - z_{\alpha/2}\frac{\sigma}{\sqrt{n}} \leq \mu \leq \overline{x} + z_{\alpha/2}\frac{\sigma}{\sqrt{n}}
+\]
+Con \(z_{\alpha/2}\) il punto di \(\frac{\alpha}{2}\)-quaritile o 100*(\(\frac{\alpha}{2}\))-percentile
+\clearpage
+Le considerazioni fatte sulla distribuzione iniziale
