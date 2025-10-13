@@ -101,6 +101,20 @@
 }
 
 %----------------------------------------------------------------------------------------
+%	HEADER STRUCTURE AND PAGE NUMBER AND TITLE PRESENTATION
+%----------------------------------------------------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhead{} % pulisce intestazioni
+\fancyfoot{} % pulisce piè di pagina
+
+\fancyhead[L]{\small\thepage}
+\fancyhead[R]{\scriptsize\slshape\leftmark}
+
+\renewcommand{\headrulewidth}{0.4pt} % linea sotto l'header
+
+%----------------------------------------------------------------------------------------
 %	FONTS
 %----------------------------------------------------------------------------------------
 

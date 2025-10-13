@@ -1,7 +1,7 @@
-\chapter{Caratterizzazione di Dati Misurati}
+\chapter{Caratterizzazione di Dati Misurati e Statistica Inferenziale}
 Resi noti una serie di dati misurati, quello che si vuole andare a fare è trovare un modello statistico che mi permetta di avere un'approssimazione valida di tali dati. Ci sono varie tipologie di tecniche e di approcci. Per grandi quantità di dati si farà un utilizzo massiccio della \textbf{Statistica inferenziale}, che comprende tutta una serie di metodi che permettono di andare a stimare un modello quantò più opportuno possibile ai dati che si stanno andando ad analizzare
 
-\subsection{Media, Mediana e Moda}
+\section{Media, Mediana e Moda}
 Dato un insieme di dati, si possono andare a valutare 3 valori principali (e scalari), che ci permettono di approssimare (in maniera grossolana), la nostra distribuzione di dati (rappresentabile, anche, mediante un istogrammma). I valori a cui si fa riferimento sono:
 \begin{itemize}
     \item \textbf{Media}: Media statistica di tutti i valori che si sta andando a considerare. Se si ha un set di valoi \(X = (x_1,x_2,\dots,x_n)\), allora definiamo come media:
@@ -39,7 +39,7 @@ I valori descritti, oltretutto, possono essere ottenuti osservando anche la dist
 \caption{Grafici illustrativi dei parametri discussi}\label{img:grafici-media-mediana}
 \end{figure}
 
-\subsection{Indici di dispersione}
+\section{Indici di dispersione}
 Andare ad approssimare una distribuzione di valori con un singolo valore non basta, tale informazione non mi permette di considerare anche la \textbf{variabilità} che i dati possono avere nel tempo.
 Uno strumento utile per avere un'idea della variabilità, sono gli \textbf{indici di dispersione}. Tra le metriche più utilizzate possiamo trovare:
 \begin{itemize}
@@ -83,7 +83,7 @@ Un elemento utile quando si sta guardando il grafico dei dati è il \textbf{boxp
 
 La stima dell'indice di dispersione è qualcosa di complicato, sopratutto quando ci sono in mezzo gli outlier. Pertanto, solitamente, come metrica al posto della varianza (che non è completamente immune agli outlier), si preferisce utilizzare il Semi Iter-Quartile Range (SIRQ), che è più resistente alla presenza di outlier (anche più di qualcuno). Mentre come metrica centrale si preferisce l'uso della mediana, questo poichè ci è assicurato che esista (a differenza della moda), e sopratutto che faccia parte dell'insieme di valori considerato (diversamente dalla media). Questo spiega anche la costruzione del boxplot e dei valori che va a mettere in evidenza.
 
-\subsection{Quantile-Quantile Plot}
+\section{Quantile-Quantile Plot}
 Il \textbf{Quantile-Quantile Plot} è un metodo che ci permette di confrontare se due popolazioni hanno una distribuzione simile o meno. Nel nostro caso lo si utilizzerà per confrontare la distribuzione della nostra popolazione rispetto alla distribuzione normale.
 La composizione di base di un grafico quantile-quantile generico è la seguente:
 Si va a definire un punto \(p\) come \(p = (x_i, y_i)\), dove \(x_i\) è il valore teorico dell' i-esimo quantile, mentre \(y_i\) è il valore reale dell'i-esimo quantile. Per quanto riguarda i parametri reali non è complicato trovare i quartili (basta utilizzare la specifica formula in base ad \(\alpha\)), mentre per i parametri teorici risulta più complesso dato che bisogna trovare il modo di invertire la CDF. Per ricavare i valori della normale (funzione gaussiana di media nulla e varianza unitaria). Vado a calcolare il quartile come: \(q_i = \frac{i-0.5}{2}\), da cui posso ricavare il valore teorico come: \(x_i = 4.91\left [ q_i^{0.14} - (1-q_i)^{0.14} \right ]\).
@@ -109,8 +109,7 @@ Quindi, in generale, data una popolazione posso plottare il grafico utilizzando 
 \caption{Applicazioni della Quanitile-Quantile plot (o  rappresentazione Quantile-Quantile)}\label{img:qqplot}
 \end{figure}
 
-\clearpage
-\subsection{Intervalli di confidenza e dimensione del campionamento}
+\section{Intervalli di confidenza e dimensione del campionamento}
 Solitamente, andare a considerare tutta la popolazione, potrebbe essere oneroso, pertanto, si potrebbe considerare di fare delle valutazioni su un numero minore di componenti estratte in maniera randomica (campionamento della popolazione). La problematica principale risiede nelle assunzioni che si potrebbe fare sulle statistiche della popolazione intera, ovvero, calcolare qualche valore per l'intera popolazione a partire dalla popolazione intera. Tali metodoligie sono sotto il nome di \textbf{statistica inferenziale}.
 Per comprenderne bene il legame osservare l'immagine [\ref{img:statistica-inferenziale}].
 
@@ -120,7 +119,7 @@ Per comprenderne bene il legame osservare l'immagine [\ref{img:statistica-infere
 \caption{Collocazione logica della statistica inferenziale}\label{img:statistica-inferenziale}
 \end{figure}
 
-\subsubsection{Campioni e Popolazione}
+\subsection{Campioni e Popolazione}
 \uppercase{è} importante definire cosa si intende quando si sta parlando di popolazione o di campioni, ciò ci permetterà di poter definire tutta una serie di principi statistici, utili, per effettuare l'inferenza statistica.
 Formalmente si definisce \textbf{popolazione} l'insieme totale di tutte le componenti (o istanze), mentre si definisce \textbf{Campione}(O Sample), un insieme di n osservazioni provenienti dai campioni. In generale è importante, definire anche il significato di \textbf{parametri}, i dati associati alla popolazione, essi saranno indicati con le lettere greche (ad esempio la media e la varianza associate alla popolazione, tali valori per qualunque saranno i campioni estratti, non varieranno [saranno costanti]); mentre si definiscono \textbf{statistiche} i valori associati ai sample della popolazione, esse saranno rappresentate da lettere comuni (tali valori variano da campione a campione e quindi non sono costanti).
 
@@ -144,13 +143,16 @@ E(\overline{X}) = \frac{E(X_1) + E(X_2) + \dots + E(X_n)}{n}
 Andando a considerare un caso più semplice, dove la popolazione ha media nota e pari a \(\mu\) e varianza \(\sigma^2\), e dove le variabili aleatorie \(X_1, X_2, \dots, X_n\), associate alle osservazioni dei campioni, sono delle variabili aleatorie indipendenti ed identicamente distribuite (sono la stessa variabile aleatoria con media \(\mu\) e varianza \(\sigma^2\), allora si può dire che:
 \[
 E(\overline{X} = \frac{\mu + \mu + \dots + \mu}{n} = \mu)
-V(\overline{X}) = E((\overline{X} - \mu)^2) = \frac{\sigma^2 + \sigma^2 + \dots + \sigma^2}{n^2} = \frac{\sigma^2}{n} 
+\]
+\[
+V(\overline{X}) = E((\overline{X} - \mu)^2) = \frac{\sigma^2 + \sigma^2 + \dots + \sigma^2}{n^2} = \frac{\sigma^2}{n}
 \]
 Da tali formule si sono ricavati dei valori associati alla distribuzione campionaria, dette statistiche. Com'è possibile notare, più la dimensione del sample size cresce e più la varianza diminuisce, ciò ci fa capire che l'errore fatto sulla media diminuisce man mano (base per la valutazione dello standard error).
 Andando ad invalidare le ipotesi fatte sulla struttura della popolazione (sulla sua distribuzione di probabilità), allora si può andare a valutare il \textbf{Teorema del limite centrale}.
 \end{info}
 
-\subsubsection{Standard Error}
+\subsection{Standard Error}
+In linea generale e formale, lo \textbf{Standard Error} non è altro che la deviazione standard della distribuzione campionaria.
 Quando vado a valutare le statistiche riferite ai vari campioni presi dalla popolazione, con sample size pari ad n, voglio capire quanto queste siano effettivamente vicine a quelle reali. La problematica risiede proprio nel calcolo dei parametri. Di base, non si possono fare delle assunzioni sulla distribuzione di probabilità della popolazione (solitamente non è gaussiana, ma ha una forma generica o skewed (ambigua)). Pertanto non posso andare a valutare la varianza campionaria, questo poichè non posso fare assunzioni. Pertanto, in questi casi, ci viene in aiuto il \textbf{teorema del limite centrale}.
 Il \textbf{teorema del limite centrale} ci dice che:
 \\\textbf{Ipotesi}\\
@@ -187,7 +189,7 @@ Il \textbf{Teorema del limite centrale} non fa alcuna ipotesi sulla distribuzion
 \caption{Applicazione del teorema del limite centrale}\label{img:central-limit}
 \end{figure}
 
-\subsubsection{Intervalli di confidenza}
+\subsection{Intervalli di confidenza}
 Per comprendere appieno il significato di \textbf{intervallo di confidenza}, allora, bisogna esprimere in maniera migliore la variabile aleatoria \(\overline{X}\). Quello che si vuole andare a fare è normalizzarla, per cercare di ricondurre la distribuzione ad una normale con varianza unitaria. 
 Formalmente potremo dire che:
 \\
@@ -197,7 +199,7 @@ Z = \frac{\overline{X} - \mu}{\sigma/\sqrt{n}}
 \]
 
 \begin{warn}
-Per ora non si è ancora detto nulla sul come sia fatta la varianza, pertanto, se ci sono dei dubbi, risulta perfettamente in linea dato che ancora deve essere affrontata la valutazione della varianza
+Per ora non si è ancora detto nulla sul come sia fatta la varianza, pertanto, se ci sono dei dubbi, risulta perfettamente in linea dato che ancora deve essere affrontata la questione. Essa sarà affrontata nel capitolo [\ref{par:iperparametri}]
 \end{warn}
 
 Un \textbf{Intervallo di confidenza}, quindi, non è altro che un intervallo numerico in cui la media ricade. In maniera formale, un intervallo di confidenza viene rappresentato mediante l'intervallo \([l,u]\), che ha la seguente caratteristica: \(l\leq\mu\leq u\). \(l\) e \(u\) sono valori che sono stati calcolati partendo dalle osservazioni che sono state campionate (quini i valori sono associati al singolo campione). Pertanto, dato che si andranno a valutare per ogni campione, costituiranno anche loro delle vere e proprie variabili aleatorie \(L\) ed \(U\). Supponendo di poterne valutare la distribuzione, si avrebbe che:
@@ -236,5 +238,175 @@ Considerando quindi, \(\overline{x}\) la media della distribuzione campionaria, 
 \overline{x} - z_{\alpha/2}\frac{\sigma}{\sqrt{n}} \leq \mu \leq \overline{x} + z_{\alpha/2}\frac{\sigma}{\sqrt{n}}
 \]
 Con \(z_{\alpha/2}\) il punto di \(\frac{\alpha}{2}\)-quaritile o 100*(\(\frac{\alpha}{2}\))-percentile
+\\
+La lunghezza dell'intervallo di confidenza ci permette di misurare la \textbf{precisione} di stima, o meglio, ci dice il range in cui la media originale della popolazione possa ricadere con un certo livello di confidenza (solitamente 95\%, ma dipende dall \(\alpha\) utilizzata per in calcolo dell'intervallo).
+Oltretutto, si può calcolare anche il margine di errore che si effettua con la media reale mediante la valutazione del seguente valore:
+\[
+E = error = |\overline{x} - \mu|
+\]
+
+\begin{warn}
+Fare attenzione quando leggete tali appunti. \(\overline{X}\) il valore che ha X grande indica la variabile aleatoria a cui la distribuzione campionaria funge da pdf. Mentre \(\overline{x}\) è il valore della media calcolata per il singolo campione (o insieme di osservazione estratto dalla popolazione)
+\end{warn}
+
+I fattori che principalmente incidono sulle dimensioni dell'intervallo di confidenza sono:
+\begin{itemize}
+    \item \textbf{Sample size (n)}: Il sample size incide profondamente sulla dimensione dell'intervallo di confidenza. Più esso è grande e più il valore di media calcolato sul singolo campione risulta "preciso". (per intenderci, matematicamente, si va a ridurre il range a parità di livello di confidenza, in cui la media originale può ricadere)
+    
+    \item \textbf{Livello di confidenza}: Più il livello di confidenza è alto e più il range tende ad aumentare, mentre se si richiede dei livelli di confidenza più bassi, allora il range tende a diminuire. (si va ad agire, matematicamenre, sempre sul termine che va ad infierire sulla media nel calcolo del range. Per capirci, il livello di confidenza infierisce sul calcolo del parametro \(z_{\alpha/2}\))
+    
+    \item \textbf{Variabilità della popolazione}: Altro parametro fondamentale per il calcolo dell'intervallo di confidenza è la deviazione standard della popolazione iniziale, più la popolazione iniziale ha una deviazione standard grande, più è difficile dedurre la media a partire dai campioni
+
+\end{itemize}
+
+\subsection{Iperparametri per gli intervalli di confidenza}\label{par:iperparametri}
+Nel precedente paragrafo si è affrontato la discussione riguardante gli intervalli di confidenza. Quello di cui però non si è discusso è il come gli iperparametri associati alla determinazione dell'intervallo di confidenza (\(n\),\(\sigma\)), vengano valutati o scelti. Pertanto, si sono definite delle regole, che ne hanno permesso la corretta valutazione.
+
+\subsubsection{Sample size}
+La \textbf{Sample size} è un parametro molto importante è va valutato con cura (date tutte le implicazioni che si hanno su di esso). Pertanto si è cercato un metodo di calcolo per valutarne al meglio il valore. 
+Formalmente:
+
+Definito \(\overline{x}\) il valore approssimativo (valutato sul singolo campione) della media \(\mu\) e \(\sigma\) la deviazione standard della popolazione e scelti: il livello di confidenza \(100*(1-\alpha)\%\) e la stima superiore dell'errore desiderato \(E\)(definito come \(E=|\overline{x} - \mu|\)). Allora si può calcolare la sample size come:
+\[
+n = \left ( \frac{\sigma * z_{\alpha/2}}{E} \right )^2
+\]
+Tale valore sarà un valore reale, dato che \(n\) dev'essere un'intero, allora si approssima sempre tale valore per eccesso, questo per garantire che i valori che sono stati dati in ingresso (\(E\), \(\alpha\)) siano rispettati.
+
+\begin{info}
+\textit{Tale pezzo è stato inserito sono a scopo di approfondimento, non è richiesto ai fini dell'esame}
+\\
+Il calcolo della \textbf{Sample size}, deriva direttamente dalla definizione di intervallo di confidenza, combinata con la definizione di errore. Precisamente la dimostrazione è composta dai seguenti passaggi:
+Partendo dalla definizione dell'intervallo di confidenza:
+\[
+\overline{x} - z_{\alpha/2}\frac{\sigma}{\sqrt{n}} \leq \mu \leq \overline{x} + z_{\alpha/2}\frac{\sigma}{\sqrt{n}}
+\]
+Spostando la media al centro si ottiene:
+\[
+- z_{\alpha/2}\frac{\sigma}{\sqrt{n}} \leq \mu - \overline{x} \leq z_{\alpha/2}\frac{\sigma}{\sqrt{n}}
+\]
+Se al centro poniamo un modulo, otteniamo la definizione di \(E = |\overline{x} - \mu| = |\mu - \overline{x}|\), ma, essendo che i valori saranno sicuramente maggiori di 0 (dato l'inserimento del modulo), allora posso ignorare la parte di sinistra della disequazione, ottenendo:
+\[
+E \leq z_{\alpha/2}\frac{\sigma}{\sqrt{n}}
+\]
+Dato che cerchiamo il valore minimo, si può ignorare il minore e considerare solo l'uguaglianza, da cui:
+\[
+E = z_{\alpha/2}\frac{\sigma}{\sqrt{n}} \iff n = \left ( \frac{\sigma * z_{\alpha/2}}{E} \right )^2
+\]
+Da cui la tesi
+\end{info}
+
+\subsubsection{Varianza}
+Fino ad ora abbiamo considerato la deviazione standard della popolazione \(\sigma\), nota. Solitamente, però, non si ha a che fare con popolazioni caratterizzate (non si conosce ne la media ne la varianza). Per risolvere tale problema si fa utilizzo del \textbf{Teorema del limite centrale}, che ci permette di dire che, date le variabili aleatorie (\(X_1,X_2,\dots,X_n\)) legate alla variabile aleatoria della media campionaria (\(\overline{X}\)), e dato un valore di \(n\) abbastanza grande, allora, scalando con lo z-score la \(\overline{X}\), otteniamo una distribuzione normale standard, più formalmente:
+\[
+\overline{X}' = \frac{\overline{X} - \mu}{\sigma/\sqrt{n}}
+\]
+dato che però \(\sigma\) non lo conosciamo, esso può essere sostituito con la deviazione standard campionaria, che per grandi valori di n risulta eguale alla deviazione standard normale. Formalmente si può dire che:
+\[
+\hat{\sigma}^2 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \mu)^2 = \frac{n}{n-1}\left ( \frac{1}{n} \sum_{i=1}^{n}(x_i - \mu)^2\right )
+\]
+
+Dove, per \(n\) molto grande (idealmente \(n \to \infty\)) il termine \(\frac{n}{n-1} \to 1\), e che quindi ci permette di trovare una buona approssimazione della varianza per la varianza campionaria. Quindi, da ora in poi, per n sufficientemente grandi si potrà dire che \(s \approx \sigma\).
+Da tale considerazione, quindi, si farà riferimento alla distribuzione \textbf{t-student}, che sarà definita come:
+\[
+Z = \frac{\overline{X} - \mu}{s/\sqrt{n}}
+\]
+Tale distribuzione, per valori grandi di \(n\) [per via del teorema del limite centrale] tende ad essere una distribuzione normale standard, il che ci permette di poter definire l'\textbf{intervallo di confidenza per grandi campioni}(large sample confidence interval), come:
+\[
+\overline{X} - \frac{s * z_{\alpha/2}}{\sqrt{n}} \leq \mu \leq \overline{X} + \frac{s * z_{\alpha/2}}{\sqrt{n}}
+\]
+il quale avrà un certo \textbf{livello di confidenza} di approssimativamente: \(100*(1-\alpha)\%\).
+
+\subsection{t-student}
+Come accennato precedentemente, mediante un'operazione di z-socre sulla variabile aleatoria \(\overline{X}\), e considerando la varianza \(\sigma \approx s\), allora si avrà una variabile aleatoria detta \textbf{t-student}. Essa viene caratterizzata da due principali parametri (solitamente), ovvero, il parametro \(\alpha\) ed i suoi gradi di libertà (nel nostro caso \(n-1\)). La variabile aleatoria \(T\) viene definita come:
+\[
+T = \frac{\overline{X} - \mu}{s/\sqrt{n}}
+\]
+data tale definizione, cambia anche la definizione dell'\textbf{intervallo di confidenza}. Precisamente, la definizione si basa sulla considerazione che si sta avendo a che fare con una t-student, e che i suoi valori sono tabulati secondo sia la variabile \(\alpha\) che rispetto ai suoi gradi di libertà \(n-1\). Infatti, formalmente:
+\[
+\overline{x} - \frac{t_{(1-\alpha/2),n-1} * s}{\sqrt{n}} \leq \mu \leq \overline{x} + \frac{t_{1-\alpha/2,n-1} * s}{\sqrt{n}}
+\]
+il livello di confidenza associato a tale intervallo è pari a \(100*(1-\alpha)\%\).
+
 \clearpage
-Le considerazioni fatte sulla distribuzione iniziale
+\section{Test di ipotesi}
+Un \textbf{test di ipotesi} è una serie di tecniche utilizzate per decidere se un \textbf{ipotesi} fatta sui dati sia veritiera o meno. Con le conoscenze pregresse (delle precedenti sezioni), si possono affrontare tali test. Uno dei più semplici in quest'ambito è lo \textbf{zero mean test}, tale test va a verificare semplicemente se l'intervallo di confidenza calcolato include 0 o meno [\ref{img:zero-mean}].
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.7\textwidth]{img/chapter-4/zero-mean.png}
+\caption{Zero Mean Test}\label{img:zero-mean}
+\end{figure}
+
+I testi di ipotesi sono molto utili sopratutto quando si vogliono andare a confrontare diverse alternative (o diversi sistemi). Entrando nel merito, esistono due modalità principali con cui è possibile confrontare due diversi sistemi (A e B), ovvero;
+\begin{itemize}
+    \item \textbf{Paired observations}: Si vanno ad effettuare \(n\) esperimenti speculari su entrambi i sistemi, quindi entrambi avranno un set di espetimenti con cardinalità uguale. Pertanto si cerca di trovare una corrispondenza tra l'i-esimo test effettuato sul sistema A e l'i-esimo test effettuato sul sistema B.
+    Una volta effettuati gli esperimenti si va a costruire la distribuzione delle differenze (\(d_i = A_i - B_i\)), e nel caso l'\textbf{intervallo di confidenza} include lo 0, allora i due sistemi sono statisticamente equivalenti.
+    es. si hanno due sistemi e vengono sottoposti entrambi agli stessi 6 workload, voglio campire con un livello di confidenza del \(90\%\) se un sistema è "migliore" dell'altro. Una volta valutati i valori (magari del response time), vado a valutarne le varie differenze per coppie paired (vado ad effettuare la differenza tra valori appartenenti allo stesso workload), una volta ottenuto il vettore delle differenze vado a valutare l'intervallo di confidenza, se questo contiene 0 allora i due sistemi sono equivalenti atatisticamente, altrimenti sono statisticamente differenti.
+    
+    \item \textbf{Unpaired observations}: Si vanno ad effettuare le valutazioni su ogni sistema in maniera indipendente dall'altro (quindi non è detto siano gli stessi stress). Un volta ottenuti i risultati si vanno a costruire gli intervalli di confidenza, ognuno per se, e poi si può ricadere in tre casi:
+    \begin{itemize}
+        \item \textbf{Nessuma sovrapposizione}: I due intervalli di confidenza non si intersecano in alcun punto, il che predilige che un sistema sia prevalente all'altro
+        \item \textbf{Medie incluse negli intervalli}: Quando i due intervalli di confidenza non solo si sovrappongono, ma la media dei due sistemi è inclusa nel range dell'altro e vicecersa (indice di equivalenza statistica)
+        \item \textbf{Intervalli intersecati ma senza media}: Quando l'intersezione tra i due intervalli di confidenza è non nulla, ma le medie sono entrambe esterne all'altro intervallo di confidenza. In questi casi non è deducibile niente e bisogna effettuare un \textbf{t-test} (vedere [\ref{par:t-test}])
+    \end{itemize}
+    Per una migliore comprensione di quali di questi concetti osservare l'immagine [\ref{img:unpaired-observations}]
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.7\textwidth]{img/chapter-4/unpaired-observations.png}
+\caption{Casi di unpaired observations}\label{img:unpaired-observations}
+\end{figure}
+
+Compreso cosa sia un \textbf{test di ipotesi}, allora, possiamo passare a definire quella che è un ipotesi:
+\\
+Un \textbf{ipotesi} non è che un affermazione che viene fatta sui parametri di una o più popolazioni. Ed il \textbf{test di ipotesi} non è altro che la procedura per confermare o meno le ipotesi. Si possono definire le ipotesi partendo dalla \textbf{Null Hyphothesis}, essa racchiude quello che è il concetto che si vuole verificare (es. Ipotesi sulla media della popolazione \(H_0: \mu = \mu_0\)) [solitamente rappresenta lo stato corrente o quello senza effetto], e poi vi è la controparte detta \textbf{Alternative Hyphothesis} [Afferma che c'è un effetto reale e solitamente quando si raccolgono i dati se cerca il modo di favorire \(H_1\) e di rigettare \(H_0\)]. Sulla alternative hyphothesis si possono definire:
+\begin{itemize}
+    \item \textbf{one-sided alternative hyphotesis}: si va a definire una confutazione dell'ipotesi nulla evincendo una relazione d'ordine (es. \(H_1: \mu < \mu_0 \))
+    \item La \textbf{two-sided alternative hyphothesis}: si va a definire una confutazione dell'ipotesi nulla senza andare a mostrare particolari relazioni d'ordine (\(H_1:\mu \not = \mu_0\))
+\end{itemize}
+
+La suddivisione di tali ipotesi alternative risiede nel come poi si andranno a valutare le regioni critiche, principalmente, nella one-sided alternative hyphothesis si va a definire la regione critica andando a valutare una sola delle code della gaussiana, mentre nel caso della two-sided alternative hyphothesis si vanno a valutare entrambe le code della gaussiana (definite mediante quartili).
+
+Fare dei test di ipotesi implica l’assunzione di decisioni che, in alcuni casi, possono risultare errate. Per questo motivo è fondamentale definire delle \textbf{metriche di valutazione del rischio}, in modo da quantificare e controllare la probabilità di giungere a una conclusione sbagliata. Nella pratica, raramente è possibile analizzare l’intera popolazione: si lavora quindi con campioni casuali, dai quali si ricavano informazioni utili per trarre conclusioni sulla popolazione di interesse. Attraverso l’\textbf{inferenza statistica}, si stima il comportamento dei parametri e si eseguono test di ipotesi per decidere se accettare o rifiutare l’ipotesi nulla \(H_0\) a favore dell’ipotesi alternativa \(H_1\). Tali procedure consentono di confrontare le formulazioni su basi oggettive, mantenendo sempre consapevolezza dei rischi associati e della probabilità di commettere errori nelle decisioni.
+
+Per effettuare il \textbf{test di ipotesi}, solitamente, si effettuano i seguenti passi:
+\begin{enumerate}
+    \item \textbf{Dichiarazione dell'ipotesi nulla}: Effettuare un affermazione sui parametri della popolazione (ATTENZIONE non il campione ma la popolazione), ad es. (\(H_0: \mu = \mu_0\))
+    \item \textbf{Livello di confidenza}: definizione di un parametro \(\alpha\) che indicherà la probabilità di commettere errori di \textbf{primo tipo}
+    \item \textbf{Decidere la tipologia di test}: Scegliere quale test andare ad effettuare sui dati (es. t-test, z-test, ecc.)
+    \item \textbf{Calcolo delle statistiche per il test}
+    \item \textbf{Valutazione delle ipotesi}: la valutazione delle ipotesi differisce in base alla tipologia di test che si vuole andare ad effettuare
+\end{enumerate}
+
+\subsection{P-value}
+Il \textbf{P-value approach} va a valutare il \textbf{p-value}, un valore che mi permette di capire quanto i miei dati siano compatibili con la mia ipotesi nulla. Per comprendere meglio il significato di tale valore facciamo l'esempio di una moneta:
+
+\begin{info}
+\textbf{\textit{Esempio moneta p-value}}\\
+Si vuole valutare se una moneta sia equilibrata o meno. Pertanto si avranno le seguenti ipotesi:
+\[
+H_0: p(testa) = 0.5
+\]
+\[
+H_1: p(testa) \not = 0.5
+\]
+
+Si effettuano 10 tiri e si ottiene testa 8 volte.
+Allora si va a valutare il p-value come la probabilità che esca 8 volte testa \textbf{considerando l'ipotesi nulla come vera}. Pertanto si va a valutare che:
+\[
+P(testa x 9 volte) = \binom{10}{8}\left (\frac{1}{2} \right )^8 * \left (\frac{1}{2} \right )^2 = 45\left (\frac{1}{2^10} \right ) = 0.04394 = 4.39\%
+\]
+Se ho considerato un livello di confidenza al \(90 \%\), il p-value, essendo minore del valore di \(alpha = 0.5\), allora l'ipotesi \(H_0\) è certamente falsa. Mentre nel caso fosse stato maggiore di tale valore, l'ipotesi \(H_1\) poteva essere confermata. Più è grande il p-value e maggiore è la "giusta" scelta dell'ipotesi \(H_0\)
+\end{info}
+
+In generale, la determinazione del p-value viene effettuata mediante l'integrale della distribuzione, che sottostà al valore effettivamente osservato (solitamente si lavora sui valori limite dell'ipotesi \(H_0\), quindi quei valori che sono al confine della scelta per tale ipotesi). 
+
+\subsection{Tipologie di errori}
+
+\subsubsection{Errore di tipo I}
+
+\subsubsection{Errore di tipo II}
+
+\subsection{Criteri di decisione}
+Quando bisogna effettuare un test di
