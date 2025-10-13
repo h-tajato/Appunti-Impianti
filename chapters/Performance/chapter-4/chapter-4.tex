@@ -361,13 +361,13 @@ I testi di ipotesi sono molto utili sopratutto quando si vogliono andare a confr
 
 Compreso cosa sia un \textbf{test di ipotesi}, allora, possiamo passare a definire quella che è un ipotesi:
 \\
-Un \textbf{ipotesi} non è che un affermazione che viene fatta sui parametri di una o più popolazioni. Ed il \textbf{test di ipotesi} non è altro che la procedura per confermare o meno le ipotesi. Si possono definire le ipotesi partendo dalla \textbf{Null Hyphothesis}, essa racchiude quello che è il concetto che si vuole verificare (es. Ipotesi sulla media della popolazione \(H_0: \mu = \mu_0\)) [solitamente rappresenta lo stato corrente o quello senza effetto], e poi vi è la controparte detta \textbf{Alternative Hyphothesis} [Afferma che c'è un effetto reale e solitamente quando si raccolgono i dati se cerca il modo di favorire \(H_1\) e di rigettare \(H_0\)]. Sulla alternative hyphothesis si possono definire:
+Un \textbf{ipotesi} non è che un affermazione che viene fatta sui parametri di una o più popolazioni. Ed il \textbf{test di ipotesi} non è altro che la procedura per confermare o meno le ipotesi. Si possono definire le ipotesi partendo dalla \textbf{Null Hypothesis}, essa racchiude quello che è il concetto che si vuole verificare (es. Ipotesi sulla media della popolazione \(H_0: \mu = \mu_0\)) [solitamente rappresenta lo stato corrente o quello senza effetto], e poi vi è la controparte detta \textbf{Alternative Hypothesis} [Afferma che c'è un effetto reale e solitamente quando si raccolgono i dati se cerca il modo di favorire \(H_1\) e di rigettare \(H_0\)]. Sulla alternative hypothesis si possono definire:
 \begin{itemize}
     \item \textbf{one-sided alternative hyphotesis}: si va a definire una confutazione dell'ipotesi nulla evincendo una relazione d'ordine (es. \(H_1: \mu < \mu_0 \))
-    \item La \textbf{two-sided alternative hyphothesis}: si va a definire una confutazione dell'ipotesi nulla senza andare a mostrare particolari relazioni d'ordine (\(H_1:\mu \not = \mu_0\))
+    \item La \textbf{two-sided alternative hypothesis}: si va a definire una confutazione dell'ipotesi nulla senza andare a mostrare particolari relazioni d'ordine (\(H_1:\mu \not = \mu_0\))
 \end{itemize}
 
-La suddivisione di tali ipotesi alternative risiede nel come poi si andranno a valutare le regioni critiche, principalmente, nella one-sided alternative hyphothesis si va a definire la regione critica andando a valutare una sola delle code della gaussiana, mentre nel caso della two-sided alternative hyphothesis si vanno a valutare entrambe le code della gaussiana (definite mediante quartili).
+La suddivisione di tali ipotesi alternative risiede nel come poi si andranno a valutare le regioni critiche, principalmente, nella one-sided alternative hypothesis si va a definire la regione critica andando a valutare una sola delle code della gaussiana, mentre nel caso della two-sided alternative hypothesis si vanno a valutare entrambe le code della gaussiana (definite mediante quartili).
 
 Fare dei test di ipotesi implica l’assunzione di decisioni che, in alcuni casi, possono risultare errate. Per questo motivo è fondamentale definire delle \textbf{metriche di valutazione del rischio}, in modo da quantificare e controllare la probabilità di giungere a una conclusione sbagliata. Nella pratica, raramente è possibile analizzare l’intera popolazione: si lavora quindi con campioni casuali, dai quali si ricavano informazioni utili per trarre conclusioni sulla popolazione di interesse. Attraverso l’\textbf{inferenza statistica}, si stima il comportamento dei parametri e si eseguono test di ipotesi per decidere se accettare o rifiutare l’ipotesi nulla \(H_0\) a favore dell’ipotesi alternativa \(H_1\). Tali procedure consentono di confrontare le formulazioni su basi oggettive, mantenendo sempre consapevolezza dei rischi associati e della probabilità di commettere errori nelle decisioni.
 
@@ -405,14 +405,14 @@ In generale, la determinazione del p-value viene effettuata mediante l'integrale
 Un'altro modo per interpretare il p-value è associandolo al \textbf{rischio} di un errato rigetto dell'ipotesi \(H_0\).
 
 \subsection{Tipologie di errori}
-Nel precedente capitolo si fa riferimento a \textbf{regione critica} e \textbf{valori critici}. Per capire meglio a cosa si fa riferimento, si va a considerare uno specifico intervallo di confidenza, in cui l'ipotesi \(H_0\) è vera. La \textbf{regione critica} è quella parte del dominio che rigetta l'ipotesi \(H_0\) mentre i \textbf{valori critici} sono i valori limite per la regione critica. La definizione di quali sia la regione critica ed i relativi valori critici viene definita a partire dalla tipologia di alternative hyphothesis fatta, per comprendere al meglio cosa si intende per regione critica e per valori critici, osservare la figura [\ref{img:critical-regions}], dove le regioni in blu sono le regioni critiche, ed i valori evidenziati con delle linee nere, invece, sono i valori critici.
+Nel precedente capitolo si fa riferimento a \textbf{regione critica} e \textbf{valori critici}. Per capire meglio a cosa si fa riferimento, si va a considerare uno specifico intervallo di confidenza, in cui l'ipotesi \(H_0\) è vera. La \textbf{regione critica} è quella parte del dominio che rigetta l'ipotesi \(H_0\) mentre i \textbf{valori critici} sono i valori limite per la regione critica. La definizione di quali sia la regione critica ed i relativi valori critici viene definita a partire dalla tipologia di alternative hypothesis fatta, per comprendere al meglio cosa si intende per regione critica e per valori critici, osservare la figura [\ref{img:critical-regions}], dove le regioni in blu sono le regioni critiche, ed i valori evidenziati con delle linee nere, invece, sono i valori critici.
 
 \begin{figure}[h]
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
 \centering
 \includegraphics[width=\textwidth]{img/chapter-4/one-sided-critical.png}
-\caption{One-Sided alternative hyphothesis critical region}
+\caption{One-Sided alternative hypothesis critical region}
 \end{subfigure}
 
 \hfill
@@ -420,16 +420,16 @@ Nel precedente capitolo si fa riferimento a \textbf{regione critica} e \textbf{v
 \begin{subfigure}[b]{0.4\textwidth}
 \centering
 \includegraphics[width=\textwidth]{img/chapter-4/two-sided-critical.png}
-\caption{Two-Sided alternative hyphothesis critical regions}
+\caption{Two-Sided alternative hypothesis critical regions}
 \end{subfigure}
 
 \begin{subfigure}[b]{0.5\textwidth}
 \centering
 \includegraphics[width=\textwidth]{img/chapter-4/regioni critiche.png}
-\caption{Two-Sided alternative hyphothesis critical regions (esempio logico)}
+\caption{Two-Sided alternative hypothesis critical regions (esempio logico)}
 \end{subfigure}
 
-\caption{Critical region per le differenti tipologie di alternative hyphothesis}\label{img:critical-regions}
+\caption{Critical region per le differenti tipologie di alternative hypothesis}\label{img:critical-regions}
 \end{figure}
 
 \subsubsection{Errore di tipo I}
@@ -550,7 +550,7 @@ che sta ad indicare la probabilità di rifiuto di un ipotesi \(H_0\) che è effe
 \caption{Definizione grafica della potenza di un test statistico}\label{img:power-value}
 \end{figure}
 
-\subsection{One Sample Hyphothesis Test}
+\subsection{One Sample Hypothesis Test}
 Si vanno ad effettuare delle ipotesi a partire dal singolo campione (attenzione singolo campione e non distribuzione campionaria). Un esempio è l'ipotesi basata sulla media dove:
 \[
 H_0: \mu = \mu_0
@@ -567,6 +567,136 @@ Lo zero mean test permette di andare a valutare se, dato un campione, la sua med
 Andando a valutare, poi, sulla base di \(z\), l'intervallo di confidenza, posso verificare se quest'ultimo contiene 0 o meno, e sopratutto quanto è "distante" da 0. (Il che indirettamente definisce la distanza dalla media \(\mu_0\), e quindi verificare se la struttura è \textbf{statisticamente insignificante} rispetto a \(\mu_0\)).
 
 \subsection{Comparing two alternatives}
-Quando si vogliono andare ad effettuare delle ipotesi basate sui parametri di due distribuzioni differenti, quali:
-\subsubsection{Paired Observations}
+Quando si vogliono andare ad effettuare delle ipotesi basate sui parametri di due distribuzioni differenti, quali ad esempio media o varianza, bisogna, in un primo momento, prefissare la null hypothesis, poi si va a valutare il modo con cui andare a calcolare le statistiche associate ai sample (o con che criterio andarle a calcolare).
 
+\subsubsection{Paired Observations}
+Quando si parla di paired observations, si intende che il numerodi osservazioni valutate tra i due sistemi è uguale e che ogni osservazione non è casuale, ma è frutto dello stesso "workload" (o sistema di valutazione). Pertanto, quello che si può andare a fare con una coppia di campioni prelevata dai due sistemi è quella di valutare la differenza tra i due campioni per poi effettuare uno \textbf{zero mean approach}, che ci permetterà di capire se le medie sono uguali. Formalmente si vede che:
+
+Fatta l'ipotesi:
+\[
+H_0: \mu_1 = \mu_2 \iff \mu_1 - \mu_2 = 0
+\]
+Vado quindi a valutare la differenza delle medie come:
+\[
+\overline{x}_1 - \overline{x}_2 \sim \mathcal{N}(\mu_1 - \mu_2, \frac{\sigma_d^2}{n}) \implies \frac{\overline{x}_1-\overline{x}_2 - (\mu_1 - \mu_2)}{\sigma_d/\sqrt{n}}=z \sim \mathcal{N}(0,1)
+\]
+\begin{warn}
+La \(\sigma_d\) non è valutata come la somma delle deviazioni standard delle due distribuzioni. Bisogna andare a valutare la deviazione standard della differenza tra le due variabili aleatorie. 
+\end{warn}
+
+Quindi la valutazione del capire se due sistemi siano statisticamente coerenti o meno viene delegata all'analisi della "singola" variabile aleatoria \(d\), che quindi ne permette di trattare tale valore come singolo sample.
+
+\subsubsection{Unpaired Observations}
+Nel caso di osservazioni unpaired, allora il discorso diventa più complesso. Di base non possiamo usare la tecnica della differenza dato che il numero di campioni che si vuole andare a confrontare è differente e di diversa natura. Pertanto quello che si va a fare è valutare in primis le proprie statistiche sui campioni in maniera isolata (quindi si calcolano gli intervalli di confidenza sui singolari sample), e poi, tramite dei test "visivi" si vanno a valutare le casistiche in cui ci si può trovare [\ref{img:unpaired-observations}].
+Altra metodologia che invece può essere d'aiuto è utilizzare le tecniche per le \textbf{two-sample hipothesis testing}, che cercano di utilizzare delle "relazioni" tra le distribuzioni per ricavarne delle valutazioni statistiche.
+Esempi di tali tecniche sono:
+\begin{itemize}
+    \item \textbf{z-test}: Si va a costruire l'intervallo di confidenza per poi andare a valutare le ipotesi (esempio visto fin'ora). Viene utilizzata principalmente quando si hanno a disposizione campioni con un sample size (\(n\)) molto grande e quando la varianza della popolazione è nota. Dato che si è nel caso di considerazione di unpaired observations, sì va a definire la struttura della funzione \(z\), conoscendo le varianze delle due distribuzioni \(\sigma_1\) e \(\sigma_2\), si ricava \(z\) come:
+    \[
+    z = \frac{\overline{x}_1 - \overline{x}_2}{\sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}}
+    \]
+    Per andare a definire l'intervallo di confidenza tramite lo z-test, vado a definire il seguente intervallo:
+    \[
+    \left [ \overline{x} - \frac{\sigma * z_{1-\alpha/2}}{\sqrt{n}}, \overline{x} + \frac{\sigma * z_{1-\alpha/2}}{\sqrt{n}} \right ]
+    \]
+
+    \item \textbf{t-test}: Al posto di approssimare il valore ad una normale standard, si vanno ad utilizzare i valori di una funzione t-student che dipenderà sia dal parametro \(\alpha\), che dai suoi gradi di libertà. Viene utilizzata soprattutto quando la varianza della popolazione non è nota e quindi ci si trova costretti ad utilizzare la varianza campionaria. In generale la varianza campionaria viene vista come una funzione chi-squared \(\mathcal{X}^2_k\) che non è altro che una composizione di quadrati di variabili aleatorie gaussiane standard, più formalmente, siano \(Z_1, Z_2, \dots, Z_k\), \(k\) variabili aleatorie normali standard ed indipendenti (IID), si definisce formalmente distribuzione chi-squared come:
+    \[
+    \mathcal{X}^2_k = \sum_{i=1}^{k}Z_i^2
+    \]
+    Tale funzione ha un solo parametro che è \(k\) che sta ad indicare il numero di gradi di libertà.
+    Andiamo ad enunciare questo poichè alla base del t-test vi è la definizione della t-student, come:
+    \[
+    z = \frac{\overline{x} - \mu}{\sigma/\sqrt{n}} \implies t_{n-1} = \frac{\overline{x} - \mu}{S/\sqrt{n}}
+    \]
+    dove \(S\) è definita come:
+    \[
+    S = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \overline{x})^2
+    \]
+    Con qualche passaggio algebrico, andiamo a definire la distribuzione \(t_{n-1}\) in maniera dipendente da z, come:
+    \[
+    t_{n-1} = \frac{\overline{x} - \mu}{S/\sqrt{n}} = \frac{\overline{x} - \mu}{\sqrt{\frac{S^2 \sigma^2 (n-1)}{n \sigma^2 (n-1)}}} = \frac{z}{\sqrt{\frac{S^2(n-1)}{\sigma^2 (n-1)}}} = \frac{z}{\sqrt{\frac{k}{(n-1)}}}
+    \]
+    facendo in questo modo ho ottenuto la distribuzione \(k = \frac{S^2 (n-1)}{\sigma^2}\), che è una funzione chi-quadrata con gradi di libertà pari a \(n-1\). Ciò sta a dimostrare come la distribuzione \(t_{n-1}\) sia una t-student con n-1 gradi di libertà. In questo caso, invece, si va a definire l'intervallo di confidenza come:
+    \[
+    \left [ \overline{x} - \frac{S * t_{1-\frac{\alpha}{2},\ n-1}}{\sqrt{n}},\ \overline{x} + \frac{S * t_{1-\frac{\alpha}{2},\ n-1}}{\sqrt{n}} \right ]
+    \]
+\end{itemize}
+
+Non si può definire una di queste tecniche come dominante rispetto all'altra, in generale la loro applicazione dipende fortemente dal contesto in cui ci si trova e la situazione in cui ci si trova. In generale il "filtro" per il metodo da scegliere viene fatto in base a diversi parametri, come la conoscenza della varianza della/delle popolazioni, se l'ipotesi che viene fatta richiede il confronto di due popolazioni o di una singola, la dimensione della sample size, ecc. Diciamo che i parametri sono vari. In maniera piuttosto empirica si sono trovate delle corrispondenze nelle metodologie di utilizzo e la loro condizione associata. Tale relazione è evidenziata all'interno dell'immagine [\ref{img:test-situation}]
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.9\textwidth]{img/chapter-4/test-situations.png}
+\caption{Tabella di scelta della tipologia di test}\label{img:test-situation}
+\end{figure}
+
+\clearpage
+\subsection{Esempio di utilizzo dello Z-test}
+Considera di essere un data analyst per la tua compagnia, e di dover valutare il \textbf{tempo di risposta}, che è la chiave del servizio, dato il \textbf{nuovo rilascio del software}. Si vuole quindi comparare se il nuovo update ha \textbf{cambiato significativamente} la response time rispetto al \textbf{sistema precedente}.
+
+\subsubsection{Verifica delle assunzioni}
+Nel nostro caso:
+\begin{itemize}
+    \item \textbf{Data (nel nostro caso la media campionaria)}: segue una distribuzione normale (ciò ci viene garantito dal fatto che si avrà una sample size molto grande e che quindi, applicando il teorema del limire centrale, si potrà dire che i dati seguono una normale)
+    \item \textbf{La deviazione standard}: si conosce in maniera approssimativa andandola a calcolare mediante la \textbf{sample standard Deviation}, che è una buona stima della deviazione standard della popolazione data la grande dimensione del campione
+    \item \textbf{Independent samples}: Ogni misurazione fatta della response time non è dipendente in alcun modo dalle altre
+\end{itemize}
+
+\subsubsection{Definire le ipotesi}
+La definizione delle ipotesi è la seguente:
+\begin{itemize}
+    \item \(H_0\): l'aggiornamento non ha alcun effetto sul response time (le medie sono uguali):
+    \[
+    H_0: \mu_{before} = \mu_{after}
+    \]
+
+    \item \(H_1\): l'aggiornamento ha ridotto il response time, quindi:
+    \[
+    H_1: \mu_{before} > \mu_{after}
+    \]
+
+\end{itemize}
+
+\subsubsection{Valutazione dei dati}
+Vado a valutare, a partire dai dati a disposizione, i seguenti parametri:
+\begin{itemize}
+    \item \textbf{Sample Size Before Update}(\(n_{before}\)): 100
+    \item \textbf{Sample Size after Update}(\(n_{after}\)): 100
+    \item \textbf{Mean Response Time Before Update} (\(\overline{X}_{before}\)): 130 ms
+    \item \textbf{Mean Response Time After Update} (\(\overline{X}_{after}\)): 110 ms
+    \item \textbf{Sample Standard Deviation Before Update}(\(s_{before}\)): 15 ms
+    \item \textbf{Sample Standard Deviation After Update}(\(s_{after}\)): 12 ms
+\end{itemize}
+
+\subsubsection{Effettuazione dello Z-test}
+Dato che si vuole effettuare il \textbf{two-sample z-test}, che ha come sua formula la seguente:
+\[
+z = \frac{\overline{x}_1 - \overline{x}_2}{\sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}}
+\]
+Andando a valutare la deviazione standard, si ottiene anche lo \textbf{standard error}, che è possibile calcolare come:
+\[
+SE = \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}} = \sqrt{\frac{s_{before}^2}{n_{before}} + \frac{s_{after}^2}{n_{after}}} = \sqrt{\frac{15^2}{100} + \frac{12^2}{100}} = \sqrt{3.69} \approx 1.92
+\]
+
+Calcolato lo standard error vado a valutare la Z-statistic, come:
+\[
+z = \frac{\overline{X}_{before} - \overline{X}_{after}}{SE} = \frac{130 - 110}{1.92} \approx 10.42
+\]
+
+Una volta valutata la statistica, si vanno a valutare i valori critici e la regione critica. Per fare ciò si parte dal prefissare un \textbf{livello di confidenza}, per l'esempio si sceglierà del \(5\%\) (\(\alpha = 0.05\)). Dato che nel nostro caso siamo in una one-tailed test (consideriamo solo une delle due code, da come è impostata l'ipotesi), allora si va a calcolare il valore critico come:
+\[
+Z_\alpha = 1.645
+\]
+(\textit{Tale valore è stato prelevato da una tabella specifica})
+\\
+Ma, dato che la z-statistic è \(10.42\), che è maggiore di \(1.645\), allora si va a rifiutare l'ipotesi nulla.
+
+\subsubsection{Conclusion}
+Alla fine il risultato ci suggerisce che l'aggiornamento che è stato effettuato al software ha ridotto in maniera significativa il response time, supportando l'ipotesi che la nuova versione ha portato ad un incremento delle performance.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.6\textwidth]{img/chapter-4/esempio-z-test.png}
+\caption{Grafici e boxplots associati all'esempio svolto}
+\end{figure}
