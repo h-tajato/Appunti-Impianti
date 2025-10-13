@@ -50,9 +50,9 @@ Uno strumento utile per avere un'idea della variabilità, sono gli \textbf{indic
     \item \textbf{\(P10\)}: Valore dei dati sotto il quale cade il 10\% dei dati considerati
     \item \textbf{\(P90\)}: Valore dei dati sotto il quale cade il 90\% dei dati considerati (quindi solo il restante 10\% è maggiore)
 \end{itemize}
-Si definisce poi come indice di dispersione il range calcolato su tali valori: \(range = P90-P10\). Se vediamo tali valori in riferimento alla pdf dei dati (il loro istogramma) e alla CDF. Si ha che per calcolare il valore P90 e P10, vado a valutare il valore della CDF in base al percentile ricercato (\(F(x_p) = 0.10\) o \(0.90\)), oppure, nel caso della pdf vado a calutare l'integrale (guardare la relazione tra CDF e pdf)\(\left [\int_{-\infty}^{x_p}f(x)dx = 0.10 | 0.90\right ]\). Il percentile solitamente può essere chiamato anche \textbf{quartile}. La differenza sta nella notazione, per il quartile si dice \(0.1\)-quartile (\(\alpha\)-quartile), mentre il percentile si esprime come 10-percentile (\(100*\alpha\)-percentile). Per stimare tali valori su un insieme di dati discreto (quindi non distribuzioni continue su cui effettuare integrali o derivate), posso andare ad effettuare, prima un ordinamento e poi a selezionare uno specifico valore in base alla \(\alpha\) scelta. Precisamente si va a selezionare il valore in posizione: \([(n-1)*\alpha + 1]\)
+Si definisce poi come indice di dispersione il range calcolato su tali valori: \(range = P90-P10\). Se vediamo tali valori in riferimento alla pdf dei dati (il loro istogramma) e alla CDF. Si ha che per calcolare il valore P90 e P10, vado a valutare il valore della CDF in base al percentile ricercato (\(F(x_p) = 0.10\) o \(0.90\)), oppure, nel caso della pdf vado a calutare l'integrale (guardare la relazione tra CDF e pdf)\(\left [\int_{-\infty}^{x_p}f(x)dx = 0.10 | 0.90\right ]\). Il percentile solitamente può essere chiamato anche \textbf{quantile}. La differenza sta nella notazione, per il quantile si dice \(0.1\)-quantile (\(\alpha\)-quantile), mentre il percentile si esprime come 10-percentile (\(100*\alpha\)-percentile). Per stimare tali valori su un insieme di dati discreto (quindi non distribuzioni continue su cui effettuare integrali o derivate), posso andare ad effettuare, prima un ordinamento e poi a selezionare uno specifico valore in base alla \(\alpha\) scelta. Precisamente si va a selezionare il valore in posizione: \([(n-1)*\alpha + 1]\)
 
-\item \textbf{Semi Inter-Quartile Range}: Tale metrica va ad utilizzare la definizione di due particolari casi di quartile. Più precisamente si va a considerare i quartili: \(0.75\)-quartile (75-percentile) [o terzo quartile] ed il \(0.25\)-quartile (25-percentile) [o primo quartile]. Tali valori sono poi combinati e si va a calcolare il valore del Semi Inter-Quartile Range come:
+\item \textbf{Semi Inter-Quantile Range}: Tale metrica va ad utilizzare la definizione di due particolari casi di quantile. Più precisamente si va a considerare i quartili: \(0.75\)-quantile (75-percentile) [o terzo quantile] ed il \(0.25\)-quantile (25-percentile) [o primo quantile]. Tali valori sono poi combinati e si va a calcolare il valore del Semi Inter-Quantile Range come:
 \[
 SIQR = \frac{Q_3 - Q_1}{2}
 \]
@@ -69,10 +69,10 @@ Un elemento utile quando si sta guardando il grafico dei dati è il \textbf{boxp
 \begin{itemize}
     \item \textbf{Valore massimo}
     \item \textbf{Valore minimo}
-    \item \textbf{Mediana}(o 0.5-quartile/secondo quartile)
-    \item \textbf{Primo Quartile}(0.25-quartile)
-    \item \textbf{Terzo Quartile}(0.75-quartile)
-    \item \textbf{Semi Inter-Quartile Range}
+    \item \textbf{Mediana}(o 0.5-quantile/secondo quantile)
+    \item \textbf{Primo Quantile}(0.25-quantile)
+    \item \textbf{Terzo Quantile}(0.75-quantile)
+    \item \textbf{Semi Inter-Quantile Range}
 \end{itemize}
 
 \begin{figure}[H]
@@ -81,12 +81,12 @@ Un elemento utile quando si sta guardando il grafico dei dati è il \textbf{boxp
 \caption{Struttura di un boxplot}\label{img:boxplot}
 \end{figure}
 
-La stima dell'indice di dispersione è qualcosa di complicato, sopratutto quando ci sono in mezzo gli outlier. Pertanto, solitamente, come metrica al posto della varianza (che non è completamente immune agli outlier), si preferisce utilizzare il Semi Iter-Quartile Range (SIRQ), che è più resistente alla presenza di outlier (anche più di qualcuno). Mentre come metrica centrale si preferisce l'uso della mediana, questo poichè ci è assicurato che esista (a differenza della moda), e sopratutto che faccia parte dell'insieme di valori considerato (diversamente dalla media). Questo spiega anche la costruzione del boxplot e dei valori che va a mettere in evidenza.
+La stima dell'indice di dispersione è qualcosa di complicato, sopratutto quando ci sono in mezzo gli outlier. Pertanto, solitamente, come metrica al posto della varianza (che non è completamente immune agli outlier), si preferisce utilizzare il Semi Iter-Quantile Range (SIRQ), che è più resistente alla presenza di outlier (anche più di qualcuno). Mentre come metrica centrale si preferisce l'uso della mediana, questo poichè ci è assicurato che esista (a differenza della moda), e sopratutto che faccia parte dell'insieme di valori considerato (diversamente dalla media). Questo spiega anche la costruzione del boxplot e dei valori che va a mettere in evidenza.
 
 \section{Quantile-Quantile Plot}
 Il \textbf{Quantile-Quantile Plot} è un metodo che ci permette di confrontare se due popolazioni hanno una distribuzione simile o meno. Nel nostro caso lo si utilizzerà per confrontare la distribuzione della nostra popolazione rispetto alla distribuzione normale.
 La composizione di base di un grafico quantile-quantile generico è la seguente:
-Si va a definire un punto \(p\) come \(p = (x_i, y_i)\), dove \(x_i\) è il valore teorico dell' i-esimo quantile, mentre \(y_i\) è il valore reale dell'i-esimo quantile. Per quanto riguarda i parametri reali non è complicato trovare i quartili (basta utilizzare la specifica formula in base ad \(\alpha\)), mentre per i parametri teorici risulta più complesso dato che bisogna trovare il modo di invertire la CDF. Per ricavare i valori della normale (funzione gaussiana di media nulla e varianza unitaria). Vado a calcolare il quartile come: \(q_i = \frac{i-0.5}{2}\), da cui posso ricavare il valore teorico come: \(x_i = 4.91\left [ q_i^{0.14} - (1-q_i)^{0.14} \right ]\).
+Si va a definire un punto \(p\) come \(p = (x_i, y_i)\), dove \(x_i\) è il valore teorico dell' i-esimo quantile, mentre \(y_i\) è il valore reale dell'i-esimo quantile. Per quanto riguarda i parametri reali non è complicato trovare i quartili (basta utilizzare la specifica formula in base ad \(\alpha\)), mentre per i parametri teorici risulta più complesso dato che bisogna trovare il modo di invertire la CDF. Per ricavare i valori della normale (funzione gaussiana di media nulla e varianza unitaria). Vado a calcolare il quantile come: \(q_i = \frac{i-0.5}{2}\), da cui posso ricavare il valore teorico come: \(x_i = 4.91\left [ q_i^{0.14} - (1-q_i)^{0.14} \right ]\).
 Quindi, in generale, data una popolazione posso plottare il grafico utilizzando le metriche esposte in precedenza, e confrontare la distribuzione dei dati reali con quelli di una normale. In questo modo cerco di capire quanto la distribuzione della popolazione sia simile ad una distribuzione gaussiana. Alcuni esempi sono mostrati alla figura: [\ref{img:qqplot}]
 
 \begin{figure}[h]
@@ -123,6 +123,7 @@ Per comprenderne bene il legame osservare l'immagine [\ref{img:statistica-infere
 \uppercase{è} importante definire cosa si intende quando si sta parlando di popolazione o di campioni, ciò ci permetterà di poter definire tutta una serie di principi statistici, utili, per effettuare l'inferenza statistica.
 Formalmente si definisce \textbf{popolazione} l'insieme totale di tutte le componenti (o istanze), mentre si definisce \textbf{Campione}(O Sample), un insieme di n osservazioni provenienti dai campioni. In generale è importante, definire anche il significato di \textbf{parametri}, i dati associati alla popolazione, essi saranno indicati con le lettere greche (ad esempio la media e la varianza associate alla popolazione, tali valori per qualunque saranno i campioni estratti, non varieranno [saranno costanti]); mentre si definiscono \textbf{statistiche} i valori associati ai sample della popolazione, esse saranno rappresentate da lettere comuni (tali valori variano da campione a campione e quindi non sono costanti).
 
+\clearpage
 \begin{info}\label{inf:distribuzioni-Campionarie}
 \textit{Tale pezzo non è richiesto ai fini dell'esame ma potrebbe essere utile in una fase di approfondimento e studio della statistica inferenziale}
     \\
@@ -395,18 +396,158 @@ H_1: p(testa) \not = 0.5
 Si effettuano 10 tiri e si ottiene testa 8 volte.
 Allora si va a valutare il p-value come la probabilità che esca 8 volte testa \textbf{considerando l'ipotesi nulla come vera}. Pertanto si va a valutare che:
 \[
-P(testa x 9 volte) = \binom{10}{8}\left (\frac{1}{2} \right )^8 * \left (\frac{1}{2} \right )^2 = 45\left (\frac{1}{2^10} \right ) = 0.04394 = 4.39\%
+P(testa\ per\ 9\ volte) = \binom{10}{8}\left (\frac{1}{2} \right )^8 * \left (\frac{1}{2} \right )^2 = 45\left (\frac{1}{2^10} \right ) = 0.04394 = 4.39\%
 \]
 Se ho considerato un livello di confidenza al \(90 \%\), il p-value, essendo minore del valore di \(alpha = 0.5\), allora l'ipotesi \(H_0\) è certamente falsa. Mentre nel caso fosse stato maggiore di tale valore, l'ipotesi \(H_1\) poteva essere confermata. Più è grande il p-value e maggiore è la "giusta" scelta dell'ipotesi \(H_0\)
 \end{info}
 
 In generale, la determinazione del p-value viene effettuata mediante l'integrale della distribuzione, che sottostà al valore effettivamente osservato (solitamente si lavora sui valori limite dell'ipotesi \(H_0\), quindi quei valori che sono al confine della scelta per tale ipotesi). 
+Un'altro modo per interpretare il p-value è associandolo al \textbf{rischio} di un errato rigetto dell'ipotesi \(H_0\).
 
 \subsection{Tipologie di errori}
+Nel precedente capitolo si fa riferimento a \textbf{regione critica} e \textbf{valori critici}. Per capire meglio a cosa si fa riferimento, si va a considerare uno specifico intervallo di confidenza, in cui l'ipotesi \(H_0\) è vera. La \textbf{regione critica} è quella parte del dominio che rigetta l'ipotesi \(H_0\) mentre i \textbf{valori critici} sono i valori limite per la regione critica. La definizione di quali sia la regione critica ed i relativi valori critici viene definita a partire dalla tipologia di alternative hyphothesis fatta, per comprendere al meglio cosa si intende per regione critica e per valori critici, osservare la figura [\ref{img:critical-regions}], dove le regioni in blu sono le regioni critiche, ed i valori evidenziati con delle linee nere, invece, sono i valori critici.
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{img/chapter-4/one-sided-critical.png}
+\caption{One-Sided alternative hyphothesis critical region}
+\end{subfigure}
+
+\hfill
+
+\begin{subfigure}[b]{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{img/chapter-4/two-sided-critical.png}
+\caption{Two-Sided alternative hyphothesis critical regions}
+\end{subfigure}
+
+\begin{subfigure}[b]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth]{img/chapter-4/regioni critiche.png}
+\caption{Two-Sided alternative hyphothesis critical regions (esempio logico)}
+\end{subfigure}
+
+\caption{Critical region per le differenti tipologie di alternative hyphothesis}\label{img:critical-regions}
+\end{figure}
 
 \subsubsection{Errore di tipo I}
+L'\textbf{errore di tipo I} è definito come: Rigettare l'ipotesi nulla \(H_0\) quando essa è in realta vera. La probabilità associata all'errore di tipo I, viene chiamata \textbf{\(\alpha\)-error} (o significance level o dimensione del test. Sono varie le definizioni)
+\[
+\alpha = P(errore\ di\ tipo\ I) = P(H_0\ sia\ rigettato\ quando\ H_0\ e'\ vero)
+\]
+Per definire tale parametro si hanno due strade:
+\begin{itemize}
+    \item Decido il parametro \(\alpha\) e poi vado a valutarmi i valori critici e le regioni critiche
+    \item La regione prefissata ed i valori critici sono stati fissati in precedenza, da tali valori vado a ricavarmi il mio parametro \(\alpha\)
+\end{itemize}
+Per comprendere al meglio come calcolare il parametro \(\alpha\) a partire dai valori critici, si fa il seguente esempio:
+\\
+Si considera un'intervallo di confidenza come [48.5, 51.5]. L'errore di tipo I occorre quando ho un valore di \(\overline{x}\) che è fuori dal range, quando nella realtà la media \(\mu=50\). Supponendo che la popolazione sia una gaussiana con media \(mu = 50\) e varianza \(\sigma^2 = 2.5^2\), andando a valutare la distribuzione delle medie campionarie, si ottiene una normale (per il teorema del limite centrale), con media \(\mu = 50\) e varianza \(\sigma^2 / n = \sigma/\sqrt{n} = 0.79\) = . Pertanto, si può andare a definire \(\alpha\) come:
+\[
+\alpha = P(\overline{X} < 48.5\ con\ \mu = 50) + P(\overline{X} > 51.5\ con\ \mu = 50)
+\]
+Andando a valutare gli z\_values, si ottiene:
+\[
+z_1 = \frac{lower\_critical\_value - \mu}{\sigma/\sqrt{n}} = \frac{48.5 - 50}{0.79} = -\frac{1.5}{0.79} \approx -1.90
+\]
+\[
+z_2 = \frac{upper\_critical\_value - \mu}{\sigma/\sqrt{n}} = \frac{51.5 - 50}{0.79} = \frac{1.5}{0.79} \approx 1.90
+\]
+
+e quindi posso andare a definire \(\alpha\) come:
+\[
+\alpha = P(Z < -1.90) + P(Z > 1.90) \approx 0.028717 + 0.028717 = 0.057434
+\]
+
+Questo lo possiamo fare poichè mediante la "normalizzazione" della variabile aleatoria, possiamo accedere ai valori di probabilità andando a prelevarli all'interno delle tabelle inerenti alla funzione t-student.
+Il valore trovato, ci permette di capire che rigettare l'ipotesi \(H_0: \mu=50\) quando la media è effettivamente \(\mu=50\) può accadere con una probabilità pari al \(5.74\%\).
+La cosa da notare è che, se anche non cambiassi i valori critici, ma aumentassi la sample size, la probabilità di errore di tipo I diminuirebbe, il che aggiunge un ulteriore peso nella scelta della sample size effettiva.
+Per capirci, aumenterebbe il valore associato alla varianza della distribuzione campionaria \(\sigma/\sqrt{n}\) Il che, indirettamente fa aumentare anche i valori delle \(z_1\) e \(z_2\), che aumentando in modulo, riducono l'area sottostante, e quindi la probabilità di avere un errore di tipo I
+\[n = 16\]
+\[\sigma/\sqrt{n} = 2.5/\sqrt{16} = 0.625\]
+\\
+\[z_1 = \frac{48.5 - 50}{0.625} = 2.4\]
+\\
+\[z_2 = \frac{51.5-50}{0.625} = 2.4\]
+\\
+\[\alpha = P(Z < 2.4) + P(Z > 2.4) = 0.0082 + 0.0082 = 0.0164 = 1.64\%\]
+La probabilità di avere un errore di tipo I ora si è ridotta drasticamente, a parità di valori critici (con probabilmente un livello di confidenza diverso), ma ciò ci basta per capire come la sample size è importante anche per la definizione dell'errore di tipo I
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.6\textwidth]{img/chapter-4/type_I_error.png}
+\caption{Interpretazione grafica dell'errore di tipo I}\label{img:exercise-tipo-I}
+\end{figure}
 
 \subsubsection{Errore di tipo II}
+L'\textbf{errore di tipo II} è definito come: Non Rigettare l'ipotesi nulla \(H_0\) quando essa è in realta falsa. La probabilità associata all'errore di tipo II, viene chiamata \textbf{\(\beta\)-error}.
+\[
+\beta = P(errore\ di\ tipo\ II) = P(Non\ rigetto\ di\ H_0\ quando\ H_0\ falso)
+\]
+Per comprendere in magliera ottimale la suddivisione tra le due tipologie di errori, si può far riferimento alla tabella [\ref{tab:error-types}]
 
-\subsection{Criteri di decisione}
-Quando bisogna effettuare un test di
+\begin{figure}[h]
+\centering
+\includegraphics[width=.7\textwidth]{img/chapter-4/tabella-type-errors.png}
+\caption{Tabella per comprendere la posizione e la definizione degli errori di tipo I e II}\label{tab:error-types}
+\end{figure}
+
+Per capire appieno come interpretare l'\textbf{errore di tipo II}, si va a svolgere il seguente esempio:
+\\
+Consideriamo sempre l'esempio precedente dove si ha l'intervallo di confidenza [48.5, 51.5], e la varianza della popolazione nota \(\sigma = 2.5\). 
+Andare a valutare l'errore di tipo II vuol dire:
+\[
+\beta = P(errore\ di\ tipo\ II) = P(Non\ rigettare\ H_0\ quando\ H_0\ e'\ falsa)=
+\]
+\[
+P(48.5 \leq \overline{X} \leq 51.5\ con\ \mu=52)
+\]
+andando a valutare i valori delle \(z_1\) e \(z_2\), si avrà:
+\[
+z_1 = \frac{lower\_critical\_value - \mu}{\sigma/\sqrt{n}} = \frac{48.5 - 52}{0.79} = -\frac{3.5}{0.79} \approx -4.43
+\]
+\[
+z_2 = \frac{upper\_critical\_value - \mu}{\sigma/\sqrt{n}} = \frac{51.5 - 52}{0.79} = -\frac{0.5}{0.79} \approx -0.63
+\]
+da cui andando a sostituire mediante la variabile normalizzata, si avrà che:
+\[
+P(-4.43 \leq Z \leq -0.63) = P(Z \leq -0.63) - P(Z \leq -4.43) = 0.2643 - 0.0000 = 0.2643 = 26.43\%
+\]
+Tale percentuale è il valore di \(\beta\) che indica la probabilità di commettere l'errore di non rigettare l'ipotesi \(H_0\) a discapito del reale valore assunto dalla media.
+Si vuole far notare che l'errore di tipo II aumenta quanto più diminuisce la distanza tra la media effettiva e quella che si vuole testare. Per capire, se prima la media reale fosse stata \(50.5\) al posto di \(52\), si sarebbe avuta la seguente probabilità di errore di tipo II:
+\[
+z_1 = \frac{48.5 - 50.5}{0.79} = -\frac{2}{0.79} \approx -2.53
+\]
+\[
+z_2 = \frac{51.5 - 50.5}{0.79} = \frac{1}{0.79} \approx 1.27
+\]
+Valutando la probabilità tramite la formula scomposta della \(Z\):
+\[
+P(Z \leq 1.27) - P(Z \leq -2.53) = 0.8980 - 0.0057 = 0.8923 = 89.23\%
+\]
+Notiamo come con la riduzione della "distanza" tra le due medie, aumenta la probabilità di errore di tipo II. A livello grafico, viene rappresentato come l'area sottostante la distribuzione reale per cui si darebbe l'ipotesi sbagliata (compresa tra i valori critici). Per capire meglio tale concetto osservare la figura [\ref{img:type-II-error}].
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.6\textwidth]{img/chapter-4/type-II-error.png}
+\caption{Area a cui è associata la probabilità di tipo II (caso test per media 50 con media effettiva 52)}\label{img:type-II-error}
+\end{figure}
+
+Come anche per l'errore di tipo I, l'errore di tipo II è fortemente legato alla sample size, più essa è alta e più l'errore di tipo II diminuisce, questo poichè un aumento della sample size fa sì che aumenti anche il valore in modulo delle \(z_i\), che, più sono grandi e minore saranno le loro probabilità, di conseguenza, sarà minore anche l'errore di tipo II (\(\beta\)).
+
+\subsection{Potenza di un test statistico}
+Gli errori che si sono definiti in precedenza non bastano per definire quanto un test valuti correttamente le sue ipotesi. Pertanto di definisce la \textbf{potenza} di un test statistico, come la probabilità di rigettare l'ipotesi nulla \(H_0\) quando l'ipotesi alternativa è vera. (tale definizione viene data, dato che gli errori parlano di "falle" che il test può avere, il che ci fa capire che non ci sono abbastanza informazioni per avere la risposta corretta [con una certa probabilità], ma non si va a valutare, invece, quanto il test di ipotesi sia tollerante rispetto ad altre implicazioni). La potenza di un test statistico valuta ed esprime la \textbf{sensitività} del test statistico, dove per sensitività si intende l'abilità di un test di riconoscere le differenze. La definizione formale di tale parametro è:
+\[
+power = 1 - \beta
+\]
+che sta ad indicare la probabilità di rifiuto di un ipotesi \(H_0\) che è effettivamente falsa. A livello grafico corrisponde all'area sottesa alla curva originale (quella con l'ipotesi di media vera, che risiede al di fuori del critical value, che sta ad indicare quando l'ipotesi \(H_0\) viene rigettata per un motivo valido dato dalla distribuzione valida)[\ref{img:power-value}].
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.7\textwidth]{img/chapter-4/power-value.png}
+\caption{Definizione grafica della potenza di un test statistico}\label{img:power-value}
+\end{figure}
+
+
