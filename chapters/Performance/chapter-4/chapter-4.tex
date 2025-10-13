@@ -550,4 +550,23 @@ che sta ad indicare la probabilità di rifiuto di un ipotesi \(H_0\) che è effe
 \caption{Definizione grafica della potenza di un test statistico}\label{img:power-value}
 \end{figure}
 
+\subsection{One Sample Hyphothesis Test}
+Si vanno ad effettuare delle ipotesi a partire dal singolo campione (attenzione singolo campione e non distribuzione campionaria). Un esempio è l'ipotesi basata sulla media dove:
+\[
+H_0: \mu = \mu_0
+\]
+
+dove \(\mu_0\) può essere visto come generico valore che la media può assumere (se \(\mu_0 = 0\), si sta parlando dello \textbf{zero mean test}).
+
+\subsubsection{Zero Mean Test}
+Lo zero mean test permette di andare a valutare se, dato un campione, la sua media sia 0. 
+\[
+\overline{x} \sim \mathcal{N}(\mu, \frac{\sigma^2}{n}) \to z = \frac{\overline{x} - \mu_0}{\sigma/\sqrt{n}} \sim \mathcal{N}(0,1)
+\]
+
+Andando a valutare, poi, sulla base di \(z\), l'intervallo di confidenza, posso verificare se quest'ultimo contiene 0 o meno, e sopratutto quanto è "distante" da 0. (Il che indirettamente definisce la distanza dalla media \(\mu_0\), e quindi verificare se la struttura è \textbf{statisticamente insignificante} rispetto a \(\mu_0\)).
+
+\subsection{Comparing two alternatives}
+Quando si vogliono andare ad effettuare delle ipotesi basate sui parametri di due distribuzioni differenti, quali:
+\subsubsection{Paired Observations}
 
