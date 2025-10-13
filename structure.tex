@@ -15,6 +15,7 @@
 %----------------------------------------------------------------------------------------
 \usepackage{subcaption} % Subfigures
 \usepackage{float}
+\usepackage{booktabs, colortbl} % aggiungi vicino agli altri \usepackage, se non già presenti
 
 \usepackage{amsmath,amsfonts,stmaryrd,amssymb} % Math packages
 \everymath{\displaystyle\Large}
@@ -99,6 +100,20 @@
 	headsep=1.2cm, % Space from the top margin to the baseline of the header
 	%showframe, % Uncomment to show how the type block is set on the page
 }
+
+%----------------------------------------------------------------------------------------
+%	HEADER STRUCTURE AND PAGE NUMBER AND TITLE PRESENTATION
+%----------------------------------------------------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhead{} % pulisce intestazioni
+\fancyfoot{} % pulisce piè di pagina
+
+\fancyhead[L]{\small\thepage}
+\fancyhead[R]{\scriptsize\slshape\leftmark}
+
+\renewcommand{\headrulewidth}{0.4pt} % linea sotto l'header
 
 %----------------------------------------------------------------------------------------
 %	FONTS
