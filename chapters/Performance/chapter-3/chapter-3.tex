@@ -138,13 +138,13 @@ Un modo utilizzato per ridurre il numero di parametri con cui andare a rappresen
 \\
 Dati i parametri \({x_1,x_2,\dots,x_N}\), si vuole trovare un nuovo insieme di parametri \({y_1,y_2,\dots,y_N}\), voglio però che l'insieme di parametri \(y_i\) sia linearmente indipendente, e che la varianza di ogni parametro \(y_i\) sia massimizzata. Di base per vedere come andare a costruire la matrice di trasformazione della PCA, si dovrebbe calcolare la matrice di covarianza, una volta calcolata si valutano gli autovettori di tale matrice, che costruiranno poi la matrice di trasformazione finale. Gli autovettori, quindi, rappresentano le direzioni principali e sono disposti in maniera che la prima componente principale sia quella con la varianza maggiore. Difatto si sta andando a fare una media pesata dei parametri per costruire il valore della nuova componente principale. Precisamente:
 \[
-y_j = \sum_{i=1}^{N}w_{ij}x_{ij}
+y_j = \sum_{i=1}^{N}w_{ij}x_{i}
 \]
 
 Tale formula va letta in questo modo:
 \begin{itemize}
     \item \textbf{\(y_j\)}: rappresenta la j-esima componente principale
-    \item \textbf{\(x_{ij}\)}: rappresenta il valore del parametro \(i\) nell'istanza \(j\)
+    \item \textbf{\(x_{i}\)}: rappresenta il valore del parametro \(i\) della componente da trasformare
     \item \textbf{\(w_{ij}\)}: rappresenta il peso associato al parametro \(i\) per la j-esima istanza
 \end{itemize}
 
@@ -165,7 +165,7 @@ In maniera più compatta, quindi, effettuata la PCA, si avrà che:
 \subsubsection{Z-Score Normalization}
 La \textbf{z-score normalization} è una tecnica che permette di andare a normalizzare i dati, in maniera tale che ogni parametro abbia media 0 e deviazione standard 1. Tale tecnica è utile per poter effettuare la PCA, dato che si vuole evitare che parametri con range di valori molto diversi tra di loro possano influenzare in maniera sproporzionata il risultato finale. La formula per effettuare tale normalizzazione è la seguente:
 \[
-x'_s = \frac{x_{s} - \overline{x_s}}{s_{x_s}}
+x'_s = \frac{x_{s} - \overline{x}_s}{s_{x_s}}
 \]
 
 Tale operazione permette di poter confrontare i parametri con un distribuzione normale, il che, quindi, andrà a rappresentare i dati come distanza da 0 e rappresentato secondo la deviazione standard s. Ciò ci permette anche di poter confrontare i dati tra di loro, senza andarea a considerare il range di valori che possono assumere.
