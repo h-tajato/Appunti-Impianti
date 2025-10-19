@@ -474,3 +474,29 @@ Il che quindi mi consente di utilizzare le tecniche affrontate per la regression
 \end{figure}
 
 \subsection{Outliers}
+Bisogna fare attenzione a come andare a trattare gli \textbf{outlier}, poiché incidono fortemente sulla regressione. Non si possono escludere automaticamente, perché potrebbero contenere un’informazione importante sul comportamento reale del sistema; eliminarli senza una verifica accurata potrebbe portare a \textbf{risultati distorti o conclusioni errate}.  
+
+Una cosa che si potrebbe andare a fare è \textbf{formulare delle assunzioni sulla distribuzione} dei dati e verificare se l’outlier rispetta tali ipotesi. In caso contrario, potrebbe effettivamente trattarsi di un errore sperimentale o di misura.  
+
+Inoltre, è utile \textbf{visualizzare i dati con uno scatter plot}, in modo da individuare graficamente eventuali punti anomali. Se si sospetta la presenza di un errore, si può \textbf{ripetere l’esperimento o l’analisi} per confermare il risultato.  
+
+Un approccio prudente consiste anche nel \textbf{ripetere la regressione sia con che senza l’outlier}, confrontando i risultati ottenuti: se le differenze sono significative, l’outlier ha un’influenza importante e va studiato con maggiore attenzione. In alternativa, si possono \textbf{suddividere i dati in sottoinsiemi} (ad esempio, diverse regioni operative) e costruire \textbf{modelli separati} per ciascun gruppo, in modo da descrivere meglio il comportamento complessivo del sistema.
+
+\subsection{Errori comuni nella Regressione}
+Quando si applicano gli algoritmi di regressione, si può cadere in diversi problimi che sono provocati da errori durante la fase di "valutazione" della regressione. Gli errori che più comunemente vengono fatti sono:
+\begin{itemize}
+\item \textbf{Non effettuare verifica visuale}: Se non si vanno ad osservare i dati mentre si applicano delle soluzioni di regressione, si potrebbero avere delle \(R^2\) che sono comunque molto alte, a discapito di una regressione non proprio ottimale. Vedere figura [\ref{img:no-visualize}]
+
+\item \textbf{Ignorare parametri importanti}: Nonostante la visualizzazione di un grafico sia fondamentale, è altrettanto importante andare a valutare anche gli \textbf{intervalli di confidenza} e il \textbf{coefficente di determinazione}\(R^2\)
+
+\item \textbf{Errata selezione dei predittori}: Sì può ricadere nell'errore di andare a valutare troppi predittori che aumentano la complessità totale del sistema e, se correlati, potrebbero essere ridondanti per l'algoritmo di regressione
+
+\item \textbf{Utilizzo improprio dei valori}: Si vanno a considerare dei valori solo nel loro range di misurazione ma non nella totalità del range delle operazioni
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.7\textwidth]{img/chapter-5/no-visualize.png}
+\caption{Curve con alto \(R^2\) ma non opportunamente "regressibili"}\label{img:no-visualize}
+\end{figure}
+
