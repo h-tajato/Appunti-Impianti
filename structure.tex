@@ -20,6 +20,16 @@
 \usepackage{amsmath,amsfonts,stmaryrd,amssymb} % Math packages
 \everymath{\displaystyle\Large}
 
+\usepackage{chappg}
+\usepackage{hyperref}
+
+\numberwithin{chapter}{part}
+\makeatletter
+\let\Hy@chapapp\@chapapp % evita problemi con hyperref
+\makeatother
+
+\renewcommand{\thechapter}{\arabic{chapter}} % <-- niente prefisso part
+
 \usepackage[ddmmyyyy]{datetime}
 \usepackage{enumerate} % Custom item numbers for enumerations
 
@@ -28,7 +38,7 @@
 \usepackage[framemethod=tikz]{mdframed} % Allows defining custom boxed/framed environments
 
 \usepackage{listings} % File listings, with syntax highlighting
-\usepackage[hidelinks]{hyperref}
+% \usepackage[hidelinks]{hyperref}
 
 \lstset{
   language=C,

@@ -19,7 +19,7 @@ Oltre ad andare a definire i modelli e la loro struttura, bisogna definire quant
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.7\textwidth]{img/chapter-5/quality-regression.png}
+\includegraphics[width=.7\textwidth]{img/Performance/chapter-5/quality-regression.png}
 \caption{Valutazione visiva dei modelli di regressione lineari}\label{img:error-vision}
 \end{figure}
 
@@ -40,7 +40,7 @@ Andando a risolvere tale equazione non si troverebbe una \textbf{soluzione univo
 \[
 SSE = \sum_{i=1}^{n}e_i = \sum_{i=1}^{n}(y_i - b_0 - b_1*x_i)^2
 \]
-Questo però è un problema di minimizzazione vincolata, che quindi viene risolto in certi modi utilizzando varie tecniche. Noi utilizzeremo una tecnica pervenuta dall'esame di analisi 1, ovvero andremo a derivare la funzione quadrata e a porla uguale a 1. 
+Questo però è un problema di minimizzazione vincolata, che quindi viene risolto in certi modi utilizzando varie tecniche. Noi utilizzeremo una tecnica pervenuta dall'esame di analisi 1, ovvero andremo a derivare la funzione quadrata e a porla uguale a 0. 
 
 \begin{info}
 \textit{Il prof non ha dato molto peso a questa parte, banalizzandola particolarmente. Di seguito, però, si riporta la dimostrazione per il calcolo dei coefficienti b1 e b0}
@@ -242,7 +242,7 @@ In prima battuta mi conviene andare a plottare i dati di cui voglio valutare un'
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.7\textwidth]{img/chapter-5/regression-relations.png}
+\includegraphics[width=.7\textwidth]{img/Performance/chapter-5/regression-relations.png}
 \caption{Esempi di dati in relazione tra loro}\label{img:regression-relations}
 \end{figure}
 
@@ -251,7 +251,7 @@ Per verificare l'indipendenza degli errori a livello grafico, si va a plottare l
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.8\textwidth]{img/chapter-5/independet-errors.png}
+\includegraphics[width=.8\textwidth]{img/Performance/chapter-5/independet-errors.png}
 \caption{Esempi di distribuzioni degli errori rispetto alla variabile \(\hat{y}_i\)}\label{img:independent-errors}
 \end{figure}
 
@@ -259,7 +259,7 @@ A volte, è conveniente andare a plottare gli errori \(e_i\) in riferimento al n
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.7\textwidth]{img/chapter-5/errors-side-effect.png}
+\includegraphics[width=.7\textwidth]{img/Performance/chapter-5/errors-side-effect.png}
 \caption{Plotting degli errori rispetto alla posizione di valutazione}\label{img:errors-side-effect}
 \end{figure}
 
@@ -268,7 +268,7 @@ Per verificare se gli errori seguono una distribuzione normale, ci viene in aiut
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.7\textwidth]{img/chapter-5/qqplot-errors.png}
+\includegraphics[width=.7\textwidth]{img/Performance/chapter-5/qqplot-errors.png}
 \caption{QQ-Plot per le distribuzioni degli errori}\label{img:qqplot-errors}
 \end{figure}
 
@@ -277,7 +277,7 @@ Quello che si va a fare, si va a plottare gli errori in riferimento alla rispost
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.7\textwidth]{img/chapter-5/constant-deviation.png}
+\includegraphics[width=.7\textwidth]{img/Performance/chapter-5/constant-deviation.png}
 \caption{Distribuzione degli errori}\label{img:constant-deviation}
 \end{figure}
 
@@ -328,7 +328,7 @@ Più precisamente si va a controllare se i punti siano \textbf{concordanti} (Con
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.7\textwidth]{img/chapter-5/concordant-discordant.png}
+\includegraphics[width=.7\textwidth]{img/Performance/chapter-5/concordant-discordant.png}
 \caption{Punti concordanti e discordanti}\label{img:concordant-discordant}
 \end{figure}
 
@@ -469,7 +469,7 @@ Il che quindi mi consente di utilizzare le tecniche affrontate per la regression
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.7\textwidth]{img/chapter-5/relazioni-curvilinee.png}
+\includegraphics[width=.7\textwidth]{img/Performance/chapter-5/relazioni-curvilinee.png}
 \caption{Forme di trasformazione di funzioni non lineari in relazioni lineari}\label{img:trasformazioni-curvilinee}
 \end{figure}
 
@@ -496,7 +496,7 @@ Quando si applicano gli algoritmi di regressione, si può cadere in diversi prob
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.7\textwidth]{img/chapter-5/no-visualize.png}
+\includegraphics[width=.7\textwidth]{img/Performance/chapter-5/no-visualize.png}
 \caption{Curve con alto \(R^2\) ma non opportunamente "regressibili"}\label{img:no-visualize}
 \end{figure}
 
