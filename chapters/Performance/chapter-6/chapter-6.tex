@@ -1,0 +1,472 @@
+\chapter{Design ed analisi degli esperimenti}
+Quando si vanno ad analizzare le performance di un dato sistema o applicativo, i \textbf{fattori} che possono incidere sono di varia natura. Possono essere:
+\begin{itemize}
+    \item \textbf{Il sistema stesso}: Quindi l'insieme dell'infrastruttura hardware con determinati sistemi software
+    \item \textbf{Il workload a cui è sottoposto}: La tipologia o la quantità del carico di lavoro a cui sì è sottoposti
+\end{itemize}
+
+Quello che quindi si desidera fare per avere un \textbf{analisi corretta} è valutare l'incidenza di ogni fattore in base allo specifico \textbf{livello} che sta assumendo. L'ideale sarebbe quello di poter valutare l'incidenza di  di un fattore in maniera isolata rispetto ad altri, ma questo non è sempre possibile, data anche la grossa complessità con cui sono costruiti tali sistemi.
+Ecco perchè è importante trovare un modo per costruire degli esperimenti adeguati, che mediante diversi parametri e modelli, possano valutare l'incidenza di tali fattori
+
+\section{Terminologia}
+Per formalizzare al meglio il problema è importante fissare alcuni termini e concetti per poter proseguire al meglio nella costruzione e modellazione dei vari sistemi:
+\begin{itemize}
+    \item \textbf{Variabile di risposta}(Response Variable): Variabile d'uscita di un esperimento, solitamente è la misura rispetto alle performance del sistema
+    \item \textbf{Fattori}(Factors): Ogni tipologia di variabile (generica) che dispone di vari \textbf{livelli} ed incide sulla variabile di risposta.
+    \begin{itemize}
+        \item \textbf{Fattori Primari}: Fattori di cui si vuole andare ad effettuare la valutazione e di cui si ha il pieno controllo sui livelli (es. CPU, memoria utilizzare, numero di dischi, ecc.)
+        \item \textbf{Fattori Secondari}: Fattori di cui non si ha interesse nella valutazione
+    \end{itemize}
+
+    \item \textbf{Livelli}: I livelli sono i possibili valori che uno specifico fattore può assumere. Ad esempio per una CPU i livelli possibili sono: Motolora 68k, Intel x8086, Z80 ecc.
+    
+    \item \textbf{Replicazione}(Replication): Ogni replicazione dell'intero \textbf{esperimento}. Tale termine è importante, poichè tramite le replicazioni si può giungere (mediante analisi statistiche), alla scissione e alla definizione di un errore, che invece non è possibile quando posso effettuare una singola replicazione
+     
+    \item \textbf{Design}: Un design non è altro che un piano che racchiude un insieme di esperimenti e di tutte le combinazioni dei vari livelli dei fattori che bisogna testare. Quindi, in maniera più diretta, un design è caratterizzato da tre principali parametri:
+    \begin{itemize}
+        \item \textbf{Numero di esperimenti}
+        \item \textbf{Combianzioni dei livelli}
+        \item \textbf{Numero di ripetizioni}(Da considerare associato ad ogni esperimento)
+    \end{itemize}
+
+    \item \textbf{Unità Sperimentale}(Experimental Unit): Una qualunque entità su cui si effettua l'esperimento. Nel caso medico, si possono vedere come entità sperimentali i pazienti a cui è somministrata una cura, oppure le parcelle di terreno in un esperimento agricolo. Nel caso di un test informatico può essere visto come gli utenti o i computer utilizzati per la misurazione delle performance
+    \item \textbf{Interazione}(Interaction): Si dice che due fattori sono interagenti se gli \textbf{effetti} dell'uno sono dipendenti dal \textbf{livello} dell'altro.
+    Per comprendere di cosa si sta parlando, facciamo un esempio. Si hanno due fattori, A e B, che hanno come possibili livelli \([A_1,A_2]\) e \([B_1, B_2]\) rispettivamente. Quello che si vuole andare a fare è valutare l'\textbf{effetto} (come ad esempio la response variable), rispetto alla variazione dei livelli dei due parametri. Una volta costruita la tabella (di intersezione tra i due parametri). Se gli andamenti dell'effetto rispetto ai due parametri hanno lo stesso andamento, allora non sono interagenti (dato che l'incidenza della variazione di un livello rispetto all'effetto è indipendente dalla variazione dell'altro). Mentre nel caso in cui si nota una variazione nell'andamento rispetto ai livelli, allora vi è un interazione. Per comprendere al meglio tale concetto guardare l'immagine [\ref{img:interaction}]. Da tale immagine notare che quando l'effetto, ha un andamento uguale, in base alla variazione del fattore, non interagiscono. Mentre con andamenti differenti, interagiscono
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.7\textwidth]{img/Performance/chapter-6/Interaction.png}
+\caption{Grafici di interazione tra due fattori}\label{img:interaction}
+\end{figure}
+
+\begin{info}\label{ex:experiment}
+Un esempio di design è il seguente\\
+\textbf{Personal Workstation Design}, che ba a definire un design specificando solo i fattori primari (o controllabili) ed i loro possibili livelli:
+\begin{itemize}
+    \item \textbf{CPU}: 68000, z80, 8086
+    \item \textbf{Dimensioni Memoria}: 512 KB, 2 MB, 8 MB
+    \item \textbf{Unità disco}: 1, 2, 3, 4
+    \item \textbf{Workload}: Organizzativo, Manageriale, Scientifico
+    \item \textbf{Grado di educazione utenti}: Diploma, Colledge, Laureati
+\end{itemize}
+
+In tale design sono speicificati solo i valori, ma per definire appieno un design, bisogna specificare le possibilità da testare e le ripetioni che bisogna effetturare. Tale richiesta non ha una risposta semplice, dato che la valutazione di tutti i possibili esperimenti potrebbe risultare inutile. Per questo si vanno ad utilizzare diversi modelli che saranno presentati successivamente
+\end{info}
+
+\subsection{Definizione di esperimento}
+Un esperimento non è altro che la sottoposizone di un'\textbf{Unità sperimentale} a degli input ed alla raccolta degli output (\textbf{Variabile di risposta}). Da tali valori si cerca di andare a dedurre gli effetti che hanno i fattori sul sistema. Una semplice schematizzazione di esperimento può essere osservata mediante l'immagine [\ref{img:experiment}]
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.7\textwidth]{img/Performance/chapter-6/Experiment.png}
+\caption{Schematizzazione di un esperimento}\label{img:experiment}
+\end{figure}
+
+da tale figura si notano i seguenti parametri:
+\begin{itemize}
+    \item \textbf{Input}: Input a cui viene sottoposta l'unità sperimentale
+    \item \textbf{Output}: Valori che racchiudono la response variable
+    \item \textbf{Controllable factors}: I fattori controllabili, sono quei fattori di cui ci interessa valutare l'incidenza sull'output, e di cui, solitamente, si ha il controllo (es. CPU, Memoria ecc.)[Fattori primari]
+    \item \textbf{Uncontrollable factors}: Fattori non controllabili, che sono quei fattori di cui non possiamo controllare il livello, ma su cui non si ha alcun tipo di potere, essi incidono sull'output, ma non ci interessa andarne a valutare l'incidenza (ed. I collegamenti di rete tra i sistemi)[Fattori secondari]
+\end{itemize}
+
+Gli esperimenti che vengono fatti, hanno diversi obbiettivi, quali:
+\begin{itemize}
+    \item \textbf{Studiare gli effetti}: Andare a valutare gli effetti di un fattore controllabile sulla variabile di risposta. Si cerca di separare l'incidenza dei diversi fattori, in modo da poterne anche determinare il più influente
+    \item \textbf{Interazioni}: Trovare le interazioni che possono esserci tra i diversi fattori
+    \item \textbf{Costruire modelli per i dati}: Si vanno a costruire diversi modelli di file che poi devono essere confrontati
+    \item \textbf{Stima degli errori di misura}: Si cerca di isolare gli errori di misura rispetto alla misura stessa
+    \item \textbf{Comparare diverse alternative di Design}
+\end{itemize}
+
+
+\section{Tipi di Design Sperimentali}
+I modi con cui selezionare gli esperimenti da fare sono vari, e si basano su diverse linee di pensiero, ed in particolare, sulla natura effettiva dei dati. Tutto si basa sulle \textbf{Interazioni}
+
+\subsubsection{Simple Design}
+Il \textbf{Simple Design} è un metodo di design che va a selezionare un piccolo sottoinsieme di tutti i possibili esperimenti deducibili da un design. Precisamente quello che si va a fare, si và a variare il livello di un singolo valore per volta (partendo sempre dalla configurazione di base). Pertanto, il numero di esperimenti che bisogna effettuare, intuitivamente, sembrerebbe essere la somma del numero di tutti i fattori (dato che si avrebbe un +1 per ogni fattore), però c'è anche da considerare che l'esperimento di base (con la selezione del primo livello per ogni fattore), non deve ripetersi più volte. Pertanto va sommato una singola volta e detratto da tutti gli altri fattori. Quindi il numero totale di esperimenti si definisce come:
+\[
+n = 1 + \sum_{i=1}^{k}(n_i - 1)
+\]
+dove, \(n_i\) è il numero di livello per l'i-esimo fattore; \(k\) è il numero totale di fattori; ed \(n\) il numero totale di esperimenti da fare con il simple design. Il problema di tale tecnica di design risiede nel fatto che non è possible determinare, mediante tali esperimenti, l'interazione tra due fattori. Questo perchè non si vanno ad effettuare le stime per tutte le possibili combinazioni. Quindi tale tecnica è consigliabile quando si è certi che i vari fattori tra loro non siano interagenti, altrimenti non conviene utilizzarla
+
+\subsubsection{Full Factorial Design}
+La \textbf{Full Factorial Design} va a considerare tutte le possibili combinazioni tra i diversi livelli dei fattori. Quindi il numero totale di esperimenti da effettuare si calcola come:
+\[
+n = \prod_{i=1}^{k}n_i
+\]
+Dove, \(n_i\) è il numero di livelli che può assumere il fattore \(i\)-esimo; \(k\) è il numero totale di fattori; \(n\) è il numero totale di esperimenti da dover effettuare.
+Rispetto al Simple Design, il Full Factorial design valuta tutte le possibili combinazioni (riempie interamente la "tabella" delle possibilità), e quindi è possibile trovare ed identificare le "interazioni" che ci sono tra i diversi fattori. Il problema è dovuto al numero di esperimenti che bisogna effettuare. Per capire, consideriamo l'esempio precedente dove i fattori erano:
+\begin{itemize}
+    \item \textbf{CPU}(3): 68000, z80, 8086
+    \item \textbf{Dimensioni Memoria}(3): 512 KB, 2 MB, 8 MB
+    \item \textbf{Unità disco}(4): 1, 2, 3, 4
+    \item \textbf{Workload}(3): Organizzativo, Manageriale, Scientifico
+    \item \textbf{Grado di educazione utenti}(3): Diploma, Colledge, Laureati
+\end{itemize}
+
+Se utilizzassimo il Simple Design sì avrebbe che il numero di esperimenti da dover effettuare è:
+\[
+n = 1 + (3 - 1) + (3 - 1) + (4 - 1) + (3 - 1) + (3 - 1) = 12
+\]
+
+Mentre se utilizzassimo il Full Factorial Design sì avrebbe che il numero di esperimenti da dover effettuare è:
+\[
+n = 3 * 3 * 4 * 3 * 3 = 324
+\]
+
+Si nota che la differenza tra i due valori è notevole, pertanto, in maniera più euristica, quando dei fattori sembrano non avere interazioni, ci basterebbe il Simple Design, mentre se hanno delle interazioni, è da utilizzare il Full Factorial. Dato che molte volte non è possibile effettuare un numero così grande di esperimenti si possono utilizzare diverse strade: Si riduce il numero di fattori o i livelli a loro associati, si utilizzano tecniche di \textbf{Fractional Factorial Design}
+
+\subsubsection{Fractional Factorial Design}
+Il \textbf{Fractional Factorial Design} è una tecnica che parte dal totale degli esperimenti che si farebbero con un Full Factorial Design, e lo si va a ridurre in maniera frazionaria (si cerca di avere almeno tutte le variazioni dei vari attributi per una volta). Quindi si vanno a "evitare" delle combinazioni. Per capire come sarà poi disegnato e sviluppato un Fractional Factorial Design, si invita a visualizzare i metodi presentati successivamente.
+Un esempio più basilare per capire come funziona la Fractional Factorial Design è:
+Prendiamo il precedente esempio e consideriamo solo i fattori che hanno 3 livelli (per semplificare i conti). Di conseguenza facendo un Full Factorial Design, sì avrebbe che \(n = 3^4 = 81\); applicando il Fractional Factorial Design si potrebbe selezionare un numero minore di esperimenti come:
+\(n = 3^{4-2} = 9\). Il criterio con cui andare poi a dividere i nostri dati sarà poi presentato con metodologie successive
+
+\subsection{\(2^k\) Factorial Design}
+Il \textbf{\(2^k\) Factorial Design} è un metodo che va a considerare tutti i fattori come se avessero 2 possibili livelli. \uppercase{è} molto importante esplorare tali tipologie di tecniche dato che in generale, si possono definire delle gerarchie tra i diversi livelli dei fattori che quindi ne permettono una selezione. Più precisamente, si vanno a selezionare il livello più "grande" e l'emento più "piccolo" secondo la gerarchi che si è considerati per i livelli dello specifico fattore (questo perchè non è sempre detto che i livelli dei fattori siano sempre numerici).
+Tali tipologie di design ci permettono, mediante diverse tecniche di poter determinare in maniera precisa, l'incisione dei diversi fattori sulla variabile di risposta ivi compreso tutte le interazioni tra i vari fattori.
+
+Per comprendere come tali tipologie di tecniche vengano utilizzate ed applicate, si parte da un caso semplice, ovvero il caso di 2 fattori a 2 livelli. Ad esempio:
+\begin{itemize}
+    \item \textbf{Cache Size}: 1 KB, 2 KB
+    \item \textbf{Memory Size}: 4 MB, 6 MB
+\end{itemize}
+Dove la variabile di risposta valutata è la performance della workstation costruita.
+
+Ora si va a valutare la risposta andando a considerare tutte le combinazioni, ottenendo i risultati mostrati nell'immagine [\ref{img:table-results}]
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{img/Performance/chapter-6/Table-results.png}
+\caption{Tabella dei risultati sperimentali ottenuti}\label{img:table-results}
+\end{figure}
+
+Una volta ottenuta tale tabella, si vanno a definire 2 variabili che vengono associate ai due fattori, che sono:
+\[
+x_A =
+\left\{
+\begin{aligned}
+&+1 \quad 2\,\mathrm{KB} \\
+&-1 \quad 1\,\mathrm{KB}
+\end{aligned}
+\right.
+\]
+\[
+x_B =
+\left\{
+\begin{aligned}
+&+1 \quad 6\,\mathrm{MB} \\
+&-1 \quad 4\,\mathrm{MB}
+\end{aligned}
+\right.
+\]
+Definite queste due variabili, possiamo andare a calcolare la formula di determinazione di y, a partire dai dati che si è raccolto. Più precisamente si andrà a determinare l'equazione:
+\[
+y = q_0 + q_A x_A + q_B x_B + q_{AB} x_A x_B
+\]
+
+Data la tabella precedente, i valori di \(x_A\) e di \(x_B\) e l'equazione precedente, allora si possono andare a calcolare i coefficienti andando a risolvere le seguenti equazioni:
+\[
+\begin{aligned}
+15 = q_0 - q_A - q_B + q_{AB}\\
+45 = q_0 + q_A - q_B - q_{AB}\\
+25 = q_0 - q_A + q_B + q_{AB}\\
+75 = q_0 + q_A + q_B + q_{AB}
+\end{aligned}
+\]
+
+Andando a risolvere tali equazioni, si ottiene che:
+\[
+y = 40 + 20 x_A + 10 x_B + 5x_A x_B
+\]
+
+Tale equazione contiene al suo interno tutte le informazioni che ci permettono di determinare l'andamento della risposta in base ai livelli dei fattori. Precisamente: 40 ci indica l'andamento medio delle performance; 20 ci dice l'effetto della memoria; 10 l'effetto della cache; 5 invece l'effetto dell'interazione tra la memoria e la cache.
+Il fatto di poter valutare tali metriche in maniera numerica è interessante ed importante. Pertanto si costruiscono dei metodi con cui bisogna effettuare tale operazione anche per un numero \(k\) di fattori (sempre a 2 livelli)
+
+\subsubsection{Tabella dei segni}
+Andando ad approfondire in maniera letteraria le espressioni che sono state sviluppate precedentemente, si nota che è possibile trovare un pattern con cui andare a costruire i vari coefficienti \(q\).
+Tale metodo è estendibile anche al caso di k-fattori. La problematica è c he bisognerebbe trovare il modo di risolvere tante equazioni a molte più incognte di quel che si crede (dato che oltre al numero di fattori bisogna considerare tutte le possibili combinazioni).
+Uno strumento molto utile in questo caso è la \textbf{tabella dei segni}, che viene costruita nel seguente modo:
+\begin{enumerate}
+    \item \textbf{Colonna identità}: Colonna che ha come valori tutti 1, e che ci servirà per il calcolo della media totale
+    \item \textbf{Colonne dei fattori}: Si inserisce una colonna per ogni fattore e si estendono fino a che non si hanno tutte le possibili combinazioni tra i diversi livelli dei fattori. Essendo 2 è facilmente costruibile mediante i classici sistemi binari (classico numero di combinazioni binarie)
+    \item \textbf{Colonne delle combinazioni}: Si vanno ad aggiungere delle colonne con tutte le possibili combinazioni dei valori. Prima a 2 a 2, poi a 3 a 3, ecc.. Questo fino a che non si sono completati tutte le colonne. Tali colonne sono riempite mediante la moltiplicazione dei fattori considerati
+    \item \textbf{Colonna della variabile risposta}: Si aggiunge una colonna contenente i risultati dei vari esperimenti descritti dalle diverse combinazioni ottenute (quindi sono associati riga per riga in base alla configurazione scelta)
+    \item \textbf{Righe riassuntive}: Si aggiungono 2 righe che conterranno i valori che a noi interessano. Tali righe vengono riempite andando a moltiplicare la colonna della variabile risposta con la colonna sovrastante, e poi si effettua una somma. Con questo, per tutte le colonne, si avranno vari valori. Tali valori ottenuti vanno divisi per il numero di possibili combinazioni (\(2^k\)). I valori dell'utlima riga sono quelli associati ai vari \(q\), sia quelli associati al singolo fattore sia quelli associati alle diverse interazioni
+\end{enumerate}
+
+Per comprendere al meglio come tale tabella viene calcolata ed utilizzata, si riporta la tabella di riferimento per l'esempio precedente:
+\begin{table}[H]
+\centering
+\begingroup
+\fontsize{8}{9}\selectfont
+\begin{tabular}{c c c c c}
+I & A & B & AB & Y \\
+\hline
+1 & -1 & -1 & 1 & 15 \\
+1 & -1 & 1 & -1 & 45 \\
+1 & 1 & -1 & -1 & 25 \\
+1 & 1 & 1 & 1 & 75 \\
+\hline
+160 & 80 & 40 & 20 & Totale \\
+40 & 20 & 10 & 5 & Totale/4
+\end{tabular}
+\endgroup
+\caption{Esempio tabella dei segni}
+\end{table}
+
+La tabella dei segni gode di varie proprietà, quali:
+\begin{enumerate}
+    \item \textbf{La somma delle colonne dei fattori e delle loro interazioni è nulla}: Per qualunque colonna interna si effettua la somma (esclusa quella della variabile di risposta e dell'identità), si ottiene 0
+    \[
+    \sum_{i=1}^{2^k}x_{di} = 0;\text{  }\sum_{i=1}^{2^k}x_{di} x_{hi} = 0, \forall d,h \in \text{Fattori considerati},d \not = h
+    \]
+    
+    \item \textbf{Somma dei quadrati costante}: La somma dei quadrati di ogni colonna interna è sempre uguale a \(2^k\). Questo è facilemnte deducibile dal fatto che tutti i valori quadrati sono pari ad 1, ed essendo, quindi, ogni colonna come quella identica, si ottiene la proprietà:
+    \[
+    \sum_{i=1}^{2^k}x_{di}^2 = 0
+    \]
+    
+    \item \textbf{Le colonne sono ortogonali le une con le altre}: Questa proprietà è deducibile a partire dalla prima, e ci dice che la somma del prodotto tra le colonne è sempre 0 (condizione di ortogonalità):
+    \[
+    \sum_{i=1}^{2^k}x_{di}x_{hi} = 0;\text{  }\sum_{i=1}^{2^k}x_{pi}(x_{di}x_{hi}) = 0; \forall d,h,p \in \text{Fattori considerati}, d \not = h \text{ o } h \not = p \text{ o } p \not = d
+    \]
+    
+\end{enumerate}
+
+Tali proprietà sono mostrate considerando solo l'iterazione a 2 fattori (sommatorie solo con due termini \(x_{di}x_{hi}\), ma sono estendibili anche a tutte le interazioni con n fattori in interazione [Guardare la proprietà 3 tra quelle mostrate in precedenza]). Solitamente si cerca di mostrare tale esempio per un numero basso di valori e poi si estende al concetto generale
+
+\begin{info}
+\textit{Tale pezzo è stato inserito a scopo didattico e non è fondamentale saperlo ai fini dell'esame}\\
+\textbf{Dimostrazione della proprietà 1}\\
+La prima proprietà mostrata è anche quella più importante dato che ne discende anche la terza, che permetterà successivamente di poter effettuare determinate assunzioni. 
+Per dimostrare tale proprietà si inzia dalla prima enunciazione, quella \(\sum_{i=1}^{2^k}x_{di} = 0\); tale proprietà viene ricavata intuitivamente, dato che la distribuzione degli 1 e dei -1 viene effettuata in maniera "pari". Tale distribuzione viene fatta in modo da avere che per ogni colonna ci sia sempre lo stesso numero di 1 e di -1, infatti, per tirare fuori la tabella si prosegue alternando 1 e -1, con delle distribuzioni pari e quindi, la tesi è dimostrata.
+Più curiosa invece è la dimostrazione della seconda enunciazione, ovvero \(\sum_{i=1}^{2^k}x_{di} x_{hi} = 0\) (tale dimostrazione è estendibile anche al caso di n fattori). Considerando tale somma, si và a dividere in due parti, dato che \(x_{di}\)[fattore a caso], varia tra 1 e -1, e che \(x_{hi}\) assume gli stessi identici valori sia quando \(x_di\) è 1 sia quando è -1. Allora posso scrivere:
+\[
+\sum_{i=1}^{2^{k-1}}x_hi - \sum_{i=1}^{2^{k-1}}x_{hi} = 0
+\]
+
+Se si estende al caso con n fattori basta fare la stessa considerazione fatta per tale dimostrazione
+\end{info}
+
+\subsubsection{Assegnazione della varianza}
+Per capire quanto un fattore sia "importante", si va a considerare la variazine che avviene nella risposta a valle della variazione del fattore. Per comprendere al meglio come viene calcolata, si parte dalla varianza della variabile di risposta, calcolata come:
+\[
+s_y^2 = \frac{\sum_{i=1}^{2^k}(y_i - \overline{y})^2}{2^k - 1}
+\]
+
+Però, come detto in precedenza, andare a considerare la varianza non è proprio comodo se voglio valutare il contributo di ogni fattore. Quindi conviene partire invece dalla somma dei quadrati totali, ovvero:
+\[
+SST = \sum_{i=1}^{2^k}(y_i - \overline{y})^2
+\]
+Se consideriamo il caso a 2 fattori si ottiene che:
+\[
+SST = 2^2 q_a^2+2^2 q_b^2 + 2^2 q_{ab}^2
+\]
+Tale ragionamento è estendibile anche a casi con più fattori
+
+\begin{info}
+\textit{Tale pezzo non è richiesto ai fini dello svolgimento dell'esame}\\
+La formula presentata nel caso a 2 fattori è facilmente dimostrabile andando a sostituire al posto di \(y_i\), la sua espressione mediante i termini \(q\), ovvero:
+\[
+y_i = q_0 + x_{ai} q_a + x_{bi} q_b + x_{ai}x_{bi} q_ab
+\]
+Se si considera che \(\overline{y} = q_0\), allora si ricava che:
+\[
+SST = \sum_{i=1}^{2^2}(x_{ai} q_a + x_{bi} q_b + x_{ai}x_{bi} q_ab)^2
+\]
+
+Se si svolge il quadrato, considerando le proprietà della tabella dei segni precedentemente elencate, si conviene che gli unici termini a sopravvivere sono i quadrati perfetti, dato che le combinazioni si annullano tutte per la prima proprietà, dato che si ricade o in casi dove si ha la somma di una colonna, o di una coppia. Per capire i casi in cui ci si ritrova con i termini mistri sono i seguenti:
+\[
+q_a q_b\sum_{i=1}^{2^2}x_{ai}x_{bi} = 0
+\]
+Dove si nota che la somma tra le due \(x\) è nulla data l'ortogonalità tra le colonne. Oppure:
+\[
+q_a q_{ab} \sum_{i=1}^{2^2}x_{ai}^2 x_{bi} = q_a q_ab \sum_{i=1}^{2^2}x_{bi} = 0
+\]
+Quindi un termine essendo al quadrato aveva come valore sempre 1, e quindi si riduceva alla somma di una singola colonna. Come nel caso a 2 fattori, tale logica si può estendere anche al caso di k fattori, sempre in base alle proprietà che si sono viste in precedenza
+\end{info}
+
+Dalla formula vista per i singoli valori si possono ricavare le "somme di quadrati" associate ai singoli fattori. Precisamente, per capire, si fa riferimento sempre all'esempio di 2 fattori, si vede SST come:
+\[
+SST = SSA + SSB + SSAB
+\]
+dove:
+\[SSA = 2^2 q_a^2\]
+\[SSB = 2^2 q_b^2\]
+\[SSAB = 2^2 q_{ab}^2\]
+
+e da cui si calcola, quindi, la frazione di variazione associata ad un singolo fattore come:
+\[
+\text{Frazione di variazione del singolo fattore A} = \frac{SSA}{SST}
+\]
+
+Come già accennato in precedenza (mediante anche qualche dimostrazione opzionale), tali metodologie possono essere anche utilizzate in design che richiedono un numero k di fattori che possono avere solo 2 possibili livelli, riassunti nei valori 1 e -1
+
+(Nel caso si avessero dubbi, consultare l'esempio 17.5 presente sul libro The Art of Computer Systems performance analysis)
+Tale esempio mostra il caso a 3 fattori
+
+\subsection{\(2^k r\) Factorial Design}
+Tale design è identico al caso \(2^k\) factorial con l'aggiunta del numero di ripetizioni \(r\) da fare (tali ripetizioni si intende quante volte vado a valutare la variabile di risposta rispetto ai vari esperimenti). Tale situazione mi permette di poter stimare un errore che viene commesso nella "sintetizzazione" rispetto ai valori \(q\) associati ai diversi fattori. Quindi ora i termini della colonna finale non saranno più dei valori scalari, ma bensì dei vettori, dove in ogni posizione si trova il risultato per la i-esima ripetizione.
+Per valutare i valori \(q\) si utilizza lo stesso metodo visto per il caso \(2^k\) con la differenza che la colonna da considerare per la variaible di rispsosta sarà la colonna associata alla media dei diversi valori. 
+
+\subsubsection{Calcolo e valutazione degli errori}
+Una volta calcolati i \(q\) rispetto alla media degli esperimenti (medie dei vettori associati ad ogni riga), si rimodella il sistema di valutazione della variabile di risposta nel caso di 2 fattori, come:
+\[
+\overline{y_i} = x_{ai} q_a + x_{bi} q_b + x_{ai}x_{bi} q_{ab}
+\]
+
+Per considerare e calcolare anche l'errore, si effettua il calcolo delle seguenti deviazioni:
+\[
+e_{ij} = \overline{y_i} - y_{ij}
+\]
+Dove \(i\) è l'indice per indicare la riga a cui si fà riferimento, mentre la \(j\) è l'indice per la ripetizione su cui si vuole valutare l'errore-
+Ma allora, per calcolare \(y_{ij}\), si può procedere come:
+\[
+y_{ij} =  x_{ai} q_a + x_{bi} q_b + x_{ai}x_{bi} q_{ab} + e_{ij}
+\]
+
+\subsubsection{Assegnazione della varianza per l'errore}
+Valutando l'errore, ed essendo il modello ridefinito (come visto nel precedente paragrafo per il valore \(y_{ij}\)), allora bisogna considerare anche il contributo dell'errore all'interno della varianza, quindi la varianza dell'errore. Per valutare la varianza totale, nel caso del \(2^k r\) design, si procede valutando la SST come:
+\[
+SST = \sum_{j=1}^{r}\sum_{i=1}^{2^k}(y_{ij} - \overline{y})^2
+\]
+
+Rimangono gli stessi presupposti che sono stati fatti precedentemente con la differenza che le somme di quadrati associati ai singoli valori saranno moltiplicate per il numero di replicazioni \(r\), mentre la somma dei quadrati dell'errore sarà espressa come:
+\[
+SSE = \sum_{j=1}^{r}\sum_{i=1}^{2^k}e_{ij}
+\]
+Da questa formula è poi possibile ricavare, nel caso a 2 fattori (estendibile anche al caso di k fattori), che:
+\[
+SST = SSA + SSB + SSAB + SSE
+\]
+
+La dimostrazione di tali formule è identica a quella che si è mostrata nel caso \(2^k\) [Non è richiesta ai fini dell'esame].
+
+\begin{info}
+\textit{Tale pezzo non è richiesto ai fini dell'esame}\\
+Quando si effettua l'assegnazione della varianza nel caso dell'errore, essendoci le ripetizioni si possono considerare anche la \(SSY\)(Somma quadrata della variabile di risposta) e la \(SS0\) (Somma quadrata della media). Per capire perchè sono così importanti, si parte dalla \(SST\) e poi:
+\[
+SST = \sum_{j=1}^{r}\sum_{i=1}^{2^k}(y_{ij} - \overline{y})^2 =\sum_{j=1}^{r}\sum_{i=1}^{2^k}y_{ij}^2 + \sum_{j=1}^{r}\sum_{i=1}^{2^k}\overline{y}^2 - 2 \sum_{j=1}^{r}\sum_{i=1}^{2^k}y_{ij}\overline{y}
+\]
+Sapendo che:
+\[SSY = \sum_{j=1}^{r}\sum_{i=1}^{2^k}y_{ij}\]
+\[SS0 = \sum_{j=1}^{r}\sum_{i=1}^{2^k}\overline{y}^2 = r 2^k \overline{y}^2\]
+Allora, sviluppando le due sommatorie finali della \(SST\), si ottiene che:
+\[
+SST = SSY + r 2^k \overline{y}^2 - 2 \overline{y}(r 2^k \overline{y}) = SSY + r 2^k \overline{y}^2 - 2 r 2^k \overline{y}^2 =
+\]
+\[= SSY - r 2^k \overline{y}^2 = SSY - SS0\]
+\end{info}
+
+\subsection{\(2^{k-p}\) Fractional Design}
+Nel caso in cui i fattori da considerare siano molti, effettuare una full factorial (come visto in precedenza, per tutte le possibili combinazioni dei livelli dei fattori), allora bisogna trovare un modo per poter ridurre il numero di esperimenti da effettuare. Tale operazione ci costerà in termini di precisione nella stima dei diversi effetti.
+Il design che ci viene in aiuto in questo caso è il \textbf{\(2^{k-p}\) Fractional Design} che va a ridurre il numero di esperimenti da effettuare, mediante un meccanismo di \textbf{confusione}, che permette di trascurare le interazioni tra i fattori a favore della riduzione del lavoro. Il meccanismo di base è il seguente:
+
+\begin{enumerate}
+\item \textbf{Costruzione della tabella dei segni}: dato il numero di fattori totale \(k\), si decide un valore \(p\) di fattori da "non considerare" nella prima fase. Si va a costruire una tabella dei segni per \(k-p\) fattori, completa anche di interazioni
+
+\item \textbf{Sostituzione}: Si va a scegliere una colonna tra le diverse presenti sull'interazione, e si sostituisce (solo a livello di denominazione della colonna), con uno dei \(p\) fattori esclusi dalla prima fase
+
+\end{enumerate}
+
+Quello che accade in questo caso è che il fattore che viene "aggiunto" o "sostituito" dopo la generazione della tabella dei segni, viene \textbf{confuso} con l'interazione associata. Tale confusione fa si che non si tenga più conto di tale interazione e si generano, di conseguenza, un'altra serie di confusioni.
+Per \textbf{Confusione} si intende che la \(q\) associata ad un fattore venga calcolata allo stesso modo con cui si calcola quella associata ad un interazione tra altri fattori.
+
+Per comprendere quello che accade, si immagina un esempio di 4 fattori, e si seleziona come \(p\) il valore 1. Quindi si andrà a costruire una tabella per \(k-p = 3\) fattori. Considerando i fattori \(A,B,C,D\), si avrà:
+
+\begin{table}[H]
+\centering
+\begingroup
+
+\begin{tabular}{c c c c c c c c}
+\hline
+I & A & B & C & AB & AC & BC & D \\
+\hline
+1 & -1 & -1 & -1 & 1 & 1 & 1 & -1 \\
+1 & -1 & -1 & 1 & 1 & -1 & -1 & 1 \\
+1 & -1 & 1 & -1 & -1 & 1 & -1 & 1 \\
+1 & -1 & 1 & 1 & -1 & -1 & 1 & -1 \\
+1 & 1 & -1 & -1 & -1 & -1 & 1 & 1 \\
+1 & 1 & -1 & 1 & -1 & 1 & -1 & -1 \\
+1 & 1 & 1 & -1 & 1 & -1 & -1 & -1 \\
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+\hline
+\end{tabular}
+\endgroup
+\fontsize{8}{9}\selectfont
+\caption{Tabella dei segni a 3 fattori}
+
+\end{table}
+
+Da tale tabella si va a decider una colonna e si sotituisce (rinomina), con il fattore non considerato \(D\). Scegliendo la colonna ABC, si ottiene:
+
+\begin{table}[H]
+\centering
+\begingroup
+
+\begin{tabular}{c c c c c c c c}
+\hline
+I & A & B & C & AB & AC & BC & D \\
+\hline
+1 & -1 & -1 & -1 & 1 & 1 & 1 & -1 \\
+1 & -1 & -1 & 1 & 1 & -1 & -1 & 1 \\
+1 & -1 & 1 & -1 & -1 & 1 & -1 & 1 \\
+1 & -1 & 1 & 1 & -1 & -1 & 1 & -1 \\
+1 & 1 & -1 & -1 & -1 & -1 & 1 & 1 \\
+1 & 1 & -1 & 1 & -1 & 1 & -1 & -1 \\
+1 & 1 & 1 & -1 & 1 & -1 & -1 & -1 \\
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+\hline
+\end{tabular}
+\endgroup
+\fontsize{8}{9}\selectfont
+\caption{Tabella dei segni a 3 fattori con sostituzione di D}
+
+\end{table}
+
+Si sarebbe potuta scegliere una qualunque altra colonna. Si preferisce partire dalla sostituzione delle interazione con ordini maggiori, questa non è una vera e propria regola, ma è stata definita empiricamente.
+
+Il motivo per cui si applica la \textbf{confusione} è dovuto al fatto che si mantengono inalterate le proprietà della tabella dei segni, che permettono di poter effettuare delle valutazioni in maniera veloce, anche se poi, si perdono o confondono delle particolari interazioni. Per comprendere meglio quello che succede, si va a definire una particolare algebra, l'\textbf{Algebra della confusione}.
+Una delle principali cause della confusione può essere notata mediante l'espressione matematica delle due \(q\), dove in particolare si evince che:
+\[
+q_d = q_{abc}
+\]
+Che ci dice che il contributo che sarà dato dal fattore \(D\) sarà confuso con l'interazione di ABC, dato che le \(q\) hanno la stessa espressione
+
+\subsubsection{Algebra della confusione}
+Per definire in maniera rigorosa quella che è l'algebra della confusione, conviene partire dalla singola sostrituzione. Considerando l'esempio presentato precedentemente, si avrebbe che \(I = ABCD\), questo perchè data una confusione è possibile definire tutte le altre confusioni che si avranno. In particolare, nel caso della sigola confusione, si hanno le seguenti due proprietà:
+
+\begin{enumerate}
+    \item La media \(I\) è trattata come l'unità, dato che \(IA = A\)
+    \item Ogni termine con potenza di due può essere trascurato, poichè considerato come l'unità (dato dalla natura stessa delle colonne)
+\end{enumerate}
+
+Da questo possiamo dire che, confondendo \(D\) con \(ABC\), si avrà:
+\[
+I = ABCD
+\]
+Moltiplicando ambo i membri per A, si ottiene che:
+\[
+A = A^2 BCD = BCD
+\]
+Con questo si è trovata un'altra confusione. Andando ad iterare per vari valori si possono trovare tutti i conflitti:
+\[
+B = ACD
+C = ABD
+D = ABC
+AB = CD
+\]
+
+Pertanto, il polinomio \(I = ABCD\) è detto \textbf{polinomio generatore}, poichè è possibile, a partire da esso, definire tutte le confusioni che si verificano all'interno dello specifico design. Tale polinomio dipende fortemente dalla scelta che si fa sulla colonna con cui confondere il parametro D. 
+
+\subsubsection{Design Resolution}
+Quando si applica la confusione bisogna trovare un modo per capire quale tra le tante confusioni possibili sia la migliore. Di base non esiste un metodo effettivo dimostrato con cui selezionare tale configurazione, ma nel tempo hanno preso il via diverse metodologie empiriche con cui è possibile effettuare tale valutazione. Un primo passo è definire l'ordine di un effetto, che sarebbe il numero di inclusi in esso (ad es. ABCD ha ordine 4). Dall'ordine di un effetto di definisce l'ordine della confusione come:
+Dato un effetto con \(i\)-esimo ordine, che viene confuso con un effetto di \(j\)-esimo ordine, si definisce ordine della confusione come \(i + j\), quindi se si considera \(I = ABCD\), stiamo confondendo un effetto di ordine 0 (\(I\)) con un effetto di ordine 4 (\(ABCD\)), quindi si ha una confusione di ordine 4.
+Il minimo ordine \textbf{possibile} di confusione viene definito risoluzione del design, che quindi indica l'ordine minimo con cui ci si può confondere con la media (in base alla scelta fatta). Si è soliti indicare la risoluzione come un numero romano posto al di sotto della definizione del design. 
+I design che hanno delle risoluzioni più grandi sono considerati migliori. Questo perchè le interazioni con un grado maggiore sono, solitamente, quelle che portano il minor numero di effetti in conto. 
+
+Per comprendere bene cosa si intende per risoluzione si riporta l'esempio precedente:
+Considerando \(I = ABCD\), sappiamo che tale confusione è di ordine 4. Tutte le confusioni calcolate a partire dal generatore, avranno grado 4 (dato che si sommano gli ordini di entrambi i membri dell'equazione). Tale grado essendo l'unico ed anche il più basso, allora sarà consideato come risoluzione del nostro design. Se invece si fosse confuso con altre interazioni, sarabbe potuto essere possibile confondere anche con un ordine di confusione più basso.
