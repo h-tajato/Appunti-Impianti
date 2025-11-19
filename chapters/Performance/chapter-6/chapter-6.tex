@@ -226,7 +226,7 @@ La tabella dei segni gode di varie proprietà, quali:
     
     \item \textbf{Somma dei quadrati costante}: La somma dei quadrati di ogni colonna interna è sempre uguale a \(2^k\). Questo è facilemnte deducibile dal fatto che tutti i valori quadrati sono pari ad 1, ed essendo, quindi, ogni colonna come quella identica, si ottiene la proprietà:
     \[
-    \sum_{i=1}^{2^k}x_{di}^2 = 0
+    \sum_{i=1}^{2^k}x_{di}^2 = 2^k
     \]
     
     \item \textbf{Le colonne sono ortogonali le une con le altre}: Questa proprietà è deducibile a partire dalla prima, e ci dice che la somma del prodotto tra le colonne è sempre 0 (condizione di ortogonalità):
@@ -252,7 +252,7 @@ Se si estende al caso con n fattori basta fare la stessa considerazione fatta pe
 \end{info}
 
 \subsubsection{Assegnazione della varianza}
-Per capire quanto un fattore sia "importante", si va a considerare la variazine che avviene nella risposta a valle della variazione del fattore. Per comprendere al meglio come viene calcolata, si parte dalla varianza della variabile di risposta, calcolata come:
+Per capire quanto un fattore sia "importante", si va a considerare la variazione che avviene nella risposta a valle della variazione del fattore. Per comprendere al meglio come viene calcolata, si parte dalla varianza della variabile di risposta, calcolata come:
 \[
 s_y^2 = \frac{\sum_{i=1}^{2^k}(y_i - \overline{y})^2}{2^k - 1}
 \]
@@ -331,12 +331,12 @@ y_{ij} =  x_{ai} q_a + x_{bi} q_b + x_{ai}x_{bi} q_{ab} + e_{ij}
 \subsubsection{Assegnazione della varianza per l'errore}
 Valutando l'errore, ed essendo il modello ridefinito (come visto nel precedente paragrafo per il valore \(y_{ij}\)), allora bisogna considerare anche il contributo dell'errore all'interno della varianza, quindi la varianza dell'errore. Per valutare la varianza totale, nel caso del \(2^k r\) design, si procede valutando la SST come:
 \[
-SST = \sum_{j=1}^{r}\sum_{i=1}^{2^k}(y_{ij} - \overline{y})^2
+SST = \sum_{j=1}^{a}\sum_{i=1}^{2^k}(y_{ij} - \overline{y})^2
 \]
 
 Rimangono gli stessi presupposti che sono stati fatti precedentemente con la differenza che le somme di quadrati associati ai singoli valori saranno moltiplicate per il numero di replicazioni \(r\), mentre la somma dei quadrati dell'errore sarà espressa come:
 \[
-SSE = \sum_{j=1}^{r}\sum_{i=1}^{2^k}e_{ij}
+SSE = \sum_{j=1}^{a}\sum_{i=1}^{2^k}e_{ij}
 \]
 Da questa formula è poi possibile ricavare, nel caso a 2 fattori (estendibile anche al caso di k fattori), che:
 \[
@@ -349,11 +349,11 @@ La dimostrazione di tali formule è identica a quella che si è mostrata nel cas
 \textit{Tale pezzo non è richiesto ai fini dell'esame}\\
 Quando si effettua l'assegnazione della varianza nel caso dell'errore, essendoci le ripetizioni si possono considerare anche la \(SSY\)(Somma quadrata della variabile di risposta) e la \(SS0\) (Somma quadrata della media). Per capire perchè sono così importanti, si parte dalla \(SST\) e poi:
 \[
-SST = \sum_{j=1}^{r}\sum_{i=1}^{2^k}(y_{ij} - \overline{y})^2 =\sum_{j=1}^{r}\sum_{i=1}^{2^k}y_{ij}^2 + \sum_{j=1}^{r}\sum_{i=1}^{2^k}\overline{y}^2 - 2 \sum_{j=1}^{r}\sum_{i=1}^{2^k}y_{ij}\overline{y}
+SST = \sum_{j=1}^{a}\sum_{i=1}^{2^k}(y_{ij} - \overline{y})^2 =\sum_{j=1}^{a}\sum_{i=1}^{2^k}y_{ij}^2 + \sum_{j=1}^{a}\sum_{i=1}^{2^k}\overline{y}^2 - 2 \sum_{j=1}^{a}\sum_{i=1}^{2^k}y_{ij}\overline{y}
 \]
 Sapendo che:
-\[SSY = \sum_{j=1}^{r}\sum_{i=1}^{2^k}y_{ij}\]
-\[SS0 = \sum_{j=1}^{r}\sum_{i=1}^{2^k}\overline{y}^2 = r 2^k \overline{y}^2\]
+\[SSY = \sum_{j=1}^{a}\sum_{i=1}^{2^k}y_{ij}\]
+\[SS0 = \sum_{j=1}^{a}\sum_{i=1}^{2^k}\overline{y}^2 = r 2^k \overline{y}^2\]
 Allora, sviluppando le due sommatorie finali della \(SST\), si ottiene che:
 \[
 SST = SSY + r 2^k \overline{y}^2 - 2 \overline{y}(r 2^k \overline{y}) = SSY + r 2^k \overline{y}^2 - 2 r 2^k \overline{y}^2 =
@@ -470,3 +470,163 @@ I design che hanno delle risoluzioni più grandi sono considerati migliori. Ques
 
 Per comprendere bene cosa si intende per risoluzione si riporta l'esempio precedente:
 Considerando \(I = ABCD\), sappiamo che tale confusione è di ordine 4. Tutte le confusioni calcolate a partire dal generatore, avranno grado 4 (dato che si sommano gli ordini di entrambi i membri dell'equazione). Tale grado essendo l'unico ed anche il più basso, allora sarà consideato come risoluzione del nostro design. Se invece si fosse confuso con altre interazioni, sarabbe potuto essere possibile confondere anche con un ordine di confusione più basso.
+
+\subsection{One-Factorial Experiments}
+Il \textbf{One-Factorial Experiments} è un modo per confrontare diverse alternative per diverse opzioni. In partocolare, quello che si va a valutare è l'incisione di ogni specifico livello di un fattore sulla variabile d'uscita. Tale livello può essere reiterato più volte su "diversi" sistemi. In maniera più formale, è possibile definire e visualizzare i risultati degli esperimenti all'interno di una tabella \(r \text{ } x \text{ } a\) dove:
+\(r\) è il numero di osservazioni per ogni alternativa (livello del vattore) ed \(a\) è il numero di alternative per uno specifico valore (livelli possibili). A differenza dei meccanismi di design visti precedentemente qui il singolo fattore può assumere un qualunque numero \(a\) di livelli e non solo 2 (come nel caso del \(2^k\) Fractional Design). 
+Per comprendere al meglio come strutturare tali esperimenti, si mostra il seguente esempio:
+Consideriamo come fattore la tipologia di processore utilizzato (R, V, Z) e come osservazioni quelle prese da 5 programmatori diversi (che hanno scritto un workload per ogni processore). Andando ad effettuare le varie misurazioni si ottiene la tabella [\ref{img:tab-one-experiments}]
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{img/Performance/chapter-6/One-Factor-Experiment.png}
+\caption{Esempio processori}\label{img:tab-one-experiments}
+\end{figure}
+
+Per poter andare ad analizzare tali valori, si prosegue nella valutazione del seguente modello:
+\[
+y_{ij} = \mu + \alpha_j + e_{ij}
+\]
+
+dove:
+\begin{itemize}
+    \item \textbf{\(\mathbf{y_{ij}}\)}: Valore della i-esima osservazione del j-esimo livello considerato
+    
+    \item \textbf{\(\mathbf{\mu}\)}: è la media generale di tutti i valori presenti all'interno della tabella e viene calcolata e valutata come:
+    \[
+    \mu = \frac{1}{ra}\sum_{i=1}^{r}\sum_{j=1}^{a}y_{ij}
+    \]
+
+    \item \textbf{\(\mathbf{\alpha_j}\)}: effetto dell'alternativa j (altre osservazioni, quindi riferimento alla colonna). Una proprietà che bisogna considerare quando si calcola tale parametro è che la somma di tutti i contributi di riferimento alle singole colonne sia 0, ovvero:
+    \[
+    \sum_{j=1}^{a}\alpha_j = 0
+    \]
+    Questo viene imposto per far si che tale valore non incida sulla media generale della distribuzione dei parametri (non vi è uno spostamento rispetto alla media originale \(\mu\))
+    
+    \item \textbf{\(\mathbf{e_{ij}}\)}: Errore commesso rispetto al valore iniziale (se consideriamo solo i primi due elementi fissi). Come per ogni definizione di errore (mediante le deviazioni), si ha come proprietà:
+    \[
+    \sum_{i=1}^{r}\sum_{j=1}^{a}e_{ij} = 0
+    \]
+\end{itemize}
+
+Tra i valori che sono stati mostrati, quello che manca di definizione è il fattore che descrive l'effetto dell'alternativa j, ovvero, \(\alpha_j\). Per capire come si va a definire tale parametro, si definisce la media delle colonne, ovvero:
+\[
+\overline{y}_{.j} = \frac{1}{r}\sum_{i=1}^{r}y_{ij}
+\]
+A partire da tale definizione, si va a sostituire \(y_{ij}\), con il modello mostrato prima, e si ottiene:
+\[
+\overline{y}_{.j} = \frac{1}{r}\sum_{i=1}^{r}(\mu + \alpha_j + e_{ij}) = \frac{1}{r} (r \mu + r \alpha_j + \sum_{i=1}^{r}e_{ij})
+\]
+
+Arrivati a questo punto, si fà un assunzione, ovvero, la somma degli errori per una singola colonna è considerata nulla (questo non è dimostrabile matematicamente, ma è più che altro una vera e propria assunzione). Da tale assunzione (quindi una specie di ipotesi non verificata), si va a ricavare la seguente relazione:
+\[
+\overline{y}_{.j} = \mu + \alpha_j
+\]
+
+da cui:
+\[
+\alpha_j = \overline{y}_{.j} - \mu = \overline{y}_{.j} - \overline{y}_{..}
+\]
+Come possiamo notare, si è utilizzata la notazione \(\overline{y}_{..}\) per indicare la media che fa riferimento a tutte le righe e a tutte le colonne. La presenza di un punto, specifica la posizione su cui si va ad effettuare la media. Quindi nel caso di avesse \(y_{i.}\), si andrebbe a svolgere la media della riga i, dato che il . è presente sulla posizione delle sole colonne.
+
+Definito il valore precedente di \(\overline{y}_{.j}\), si va a definire, in base al modello di \(y_{ij}\) la seguente relazione:
+\[
+y_{ij} = \mu + \alpha_j + e_{ij} \rightarrow e_{ij} = y_{ij} - \overline{y}_{.j}
+\]
+
+\subsubsection{Allocazione delle varianza}
+Come per i precedenti sistemi di design, anche in questo caso si va ad effettuare un analisi e allocazione della varianza per poter valutare l'incisione dei diversi fattori sulla variabile di risposta. Per capire al meglio di cosa si sta andando ad effettuare si spiega questa sottile differenza:
+\begin{itemize}
+    \item \textbf{Importanza}: L'importanza sta ad indicare che un fattore o un componente esprime la maggior parte della percentuale della variazione (come visto per l'allocazione delle varianze in precedenza)
+    \item \textbf{Significatività}: La significatività esprime il contributo della variazione rispetto a quello dell'errore (più utile nel caso di adesso, dove non bisogna confrontare più fattori)
+\end{itemize}
+
+Sì parte dalla definizione della SSE, espressa come:
+\[
+SSE = \sum_{i=1}^{r}\sum_{j=1}^{a}e_{ij}^2
+\]
+Una volta definita la SSE, si vuole andare a valutare la SSY, che comprende la somma di tutte le componenti \(y_{ij}^2\). Per proseguire si effettuano i seguenti passaggi:
+\[
+y_{ij} = \mu + \alpha_j + e_{ij}
+\]
+\[
+y_{ij}^2 = \mu^2 + \alpha_j^2 + e_{ij}^2 + 2 \mu \alpha_j + 2 \mu e_{ij} + 2 \alpha_j e_{ij}
+\]
+Andando ad effettuare la somma di tutte le componenti \(y_{ij}\), si ottiene:
+\[
+\sum_{i=1}^{r}\sum_{j=1}^{a}y_{ij}^2 = \sum_{i=1}^{r}\sum_{j=1}^{a}\mu^2 + \sum_{i=1}^{r}\sum_{j=1}^{a}\alpha_j^2 + \sum_{i=1}^{r}\sum_{j=1}^{a}e_{ij}^2 + \text{La somma dei cross prodotti si annullano}
+\]
+\[
+SSY = SS0 + SSA + SSE
+\]
+Dove:
+\[
+SSA = \sum_{i=1}^{r}\sum_{j=1}^{a}\alpha_j^2 = r \sum_{j=1}^{a}\alpha_j^2
+\]
+
+Spostando la SS0 nella parte di sinistra dell'equazione, si ottiene la SST, espressa come:
+\[
+SST = SSY - SS0 = SSA + SSE
+\]
+
+\begin{info}
+\textit{Tale parte non è stata aggiunta ai fini di approfondimento, non è importante ai fini dell'esame}\\
+\textbf{Annullamento somme cross-prodotti}\\
+I cross prodotti si annullano poichè si impatta nei principali casi di annullamento. In particolare, nei prodotti dov'è presente la media, portandola fuori dalle sommatorie, dato che è costante, è facile dimostrare, mediante le ipotesi fatte su \(\alpha_j\) ed \(e_{ij}\) che tali somme siano 0, ovvero:
+\[
+\sum_{i=1}^{r}\sum_{j=1}^{a}\mu \alpha_j = \mu \sum_{i=1}^{r}\sum_{j=1}^{a}\alpha_j = \mu r \sum_{j=1}^{a}\alpha_j = 0
+\]
+data l'ipotesi che è stata fatta.
+
+Mentre per il caso dov'è presente l'errore si ha:
+\[
+\sum_{i=1}^{r}\sum_{j=1}^{a}\mu e_{ij} = \mu \sum_{i=1}^{r}\sum_{j=1}^{a}e_{ij} = 0
+\]
+Dato sempre dalla definizione della somma degli errori.
+
+Mentre l'ultimo cross-prodotto, si basa sul fatto che \(\sum_{i=1}^{r}e_{ij} = 0\), dato dall'assunzione fatta in precedenza, per cui:
+\[
+\sum_{i=1}^{r}\sum_{j=1}^{a}\alpha_j e_{ij} = \sum_{j=1}^{a}\alpha_j\sum_{i=1}^{r}e_{ij} = 0
+\]
+
+\end{info}
+
+La valutazione della significatività di alcuni fattori è racchiusa in una procedura di valutazione statistica delle varianze. Per tale valutazione, oltre che una valutazione delle somme quadrate, bisogna effettuare anche un'analisi sui gradi di libertà associati a tali somme.
+I gradi di libertà, nel caso in analisi, sono i seguenti:
+\[
+SSY = SS0 + SSA + SSE
+\]
+\[
+r a = 1 + (a-1) + a(r-1)
+\]
+
+Tali gradi di libertà stanno ad indicare quali sono i valori "indipendenti" che sono utilizzati all'interno delle diverse somme. Per la comprendere:
+\begin{itemize}
+    \item \textbf{SSY}: Vado a considerare la somma quadrata delle componenti y, che sono tutte indipendenti tra loro, per cui il numero di elementi è esattamente il numero di gradi di libertà di quella somma.
+    
+    \item \textbf{SS0}: In questo caso si ha la somma di un singolo valore \(\overline{y}\) reiterata, quindi il grado di libertà è associato a tale valore
+    
+    \item \textbf{SSA}: Somma associata agli effetti delle colonne, tale somma ha (a-1) gradi di libertà, data la sua intrinseca definizione o assunzione, ovvero:
+    \[
+    \sum_{j=1}^{a}\alpha_j = 0
+    \]
+    Da cui almeno un \(\alpha_j\) è esprimibile in funzione degli altri. Per cui si ottiene che il numero di gradi di libertà è \((a-1)\)
+
+    \item \textbf{SSE}: La somma dei quadrati dell'errore, invece, è \(a(r-1)\) questo perchè l'errore si calcola a partire dalla definizione della media per ogni colonna. Tale media annulla un grado di libertà da cui si ha la relazione.
+    \begin{info}
+    \textit{Parte aggiunta ma non richiesta all'esame}\\
+    \textbf{Valutazione dei gradi di libertà della SSE}\\
+    Per valutare i gradi di libertà della SSE, si eseguono prima i seguenti passaggi:
+    \[
+    \sum_{i=1}^{r}\sum_{j=1}^{a}e_{ij} = \sum_{i=1}^{r}\sum_{j=1}^{a} (y_{ij} - \overline{y}_{.j}) = \sum_{i=1}^{r}\sum_{j=1}^{a} y_{ij} - \sum_{i=1}^{r}\sum_{j=1}^{a} \overline{y}_{.j}
+    \]
+    Da tale espressione si comprende come, il primo termine abbia gradi di libertà pieni (come nel caso SSY), quindi si avrà \(a r\), mentre nel secondo caso di avranno solo \(a\) gradi di libertà dati dalla presenza di \(a\) medie diverse, dettate da \(\overline{y}_{.j}\). Con questa osservazione, si può dire che i gradi di libertà complessivi, assiciati all'errore sono:
+    \[
+    ar - a = a(r-1)
+    \]
+    da cui la tesi.
+    \end{info}
+\end{itemize}
+
+\subsubsection{Analisi della varianza (ANOVA)}
+L'\textbf{analsisi della varianza}
