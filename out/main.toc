@@ -1,0 +1,111 @@
+\contentsline {chapter}{Introduzione}{5}{Chapter*.2}%
+\contentsline {part}{I\hspace {1em}Performance}{7}{part.1}%
+\contentsline {chapter}{\numberline {1}Valutazione delle Performance}{1-1}{Chapter.1.1}%
+\contentsline {section}{\numberline {1.1}System Evaluation}{1-1}{section.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Passi per la valutazione di un sistema}{1-1}{subsection.1.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Performance Analysis}{1-2}{subsection.1.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Errori comuni nella System Evaluation}{1-2}{subsection.1.1.1.3}%
+\contentsline {subsubsection}{Tecniche di valutazione}{1-4}{section*.4}%
+\contentsline {subsubsection}{Selezione della metrica}{1-4}{section*.5}%
+\contentsline {chapter}{\numberline {2}Workload}{2-1}{Chapter.1.2}%
+\contentsline {section}{\numberline {2.1}Test Workload}{2-1}{section.1.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Addition Istruction}{2-1}{subsection.1.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Instruction Mixes}{2-1}{subsection.1.2.1.2}%
+\contentsline {subsubsection}{Disadvantages}{2-2}{section*.7}%
+\contentsline {subsubsection}{Considerazioni}{2-2}{section*.8}%
+\contentsline {subsection}{\numberline {2.1.3}Kernels}{2-3}{subsection.1.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Application Benchmarks}{2-3}{subsection.1.2.1.4}%
+\contentsline {subsection}{\numberline {2.1.5}Esempi di benchmark}{2-4}{subsection.1.2.1.5}%
+\contentsline {subsubsection}{Sieve}{2-4}{section*.9}%
+\contentsline {subsubsection}{Algoritmo di Ackermann}{2-5}{section*.10}%
+\contentsline {subsubsection}{SPEC Benchmark Suite}{2-5}{section*.11}%
+\contentsline {chapter}{\numberline {3}Tecniche di caratterizzazione dei workload}{3-1}{Chapter.1.3}%
+\contentsline {section}{\numberline {3.1}Terminologia}{3-1}{section.1.3.1}%
+\contentsline {section}{\numberline {3.2}Workload Characterization Tecniques}{3-2}{section.1.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Averaging}{3-2}{subsection.1.3.2.1}%
+\contentsline {subsubsection}{Specifying Dispersion}{3-3}{section*.13}%
+\contentsline {subsection}{\numberline {3.2.2}Single Parameter Histogram}{3-4}{subsection.1.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Multiparameter Histogram}{3-5}{subsection.1.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Principal Component Analysis (PCA)}{3-7}{subsection.1.3.2.4}%
+\contentsline {subsubsection}{Z-Score Normalization}{3-8}{section*.15}%
+\contentsline {subsection}{\numberline {3.2.5}Clustering}{3-8}{subsection.1.3.2.5}%
+\contentsline {subsubsection}{Campionamento delle componenti}{3-9}{section*.17}%
+\contentsline {subsubsection}{Selezione dei parametri}{3-9}{section*.18}%
+\contentsline {subsubsection}{Metrica di distanza}{3-10}{section*.19}%
+\contentsline {subsubsection}{Trattazione degli outliers}{3-11}{section*.20}%
+\contentsline {subsubsection}{Data Scaling}{3-12}{section*.21}%
+\contentsline {subsection}{\numberline {3.2.6}Agglomerative Hierarchical Clustering}{3-13}{subsection.1.3.2.6}%
+\contentsline {subsubsection}{Interpretazione del clustering}{3-17}{section*.25}%
+\contentsline {subsection}{\numberline {3.2.7}Valutazione della devianza persa}{3-18}{subsection.1.3.2.7}%
+\contentsline {subsection}{\numberline {3.2.8}Modelli di Markov}{3-19}{subsection.1.3.2.8}%
+\contentsline {chapter}{\numberline {4}Caratterizzazione di Dati Misurati e Statistica Inferenziale}{4-1}{Chapter.1.4}%
+\contentsline {section}{\numberline {4.1}Media, Mediana e Moda}{4-1}{section.1.4.1}%
+\contentsline {section}{\numberline {4.2}Indici di dispersione}{4-3}{section.1.4.2}%
+\contentsline {section}{\numberline {4.3}Quantile-Quantile Plot}{4-5}{section.1.4.3}%
+\contentsline {section}{\numberline {4.4}Intervalli di confidenza e dimensione del campionamento}{4-5}{section.1.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Campioni e Popolazione}{4-5}{subsection.1.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Standard Error}{4-8}{subsection.1.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Intervalli di confidenza}{4-10}{subsection.1.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Iperparametri per gli intervalli di confidenza}{4-12}{subsection.1.4.4.4}%
+\contentsline {subsubsection}{Sample size}{4-13}{section*.33}%
+\contentsline {subsubsection}{Varianza}{4-13}{section*.34}%
+\contentsline {subsection}{\numberline {4.4.5}t-student}{4-14}{subsection.1.4.4.5}%
+\contentsline {section}{\numberline {4.5}Test di ipotesi}{4-15}{section.1.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}P-value}{4-17}{subsection.1.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Tipologie di errori}{4-18}{subsection.1.4.5.2}%
+\contentsline {subsubsection}{Errore di tipo I}{4-19}{section*.38}%
+\contentsline {subsubsection}{Errore di tipo II}{4-20}{section*.40}%
+\contentsline {subsection}{\numberline {4.5.3}Potenza di un test statistico}{4-22}{subsection.1.4.5.3}%
+\contentsline {subsection}{\numberline {4.5.4}One Sample Hypothesis Test}{4-22}{subsection.1.4.5.4}%
+\contentsline {subsubsection}{Zero Mean Test}{4-23}{section*.44}%
+\contentsline {subsection}{\numberline {4.5.5}Comparing two alternatives}{4-23}{subsection.1.4.5.5}%
+\contentsline {subsubsection}{Paired Observations}{4-23}{section*.45}%
+\contentsline {subsubsection}{Unpaired Observations}{4-24}{section*.46}%
+\contentsline {subsection}{\numberline {4.5.6}Esempio di utilizzo dello Z-test}{4-27}{subsection.1.4.5.6}%
+\contentsline {subsubsection}{Verifica delle assunzioni}{4-27}{section*.48}%
+\contentsline {subsubsection}{Definire le ipotesi}{4-27}{section*.49}%
+\contentsline {subsubsection}{Valutazione dei dati}{4-27}{section*.50}%
+\contentsline {subsubsection}{Effettuazione dello Z-test}{4-28}{section*.51}%
+\contentsline {subsubsection}{Conclusion}{4-28}{section*.52}%
+\contentsline {chapter}{\numberline {5}Modelli di Regressione}{5-1}{Chapter.1.5}%
+\contentsline {section}{\numberline {5.1}Modelli di regressione lineari semplici}{5-2}{section.1.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Devianze}{5-4}{subsection.1.5.1.1}%
+\contentsline {subsubsection}{Coefficiente di determinazione}{5-6}{section*.55}%
+\contentsline {subsubsection}{Adjusted \(\mathbf {R^2}\)}{5-6}{section*.56}%
+\contentsline {subsubsection}{Deviazione standard degli errori}{5-6}{section*.57}%
+\contentsline {subsection}{\numberline {5.1.2}Parameters and Statistics}{5-7}{subsection.1.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Visual Tests for Assumptions}{5-8}{subsection.1.5.1.3}%
+\contentsline {subsubsection}{Relazione Lineare}{5-9}{section*.58}%
+\contentsline {subsubsection}{Indipendenza degli errori}{5-9}{section*.60}%
+\contentsline {subsubsection}{Errori distribuiti normalmente}{5-10}{section*.63}%
+\contentsline {subsubsection}{Deviazione standard costante}{5-10}{section*.65}%
+\contentsline {subsection}{\numberline {5.1.4}Regressione Lineare Non parametrica}{5-11}{subsection.1.5.1.4}%
+\contentsline {subsubsection}{Procedura di Sen}{5-13}{section*.68}%
+\contentsline {section}{\numberline {5.2}Altri modelli di regressione}{5-13}{section.1.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Regressione Lineare Multipla}{5-13}{subsection.1.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Multicolinearità}{5-14}{subsection.1.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Regressione Curvilinea}{5-15}{subsection.1.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Outliers}{5-15}{subsection.1.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}Errori comuni nella Regressione}{5-15}{subsection.1.5.2.5}%
+\contentsline {chapter}{\numberline {6}Design ed analisi degli esperimenti}{6-1}{Chapter.1.6}%
+\contentsline {section}{\numberline {6.1}Terminologia}{6-1}{section.1.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Definizione di esperimento}{6-3}{subsection.1.6.1.1}%
+\contentsline {section}{\numberline {6.2}Tipi di Design Sperimentali}{6-4}{section.1.6.2}%
+\contentsline {subsubsection}{Simple Design}{6-4}{section*.73}%
+\contentsline {subsubsection}{Full Factorial Design}{6-5}{section*.74}%
+\contentsline {subsubsection}{Fractional Factorial Design}{6-5}{section*.75}%
+\contentsline {subsection}{\numberline {6.2.1}\(2^k\) Factorial Design}{6-6}{subsection.1.6.2.1}%
+\contentsline {subsubsection}{Tabella dei segni}{6-7}{section*.77}%
+\contentsline {subsubsection}{Assegnazione della varianza}{6-9}{section*.79}%
+\contentsline {subsection}{\numberline {6.2.2}\(2^k r\) Factorial Design}{6-11}{subsection.1.6.2.2}%
+\contentsline {subsubsection}{Calcolo e valutazione degli errori}{6-11}{section*.80}%
+\contentsline {subsubsection}{Assegnazione della varianza per l'errore}{6-11}{section*.81}%
+\contentsline {subsection}{\numberline {6.2.3}\(2^{k-p}\) Fractional Design}{6-12}{subsection.1.6.2.3}%
+\contentsline {subsubsection}{Algebra della confusione}{6-14}{section*.84}%
+\contentsline {subsubsection}{Design Resolution}{6-14}{section*.85}%
+\contentsline {subsection}{\numberline {6.2.4}One-Factorial Experiments}{6-15}{subsection.1.6.2.4}%
+\contentsline {subsubsection}{Allocazione delle varianza}{6-17}{section*.87}%
+\contentsline {subsubsection}{Analisi della varianza (ANOVA)}{6-19}{section*.88}%
+\contentsline {part}{II\hspace {1em}Esercitazioni}{21}{part.2}%
+\contentsline {chapter}{\numberline {1}Web Server}{1-1}{Chapter.2.1}%
+\contentsline {chapter}{\numberline {2}Teoria delle Code}{2-1}{Chapter.2.2}%

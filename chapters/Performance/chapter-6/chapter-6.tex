@@ -630,3 +630,23 @@ Tali gradi di libertà stanno ad indicare quali sono i valori "indipendenti" che
 
 \subsubsection{Analisi della varianza (ANOVA)}
 L'\textbf{analsisi della varianza}
+
+\begin{table}[ht]
+\centering
+\renewcommand{\arraystretch}{1.8} 
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Component} & \textbf{Sum of Squares} & \textbf{\% Variation} & \textbf{DF} & \textbf{Mean Square} & \textbf{F-Comp.} & \textbf{F-Table} \\
+\midrule
+$y$ & $SSY = \sum y_{ij}^2$ & -- & $ar$ & -- & -- & -- \\
+$\bar{y}_{..}$ & $SS0 = ar\mu^2$ & -- & $1$ & -- & -- & -- \\
+$y - \bar{y}_{..}$ & $SST = SSY - SS0$ & $100$ & $ar - 1$ & -- & -- & -- \\
+\midrule
+$A$ & $SSA = r\sum \alpha_j^2$ & $100\frac{SSA}{SST}$ & $a - 1$ & $MSA = \frac{SSA}{a-1}$ & $\frac{MSA}{MSE}$ & $F_{[1-\alpha, a-1, a(r-1)]}$ \\
+$e$ & $SSE = SST - SSA$ & $100\frac{SSE}{SST}$ & $a(r-1)$ & $MSE = \frac{SSE}{a(r-1)}$ & -- & -- \\
+\bottomrule
+\end{tabular}
+}
+\caption{ANOVA summary table for one-factor experiments}
+\end{table}
